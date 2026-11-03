@@ -1,0 +1,11 @@
+---
+// Linha com a "lombada" no centro, usada entre seções no site original.
+interface Props { class?: string }
+const { class: className } = Astro.props;
+---
+
+<div class:list={['container-zava', className]} aria-hidden="true">
+  <svg class="h-10 w-full text-line/60" viewBox="0 0 1200 40" preserveAspectRatio="none" fill="none">
+    <path d="M0 39 H420 C470 39 480 1 540 1 H660 C720 1 730 39 780 39 H1200" stroke="currentColor" stroke-width="1" vector-effect="non-scaling-stroke" />
+  </svg>
+</div>

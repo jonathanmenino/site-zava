@@ -1,0 +1,19 @@
+---
+// Logo "agência zava" (arquivo oficial de 2025), herdando a cor do texto em volta.
+import raw from '../../assets/brand/logo-zava.svg?raw';
+
+interface Props { class?: string; id?: string }
+const { class: className = 'h-7 w-auto', id = 'logo' } = Astro.props;
+
+const svg = raw
+  .replace(/<\?xml[^>]*>/, '')
+  .replace(/\sid="Camada_1"/, '')
+  .replace(/fill:\s*#fff(fff)?/gi, 'fill: currentColor')
+  .replace(/id="clippath"/g, `id="${id}-clip"`)
+  .replace(/url\(#clippath\)/g, `url(#${id}-clip)`)
+  .replace(/\.cls-/g, `.${id}-cls-`)
+  .replace(/class="cls-/g, `class="${id}-cls-`)
+  .replace('<svg ', `<svg role="img" aria-label="Agência Zava" class="${className}" `);
+---
+
+<Fragment set:html={svg} />

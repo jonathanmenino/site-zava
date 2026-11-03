@@ -1,0 +1,74 @@
+@import '@fontsource/poppins/300.css';
+@import '@fontsource/poppins/400.css';
+@import '@fontsource/poppins/600.css';
+@import '@fontsource/syne/600.css';
+@import '@fontsource/syne/700.css';
+@import '@fontsource/syne/800.css';
+@import 'tailwindcss';
+
+/* Identidade visual tirada do site atual (variáveis globais do Elementor). */
+@theme {
+  --color-orange: #ff6800;
+  --color-orange-soft: #ecaf84;
+  --color-peach: #ffe9da;
+  --color-purple: #6b01d0;
+  --color-purple-light: #b253ff;
+  --color-ink: #222222;
+  --color-body: #4d4d4d;
+  --color-mist: #f7f7fa;
+  --color-line: #bfbfbf;
+
+  --font-display: 'Syne', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+
+  --animate-marquee: marquee 40s linear infinite;
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+  }
+  body {
+    @apply bg-white font-sans font-light text-body antialiased;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-bold text-ink;
+    letter-spacing: -0.01em;
+  }
+  strong, b {
+    @apply font-semibold text-ink;
+  }
+  ::selection {
+    @apply bg-orange text-white;
+  }
+}
+
+@utility container-zava {
+  @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10;
+}
+
+@utility text-gradient {
+  @apply bg-gradient-to-r from-orange via-purple to-orange bg-clip-text text-transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .animate-marquee { animation: none; }
+}
+
+/* Texto corrido vindo de Markdown (cases e páginas legais). */
+@utility prose-zava {
+  & h2 { @apply mt-12 mb-4 text-3xl leading-tight sm:text-4xl; }
+  & h3 { @apply mt-8 mb-3 text-2xl; }
+  & p { @apply mb-5 leading-relaxed; }
+  & ul { @apply mb-6 list-disc space-y-2 pl-6 marker:text-orange; }
+  & a { @apply font-medium text-orange underline underline-offset-4 hover:text-purple; }
+  & img { @apply my-8 w-full rounded-[2rem]; }
+  & > :first-child { @apply mt-0; }
+}

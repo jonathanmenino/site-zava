@@ -1,0 +1,80 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Eyebrow from '../../components/ui/Eyebrow.astro';
+import CurveDivider from '../../components/ui/CurveDivider.astro';
+import CtaBanner from '../../components/sections/CtaBanner.astro';
+
+export async function getStaticPaths() {
+  const cases = await getCollection('trabalhos');
+  return cases.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+interface Props { entry: CollectionEntry<'trabalhos'> }
+const { entry } = Astro.props;
+const d = entry.data;
+const { Content } = await render(entry);
+---
+
+<BaseLayout title={`Case ${d.client}`} description={d.summary} image={d.cover}>
+  <section class="bg-gradient-to-b from-peach to-white pt-32 pb-16 lg:pt-40">
+    <div class="container-zava grid items-center gap-12 lg:grid-cols-2">
+      <div>
+        <Eyebrow>{d.client}</Eyebrow>
+        <h1 class="mt-4 text-4xl leading-tight sm:text-6xl">
+          <span class="uppercase">{d.highlight}</span>
+          <span class="block">{d.highlightLabel}</span>
+        </h1>
+        <p class="mt-6 max-w-lg text-ink">{d.summary}</p>
+      </div>
+      <Image src={d.cover} alt={d.coverAlt} width={800} class="aspect-[1.2] w-full rounded-[2rem] object-cover" loading="eager" />
+    </div>
+  </section>
+
+  <CurveDivider />
+
+  <section class="container-zava py-12">
+    <div class="prose-zava mx-auto max-w-3xl">
+      <Content />
+    </div>
+    <div class="mx-auto mt-12 flex max-w-5xl flex-wrap items-center justify-center gap-x-3 gap-y-2 rounded-3xl bg-mist px-8 py-5 text-sm">
+      <strong class="font-display">Serviços prestados:</strong>
+      {d.tags.join(', ')}
+    </div>
+  </section>
+
+  <section class="container-zava py-16 text-center">
+    <h2 class="text-4xl sm:text-5xl">O resultado</h2>
+    <ul class="mt-12 grid gap-10 sm:grid-cols-3">
+      {
+        d.results.map((r) => (
+          <li class="flex flex-col items-center">
+            <span class="flex size-44 items-center justify-center rounded-full border border-line/60 p-3">
+              <span class="flex size-full flex-col items-center justify-center rounded-full border border-orange">
+                <span class="font-display text-2xl font-extrabold whitespace-nowrap text-ink uppercase">{r.value}</span>
+                <svg class="mt-1 size-4 text-orange" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 4l7 8h-4v8H9v-8H5l7-8Z" /></svg>
+              </span>
+            </span>
+            <span class="mt-4 max-w-[14rem]">{r.label}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="container-zava grid gap-4 sm:grid-cols-2" aria-label="Galeria do projeto">
+    {
+      d.gallery.map((g) => (
+        <Image
+          src={g.image}
+          alt={g.alt}
+          width={g.wide ? 1400 : 700}
+          class:list={['w-full rounded-2xl object-cover', g.wide ? 'sm:col-span-2' : 'aspect-[3/2]']}
+        />
+      ))
+    }
+  </section>
+
+  <CtaBanner />
+</BaseLayout>

@@ -1,0 +1,17 @@
+---
+import Button from '../ui/Button.astro';
+
+interface Props { title?: string; text?: string }
+const {
+  title = 'Vamos transformar o marketing da sua empresa?',
+  text = 'Deixe que a nossa equipe cuide do marketing completo da sua marca, enquanto você foca em fazer o que mais gosta: vender e crescer.',
+} = Astro.props;
+---
+
+<section class="container-zava mt-20 lg:mt-28">
+  <div class="rounded-[2rem] bg-orange px-6 py-14 text-center sm:px-12 lg:py-20">
+    <h2 class="mx-auto max-w-2xl text-3xl leading-tight sm:text-5xl">{title}</h2>
+    <p class="mx-auto mt-5 max-w-xl text-white">{text}</p>
+    <Button href="/contato/" class="mt-8">Quero uma proposta</Button>
+  </div>
+</section>
