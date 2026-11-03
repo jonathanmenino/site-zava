@@ -24,8 +24,9 @@ const servicos = defineCollection({
         z.object({
           title: z.string(),
           text: z.string(),
-          image: image(),
-          imageAlt: z.string(),
+          // Não aparecem mais na página (as fotos de banco se repetiam); ficam opcionais.
+          image: image().optional(),
+          imageAlt: z.string().optional(),
         }),
       ),
       why: z.object({

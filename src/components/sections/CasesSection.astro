@@ -11,7 +11,7 @@ import foguete from '../../assets/brand/foguete.png';
 const cases = (await getCollection('trabalhos')).sort((a, b) => a.data.order - b.data.order);
 ---
 
-<section id="cases" class="pt-20 lg:pt-28">
+<section id="cases" class="pt-16 lg:pt-20">
   <div class="container-zava grid items-center gap-12 lg:grid-cols-2">
     <div class="lg:pl-16">
       <Eyebrow>Cases de sucesso</Eyebrow>
@@ -20,14 +20,14 @@ const cases = (await getCollection('trabalhos')).sort((a, b) => a.data.order - b
         Cada projeto é pensado para gerar <strong>impacto real</strong>. Confira alguns dos negócios que cresceram com nosso <strong>Marketing 360°</strong>.
       </p>
     </div>
-    <Image src={equipe} alt="Equipe analisando resultados de um projeto" width={640} class="w-full max-w-md justify-self-center rounded-[2rem] object-cover shadow-[0_30px_60px_-30px_rgba(107,1,208,0.45)] lg:aspect-[4/5]" />
+    <Image src={equipe} alt="Equipe analisando resultados de um projeto" width={640} class="w-full max-w-md justify-self-center rounded-[2rem] object-cover shadow-[0_30px_60px_-30px_rgba(107,1,208,0.45)] lg:aspect-square" />
   </div>
 
   <div class="mt-12"><ClientLogos /></div>
   <CurveDivider />
 
   <div class="container-zava relative mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-    {cases.map((c) => <CaseCard entry={c} />)}
-    <Image src={foguete} alt="" width={200} class="pointer-events-none absolute right-10 bottom-0 hidden w-28 lg:block" />
+    {cases.map((c, i) => <CaseCard entry={c} featured={i === 0} />)}
+    <Image src={foguete} alt="" width={200} class="pointer-events-none absolute -top-16 -right-2 hidden w-20 lg:block" />
   </div>
 </section>

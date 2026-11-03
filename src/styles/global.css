@@ -68,7 +68,7 @@
   & h3 { @apply mt-8 mb-3 text-2xl; }
   & p { @apply mb-5 leading-relaxed; }
   & ul { @apply mb-6 list-disc space-y-2 pl-6 marker:text-orange; }
-  & a { @apply font-medium text-orange underline underline-offset-4 hover:text-purple; }
+  & a { @apply font-medium text-purple underline decoration-orange decoration-2 underline-offset-4 hover:text-orange; }
   & img { @apply my-8 w-full rounded-[2rem]; }
   & > :first-child { @apply mt-0; }
 }

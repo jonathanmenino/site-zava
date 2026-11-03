@@ -1,13 +1,15 @@
 ---
 interface Props {
   href: string;
-  variant?: 'dark' | 'outline-light' | 'light' | 'link';
+  variant?: 'primary' | 'dark' | 'outline-light' | 'light' | 'link';
   external?: boolean;
   class?: string;
 }
 const { href, variant = 'dark', external = false, class: className } = Astro.props;
 
+// Texto branco sobre o laranja da marca não passa no contraste (2,9:1), por isso o botão laranja usa texto escuro.
 const styles = {
+  primary: 'rounded-full bg-orange px-6 py-3 text-ink hover:bg-white',
   dark: 'rounded-full bg-ink px-6 py-3 text-white hover:bg-purple',
   light: 'rounded-full bg-white px-6 py-3 text-ink hover:bg-peach',
   'outline-light': 'rounded-full border border-white/70 px-6 py-3 text-white hover:bg-white hover:text-ink',
@@ -18,7 +20,7 @@ const styles = {
 <a
   href={href}
   class:list={[
-    'group inline-flex items-center gap-2 font-display text-xs font-bold uppercase tracking-wide transition-colors',
+    'group inline-flex min-h-11 items-center gap-2 font-display text-xs font-bold uppercase tracking-wide transition-colors',
     styles[variant],
     className,
   ]}
