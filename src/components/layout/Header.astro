@@ -1,0 +1,119 @@
+---
+import Logo from '../ui/Logo.astro';
+import { nav, site } from '../../data/site';
+
+interface Props { transparent?: boolean }
+const { transparent = false } = Astro.props;
+---
+
+<header
+  id="site-header"
+  data-transparent={transparent ? 'true' : undefined}
+  class:list={[
+    'fixed inset-x-0 top-0 z-50 transition-colors duration-300',
+    transparent ? 'text-white' : 'bg-white/95 text-ink shadow-sm backdrop-blur',
+  ]}
+>
+  <div class="container-zava flex h-20 items-center justify-between gap-6">
+    <a href="/" class="shrink-0" aria-label="Agência Zava, página inicial">
+      <Logo id="logo-header" class="h-6 w-auto sm:h-7" />
+    </a>
+
+    <nav aria-label="Principal" class="hidden lg:block">
+      <ul class="flex items-center gap-8">
+        {
+          nav.map((item) => (
+            <li>
+              <a href={item.href} class="font-display text-xs font-bold uppercase tracking-wider transition-colors hover:text-orange">
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <a
+        href="/contato/"
+        class="hidden min-h-11 items-center rounded-full bg-orange px-5 font-display text-xs font-bold uppercase tracking-wide text-ink transition-colors hover:bg-purple hover:text-white sm:inline-flex"
+      >
+        Pedir cotação
+      </a>
+      <button
+        id="menu-toggle"
+        type="button"
+        class="inline-flex size-11 items-center justify-center rounded-full lg:hidden"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label="Abrir menu"
+      >
+        <svg class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path class="menu-open" d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round" />
+          <path class="menu-close hidden" d="M6 6l12 12M18 6L6 18" stroke-linecap="round" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-menu" class="hidden border-t border-black/5 bg-white text-ink lg:hidden">
+    <nav aria-label="Menu móvel" class="container-zava py-6">
+      <ul class="flex flex-col gap-1">
+        {
+          nav.map((item) => (
+            <li>
+              <a href={item.href} class="block py-3 font-display text-lg font-bold hover:text-orange">
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <a href="/contato/" class="mt-4 inline-flex min-h-11 items-center rounded-full bg-orange px-6 font-display text-xs font-bold uppercase tracking-wide text-ink">
+        Pedir cotação
+      </a>
+      <p class="mt-6 text-sm">{site.phone} · {site.email}</p>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const header = document.getElementById('site-header')!;
+  const toggle = document.getElementById('menu-toggle')!;
+  const menu = document.getElementById('mobile-menu')!;
+  const transparent = header.dataset.transparent === 'true';
+
+  const solid = ['bg-white/95', 'text-ink', 'shadow-sm', 'backdrop-blur'];
+  const setSolid = (on: boolean) => {
+    if (!transparent) return;
+    header.classList.toggle('text-white', !on);
+    solid.forEach((c) => header.classList.toggle(c, on));
+  };
+
+  const onScroll = () => setSolid(window.scrollY > 40 || toggle.getAttribute('aria-expanded') === 'true');
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  const closeMenu = () => {
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-label', 'Abrir menu');
+    menu.classList.add('hidden');
+    toggle.querySelector('.menu-open')!.classList.remove('hidden');
+    toggle.querySelector('.menu-close')!.classList.add('hidden');
+    onScroll();
+  };
+
+  toggle.addEventListener('click', () => {
+    const open = toggle.getAttribute('aria-expanded') !== 'true';
+    if (!open) return closeMenu();
+    toggle.setAttribute('aria-expanded', 'true');
+    toggle.setAttribute('aria-label', 'Fechar menu');
+    menu.classList.remove('hidden');
+    toggle.querySelector('.menu-open')!.classList.add('hidden');
+    toggle.querySelector('.menu-close')!.classList.remove('hidden');
+    setSolid(true);
+  });
+
+  menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', closeMenu));
+  document.addEventListener('keydown', (e) => e.key === 'Escape' && closeMenu());
+</script>

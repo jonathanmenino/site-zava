@@ -1,0 +1,42 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import ServiceIcon from '../ui/ServiceIcon.astro';
+import lampada from '../../assets/brand/lampada.webp';
+
+const servicos = (await getCollection('servicos')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<section id="servicos">
+  <div class="container-zava">
+    <div class="relative rounded-[2rem] bg-gradient-to-b from-purple to-purple-light px-6 pt-24 pb-14 text-center text-white sm:px-10">
+      <Image src={lampada} alt="" width={160} class="absolute -top-14 left-1/2 w-28 -translate-x-1/2 rounded-3xl shadow-xl sm:w-32" />
+      <h2 class="mx-auto max-w-2xl text-3xl leading-tight text-white sm:text-5xl">
+        Do planejamento à execução, oferecemos soluções completas para o crescimento do seu negócio.
+      </h2>
+      <p class="mt-6 text-white/85">Conheça um pouco do que fazemos:</p>
+      <svg class="mx-auto mt-4 size-6 animate-bounce" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M6 5l6 6 6-6M6 13l6 6 6-6" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </div>
+  </div>
+
+  <div class="mt-16 bg-mist py-16 lg:py-20">
+    <ul class="container-zava grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        servicos.map((s) => (
+          <li class="group flex flex-col rounded-3xl bg-white p-8 shadow-[0_10px_40px_-20px_rgba(34,34,34,0.25)] transition-transform hover:-translate-y-1">
+            <span class="inline-flex size-14 items-center justify-center rounded-full bg-peach text-orange">
+              <ServiceIcon name={s.data.icon} class="size-7" />
+            </span>
+            <h3 class="mt-6 text-lg leading-snug">{s.data.shortTitle}</h3>
+            <p class="mt-3 flex-1 text-[0.95rem]">{s.data.summary}</p>
+            <a href={`/servicos/${s.id}/`} class="mt-6 self-start border-b-2 border-orange pb-1 font-display text-xs font-bold uppercase tracking-wide text-ink hover:text-orange">
+              Saiba mais<span class="sr-only"> sobre {s.data.title}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

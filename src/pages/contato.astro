@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/ui/Button.astro';
+import { site, careers } from '../data/site';
+---
+
+<BaseLayout title="Contato" description="Fale com a Agência Zava: peça uma proposta pelo formulário, WhatsApp ou e-mail. Av. Campinas, 1755, Limeira – SP.">
+  <section class="bg-gradient-to-b from-peach to-white pt-32 pb-16 lg:pt-40">
+    <div class="container-zava grid gap-12 lg:grid-cols-2">
+      <div>
+        <h1 class="text-4xl leading-tight sm:text-5xl">Vamos transformar o marketing da sua empresa?</h1>
+        <p class="mt-6 max-w-md text-ink">
+          Preencha o formulário e deixe que a nossa equipe cuide do marketing completo da sua marca, enquanto você foca em fazer o que mais gosta:
+          <strong>vender e crescer</strong>.
+        </p>
+
+        <dl class="mt-8 grid gap-6 rounded-3xl bg-white p-6 shadow-sm sm:grid-cols-[2fr_3fr]">
+          <div>
+            <dt class="text-sm">WhatsApp:</dt>
+            <dd><a href={site.whatsapp} target="_blank" rel="noopener" class="text-lg text-ink hover:text-orange">{site.phone}</a></dd>
+          </div>
+          <div>
+            <dt class="text-sm">E-mail:</dt>
+            <dd><a href={`mailto:${site.email}`} class="text-lg break-words text-ink hover:text-orange">{site.email}</a></dd>
+          </div>
+        </dl>
+
+        <div class="mt-8 flex flex-wrap items-center gap-6">
+          <address class="flex items-start gap-3 text-ink not-italic">
+            <svg class="mt-1 size-5 shrink-0 text-orange" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z" /></svg>
+            <span>{site.address.line1}<br />{site.address.line2}</span>
+          </address>
+          <Button href={site.address.maps} variant="link" external>Ver no mapa</Button>
+        </div>
+      </div>
+
+      <div class="min-h-[520px] overflow-hidden rounded-3xl bg-white shadow-sm">
+        <div data-tf-widget={site.typeformId} data-tf-iframe-props="title=Formulário de contato da Agência Zava" data-tf-medium="snippet" style="width:100%;height:560px;"></div>
+        <noscript>
+          <p class="p-8">Para pedir uma proposta, fale com a gente pelo WhatsApp {site.phone} ou pelo e-mail {site.email}.</p>
+        </noscript>
+      </div>
+    </div>
+  </section>
+
+  <section class="container-zava">
+    <iframe
+      src={site.address.embed}
+      title="Mapa: Agência Zava em Limeira – SP"
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      class="h-80 w-full rounded-[2rem] border-0"></iframe>
+  </section>
+
+  <section class="container-zava mt-20">
+    <div class="rounded-[2rem] bg-orange px-6 py-14 text-center">
+      <h2 class="text-3xl sm:text-5xl">Quer trabalhar com a Zava?</h2>
+      <div class="mt-8 flex flex-wrap justify-center gap-4">
+        <Button href={careers.colaborador}>Quero ser colaborador</Button>
+        <Button href={careers.modelo}>Sou modelo</Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script is:inline src="https://embed.typeform.com/next/embed.js" defer></script>

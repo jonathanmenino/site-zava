@@ -1,0 +1,34 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+
+// Mostra só depoimentos reais. Os marcados como placeholder nunca aparecem.
+interface Props { service?: string }
+const { service } = Astro.props;
+
+const items = (await getCollection('depoimentos', ({ data }) => !data.placeholder)).filter((t) =>
+  service ? t.data.services.includes(service) : true,
+);
+---
+
+{
+  items.length > 0 && (
+    <section class="container-zava grid gap-6 py-10 lg:grid-cols-2">
+      {items.map((t) => (
+        <figure class="flex flex-col gap-6 rounded-[2rem] bg-mist p-10">
+          <svg class="size-10 text-orange" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M4 18v-5a7 7 0 0 1 7-7v3a4 4 0 0 0-4 4h4v5H4Zm9 0v-5a7 7 0 0 1 7-7v3a4 4 0 0 0-4 4h4v5h-7Z" />
+          </svg>
+          <blockquote class="text-lg italic text-ink">“{t.data.quote}”</blockquote>
+          <figcaption class="mt-auto flex items-center gap-4">
+            {t.data.photo && <Image src={t.data.photo} alt="" width={96} class="size-12 rounded-full object-cover" />}
+            <span>
+              <span class="block font-display text-xs font-bold uppercase text-ink">{t.data.role}</span>
+              {t.data.name}, {t.data.company}
+            </span>
+          </figcaption>
+        </figure>
+      ))}
+    </section>
+  )
+}

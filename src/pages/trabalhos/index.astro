@@ -1,0 +1,24 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CaseCard from '../../components/sections/CaseCard.astro';
+import ClientLogos from '../../components/sections/ClientLogos.astro';
+import CtaBanner from '../../components/sections/CtaBanner.astro';
+import Eyebrow from '../../components/ui/Eyebrow.astro';
+
+const cases = (await getCollection('trabalhos')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout title="Trabalhos" description="Cases de sucesso da Agência Zava: resultados reais com Marketing 360°.">
+  <section class="bg-gradient-to-b from-peach to-white pt-36 pb-12 text-center">
+    <div class="container-zava">
+      <Eyebrow>Cases de sucesso</Eyebrow>
+      <h1 class="mx-auto mt-3 max-w-3xl text-4xl leading-tight text-purple sm:text-6xl">Resultados que falam por si</h1>
+    </div>
+  </section>
+  <div class="container-zava grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    {cases.map((c) => <CaseCard entry={c} />)}
+  </div>
+  <div class="mt-16"><ClientLogos /></div>
+  <CtaBanner />
+</BaseLayout>
