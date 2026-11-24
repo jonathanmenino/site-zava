@@ -46,9 +46,9 @@ const letreiro = ['Vamos conversar', 'Marketing 360°', 'Bora crescer'];
 </section>
 
 <style>
-  .cta-faixa { animation: cta-anda 38s linear infinite; }
-  .cta-volta { animation-direction: reverse; animation-duration: 46s; }
-  @keyframes cta-anda { to { transform: translateX(-50%); } }
+  /* As faixas andam só com a rolagem (--cta-p vai de 0 a 1 enquanto o bloco atravessa a tela). */
+  .cta-faixa { transform: translateX(calc(-8% - var(--cta-p, 0.5) * 22%)); will-change: transform; }
+  .cta-volta { transform: translateX(calc(-30% + var(--cta-p, 0.5) * 22%)); }
   .cta-texto {
     display: inline-flex;
     align-items: center;
@@ -85,11 +85,25 @@ const letreiro = ['Vamos conversar', 'Marketing 360°', 'Bora crescer'];
   }
   .cta-ima { transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
   @media (prefers-reduced-motion: reduce) {
-    .cta-faixa, .cta-flutua { animation: none; }
+    .cta-flutua { animation: none; }
   }
 </style>
 
 <script>
+  // Letreiro: desliza conforme o bloco atravessa a tela.
+  document.querySelectorAll<HTMLElement>('.cta').forEach((cta) => {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    let pedido = false;
+    const atualizar = () => {
+      pedido = false;
+      const r = cta.getBoundingClientRect();
+      const p = (innerHeight - r.top) / (innerHeight + r.height);
+      cta.style.setProperty('--cta-p', Math.max(0, Math.min(1, p)).toFixed(4));
+    };
+    addEventListener('scroll', () => { if (!pedido) { pedido = true; requestAnimationFrame(atualizar); } }, { passive: true });
+    atualizar();
+  });
+
   // Botão "ímã": acompanha um pouco o mouse quando ele passa perto.
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (!reduce && matchMedia('(hover: hover)').matches) {
