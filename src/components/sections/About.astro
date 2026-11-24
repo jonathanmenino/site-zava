@@ -6,12 +6,12 @@ import foto2 from '../../assets/stock/videomaker-gravando.webp';
 
 <section id="sobre" class="relative overflow-hidden py-24 lg:py-36">
   <!-- Camadas em velocidades diferentes: textura, fotos e texto. -->
-  <div class="pointer-events-none absolute top-10 -left-24 hidden w-64 lg:block xl:-left-10" aria-hidden="true">
+  <div class="pointer-events-none absolute top-10 -left-24 hidden w-52 lg:block xl:-left-10 xl:w-64" aria-hidden="true">
     <div data-parallax="0.35">
       <Image src={foto} alt="" width={420} class="aspect-[3/4] w-full rounded-[1.75rem] object-cover opacity-90 shadow-2xl" data-reveal="left" />
     </div>
   </div>
-  <div class="pointer-events-none absolute -right-20 bottom-0 hidden w-72 lg:block xl:-right-6" aria-hidden="true">
+  <div class="pointer-events-none absolute -right-20 bottom-0 hidden w-56 lg:block xl:-right-6 xl:w-72" aria-hidden="true">
     <div data-parallax="-0.25">
       <Image src={foto2} alt="" width={460} class="aspect-[4/5] w-full rounded-[1.75rem] object-cover opacity-90 shadow-2xl" data-reveal="right" />
     </div>
@@ -19,7 +19,7 @@ import foto2 from '../../assets/stock/videomaker-gravando.webp';
 
   <div class="container-zava relative max-w-4xl text-center">
     <p class="font-display text-xs font-bold tracking-[0.2em] text-orange uppercase" data-reveal="fade">Quem somos</p>
-    <h2 class="mx-auto mt-6 max-w-3xl text-2xl leading-[1.25] font-bold sm:text-[2.1rem] lg:text-[2.4rem] sm:leading-[1.2]" data-scrub-words>
+    <h2 class="mx-auto mt-6 max-w-3xl text-2xl leading-[1.25] font-bold sm:text-[2.1rem] sm:leading-[1.2] lg:max-w-2xl lg:text-[1.9rem] xl:max-w-3xl xl:text-[2.4rem]" data-scrub-words>
       Mais do que uma agência de social media, somos parceiros estratégicos do seu crescimento. Planejamos, criamos e executamos marketing completo,
       unindo criatividade, tecnologia e dados para gerar resultados reais.
     </h2>
