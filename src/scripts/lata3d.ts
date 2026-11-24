@@ -3,7 +3,6 @@
 // que continua aparecendo se o WebGL não estiver disponível.
 import {
   ACESFilmicToneMapping,
-  CylinderGeometry,
   DoubleSide,
   Group,
   LatheGeometry,
@@ -26,11 +25,11 @@ import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment
 
 // Medidas em centímetros, de uma lata alta de energético (6,6 cm de diâmetro, 16,8 cm de altura).
 const R = 3.3;
-// O rótulo cobre o corpo reto inteiro (14,4 cm). Na proporção original ele daria 12,9 cm de altura
-// (20,7 cm de volta ÷ 1600/990), então ele é ampliado 5% (cortando um pouco das laterais, sem texto)
-// e esticado 6,5% na vertical.
-const ROTULO_H = 14.4;
-const AMPLIA = 1.05;
+// O rótulo cobre o corpo reto (12,6 cm), o ombro e o começo do fundo: só a borda da tampa e a base ficam
+// em alumínio. Na proporção original ele daria 12,9 cm de altura (20,7 cm de volta ÷ 1600/990), então
+// ele é ampliado 9% (cortando só as pontas das laterais, sem texto) e esticado um pouco na vertical.
+const ROTULO_H = 12.6;
+const AMPLIA = 1.09;
 const BASE_Y = -ROTULO_H / 2;
 const TOPO_Y = ROTULO_H / 2;
 
@@ -80,6 +79,26 @@ export function montarLata(el: HTMLElement) {
   const aluminio = new MeshStandardMaterial({ color: 0xc4c1bd, metalness: 1, roughness: 0.3, side: DoubleSide });
 
   // Corpo com o rótulo (sem tampas: o ombro e o fundo fecham a lata).
+  // Perfil impresso, do fundo ao ombro, com pontos a distâncias iguais para o rótulo não deformar.
+  const guia = [
+    [R - 0.25, BASE_Y - 1.3],
+    [R - 0.04, BASE_Y - 0.55],
+    [R, BASE_Y],
+    [R, TOPO_Y],
+    [R - 0.12, TOPO_Y + 0.55],
+    [R - 0.38, TOPO_Y + 1.2],
+    [R - 0.55, TOPO_Y + 1.6],
+  ].map(([x, y]) => new Vector2(x, y));
+  const trechos = guia.slice(1).map((p, i) => p.distanceTo(guia[i]));
+  const comprimentoImpresso = trechos.reduce((a, b) => a + b, 0);
+  const perfilImpresso: Vector2[] = [];
+  for (let k = 0; k <= 120; k++) {
+    let d = (k / 120) * comprimentoImpresso;
+    let i = 0;
+    while (i < trechos.length - 1 && d > trechos[i]) d -= trechos[i++];
+    perfilImpresso.push(guia[i].clone().lerp(guia[i + 1], Math.min(1, d / trechos[i])));
+  }
+
   const rotulo = new MeshPhysicalMaterial({
     color: 0x2a0a12,
     metalness: 0.35,
@@ -93,7 +112,7 @@ export function montarLata(el: HTMLElement) {
     const c = document.createElement('canvas');
     const W = 2048;
     c.width = W;
-    c.height = Math.round((W * ROTULO_H) / (2 * Math.PI * R));
+    c.height = Math.round((W * comprimentoImpresso) / (2 * Math.PI * R));
     // Amplia por igual (corta as pontas das laterais) e estica o resto na vertical.
     const dw = W * AMPLIA;
     c.getContext('2d')!.drawImage(fonte, (W - dw) / 2, 0, dw, c.height);
@@ -107,15 +126,11 @@ export function montarLata(el: HTMLElement) {
     desenhar();
   };
   fonte.src = img.currentSrc || img.src;
-  const corpo = new Mesh(new CylinderGeometry(R, R, ROTULO_H, 128, 1, true), rotulo);
-  lata.add(corpo);
+  lata.add(new Mesh(new LatheGeometry(perfilImpresso, 160), rotulo));
 
   // Ombro, pescoço e borda da tampa (perfil girado em volta do eixo).
   const ombro = [
-    [R, TOPO_Y - 0.01],
-    [R - 0.12, TOPO_Y + 0.55],
-    [R - 0.38, TOPO_Y + 1.2],
-    [R - 0.55, TOPO_Y + 1.6],
+    [R - 0.55, TOPO_Y + 1.59],
     [R - 0.58, TOPO_Y + 1.8],
     [R - 0.5, TOPO_Y + 1.97], // borda enrolada
     [R - 0.6, TOPO_Y + 2.03],
@@ -139,9 +154,7 @@ export function montarLata(el: HTMLElement) {
   const fundo = [
     [R - 0.9, BASE_Y - 1.55],
     [R - 0.55, BASE_Y - 1.6],
-    [R - 0.25, BASE_Y - 1.3],
-    [R - 0.04, BASE_Y - 0.55],
-    [R, BASE_Y + 0.01],
+    [R - 0.25, BASE_Y - 1.29],
   ].map(([x, y]) => new Vector2(x, y));
   lata.add(new Mesh(new LatheGeometry(fundo, 128), aluminio));
   const domo = new Mesh(new CircleGeometry(R - 0.9, 64), aluminio);

@@ -100,8 +100,62 @@
         <h2>Do anúncio ao <span class="mark">corretor</span> em poucos toques.</h2>
         <p style="margin-top:20px">O site reúne os diferenciais do loteamento, as fotos aéreas, o mapa e o botão para falar com um corretor no WhatsApp. As campanhas de captação levavam o público até ali, e o remarketing chamava de volta quem ainda estava decidindo.</p>
       </div>
-      <img class="foto" src="/cases/jardim-emilia/mockup-site.jpg" alt="Site do Jardim Emília no celular e no notebook" width="1440" height="1800" loading="lazy">
     </div>
+    <div class="wrap">
+      <!-- Notebook e celular em 3D com a landing page dentro. As telas rolam de verdade. -->
+      <div class="aparelhos" data-aparelhos>
+        <div class="ap-cena">
+          <div class="ap-note">
+            <div class="ap-tampa">
+              <span class="ap-cam" aria-hidden="true"></span>
+              <div class="ap-tela" tabindex="0" aria-label="Site do Jardim Emília no computador (role para ver a página)">
+                <img src="/cases/jardim-emilia/site-desktop.jpg" alt="Página inteira do site do Jardim Emília na versão para computador" width="1440" height="4060" loading="lazy">
+              </div>
+            </div>
+            <div class="ap-base" aria-hidden="true"><span></span></div>
+          </div>
+          <div class="ap-cel">
+            <span class="ap-ilha" aria-hidden="true"></span>
+            <div class="ap-tela" tabindex="0" aria-label="Site do Jardim Emília no celular (role para ver a página)">
+              <img src="/cases/jardim-emilia/site-mobile.jpg" alt="Página inteira do site do Jardim Emília na versão para celular" width="780" height="15206" loading="lazy">
+            </div>
+          </div>
+        </div>
+        <p class="ap-dica">Role dentro das telas para ver o site</p>
+      </div>
+    </div>
+    <script>
+      (() => {
+        const el = document.querySelector('[data-aparelhos]');
+        if (!el || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        let mx = 0, my = 0, alvoX = 0, alvoY = 0, rodando = false;
+        el.addEventListener('pointermove', (e) => {
+          const r = el.getBoundingClientRect();
+          alvoX = (e.clientX - r.left) / r.width - 0.5;
+          alvoY = (e.clientY - r.top) / r.height - 0.5;
+          if (!rodando) passo();
+        });
+        el.addEventListener('pointerleave', () => { alvoX = alvoY = 0; if (!rodando) passo(); });
+        const rolagem = () => {
+          const r = el.getBoundingClientRect();
+          // -1 quando entra por baixo da tela, 1 quando sai por cima.
+          const p = Math.max(-1, Math.min(1, (innerHeight / 2 - (r.top + r.height / 2)) / (innerHeight / 2 + r.height / 2)));
+          el.style.setProperty('--sp', p.toFixed(3));
+        };
+        function passo() {
+          rodando = true;
+          mx += (alvoX - mx) * 0.08;
+          my += (alvoY - my) * 0.08;
+          el.style.setProperty('--mx', mx.toFixed(3));
+          el.style.setProperty('--my', my.toFixed(3));
+          if (Math.abs(alvoX - mx) > 0.001 || Math.abs(alvoY - my) > 0.001) requestAnimationFrame(passo);
+          else rodando = false;
+        }
+        addEventListener('scroll', rolagem, { passive: true });
+        addEventListener('resize', rolagem);
+        rolagem();
+      })();
+    </script>
   </section>
 
   <section style="padding:0;background:var(--verde)">
