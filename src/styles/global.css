@@ -196,20 +196,21 @@ html.lenis, html.lenis body { height: auto; }
   inset: 0 0 auto;
   will-change: transform;
 }
-/* Manchas de luz grandes e desfocadas (laranja e roxo da marca), repetidas a cada 1800px. */
+/* Manchas de luz grandes e desfocadas (laranja e roxo da marca), repetidas a cada 1800px.
+   Cada mancha precisa caber inteira no bloco de 1800px; se passar da borda, aparece um corte reto. */
 #page-texture .pt-glow {
   height: calc(100% + 1800px);
   background-image:
-    radial-gradient(38rem 30rem at 8% 260px, rgb(255 104 0 / 0.145), transparent 70%),
+    radial-gradient(38rem 30rem at 8% 400px, rgb(255 104 0 / 0.145), transparent 70%),
     radial-gradient(44rem 34rem at 94% 980px, rgb(107 1 208 / 0.116), transparent 70%),
-    radial-gradient(30rem 26rem at 55% 1550px, rgb(255 104 0 / 0.102), transparent 70%);
+    radial-gradient(30rem 26rem at 55% 1440px, rgb(255 104 0 / 0.102), transparent 70%);
   background-size: 100% 1800px;
 }
 [data-theme='dark'] #page-texture .pt-glow {
   background-image:
-    radial-gradient(38rem 30rem at 8% 260px, rgb(255 104 0 / 0.131), transparent 70%),
+    radial-gradient(38rem 30rem at 8% 400px, rgb(255 104 0 / 0.131), transparent 70%),
     radial-gradient(44rem 34rem at 94% 980px, rgb(178 83 255 / 0.145), transparent 70%),
-    radial-gradient(30rem 26rem at 55% 1550px, rgb(255 104 0 / 0.087), transparent 70%);
+    radial-gradient(30rem 26rem at 55% 1440px, rgb(255 104 0 / 0.087), transparent 70%);
 }
 #page-texture .pt-grain {
   height: calc(100% + 240px);
