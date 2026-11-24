@@ -37,7 +37,7 @@ gallery:
 
 ## Sobre o Audace Show
 
-O **Audace Club** é a comunidade de mentoria para mulheres empresárias liderada por **Daniela Daroz**. Durante oito edições, o grande encontro do clube se chamou *Criando Águias*. Na nona edição, o evento ganhou nome, formato e ambição novos: nasceu o **Audace Show 2026 – Edição O Repertório**, um dia inteiro de imersão em Alphaville para expandir repertório, fortalecer negócios, desenvolver criatividade, impulsionar vendas e elevar posicionamento.
+O **Audace Club** é a comunidade de mentoria para mulheres empresárias liderada por **Daniela Daroz**. Durante oito anos, o grande encontro do clube se chamou *Criando Águias* e marcou a trajetória de centenas de empresárias. Na nona edição, o evento ganhou nome, formato e ambição novos: nasceu o **Audace Show 2026 – Edição O Repertório**, um dia inteiro de imersão em Alphaville para expandir repertório, fortalecer negócios, desenvolver criatividade, impulsionar vendas e elevar posicionamento.
 
 A **Agência Zava** cuidou de tudo o que a participante viu, ouviu e levou para casa: o conceito, a campanha de lançamento, os materiais impressos, os vídeos exibidos no telão e a cobertura do dia.
 
