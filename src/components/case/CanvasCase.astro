@@ -1,0 +1,22 @@
+---
+// Página de case com a identidade visual do próprio cliente, vinda do canvas de design.
+// O HTML e o CSS ficam em src/cases-raw/<slug>/ (head.html: fontes e estilos; body.html: conteúdo)
+// e as imagens, vídeos e fontes em public/cases/<slug>/.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+interface Props { slug: string; title: string; description: string }
+const { slug, title, description } = Astro.props;
+
+const heads = import.meta.glob<string>('../../cases-raw/*/head.html', { query: '?raw', import: 'default', eager: true });
+const bodies = import.meta.glob<string>('../../cases-raw/*/body.html', { query: '?raw', import: 'default', eager: true });
+const head = heads[`../../cases-raw/${slug}/head.html`];
+const body = bodies[`../../cases-raw/${slug}/body.html`];
+if (!head || !body) throw new Error(`Case sem arquivos em src/cases-raw/${slug}/`);
+---
+
+<BaseLayout title={title} description={description} variant="case">
+  <Fragment slot="head" set:html={head} />
+  <div class="pt-20">
+    <Fragment set:html={body} />
+  </div>
+</BaseLayout>

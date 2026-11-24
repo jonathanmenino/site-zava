@@ -57,6 +57,7 @@ export const cases: CaseItem[] = [
   },
   {
     slug: 'bravus',
+    href: '/trabalhos/bravus/',
     client: 'Bravus',
     title: 'Uma Missão de Amor',
     year: '2025',
@@ -84,6 +85,7 @@ export const cases: CaseItem[] = [
   },
   {
     slug: 'kombina',
+    href: '/trabalhos/kombina/',
     client: 'Kombina',
     title: 'É o BR no Kombina',
     year: '2025',
@@ -107,6 +109,7 @@ export const cases: CaseItem[] = [
   },
   {
     slug: 'bamu',
+    href: '/trabalhos/bamu/',
     client: 'BAMU Kids',
     title: 'Conforto em Movimento',
     year: '2025',

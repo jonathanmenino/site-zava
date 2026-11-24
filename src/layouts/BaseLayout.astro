@@ -51,6 +51,7 @@ const ogUrl = new URL(og.src, Astro.site);
     <link rel="apple-touch-icon" href="/favicon.png" />
     <meta name="theme-color" content="#6b01d0" />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    <slot name="head" />
 
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="pt_BR" />
