@@ -1,17 +1,111 @@
 ---
+import { Image } from 'astro:assets';
 import Button from '../ui/Button.astro';
+import foguete from '../../assets/brand/foguete.png';
+import alvo from '../../assets/brand/alvo.webp';
 
 interface Props { title?: string; text?: string }
 const {
   title = 'Vamos transformar o marketing da sua empresa?',
   text = 'Deixe que a nossa equipe cuide do marketing completo da sua marca, enquanto você foca em fazer o que mais gosta: vender e crescer.',
 } = Astro.props;
+
+// Letreiro vazado que passa ao fundo do bloco.
+const letreiro = ['Vamos conversar', 'Marketing 360°', 'Bora crescer'];
 ---
 
 <section class="container-zava mt-20 lg:mt-28">
-  <div class="relative overflow-hidden rounded-[2rem] bg-orange px-6 py-14 text-center sm:px-12 lg:py-20" data-reveal="scale">
+  <div class="cta relative isolate overflow-hidden rounded-[2rem] bg-orange px-6 py-16 text-center sm:px-12 lg:py-24" data-reveal="scale">
+    <!-- Letreiro gigante vazado, em duas faixas que andam em sentidos opostos -->
+    <div class="pointer-events-none absolute inset-0 -z-10 flex flex-col justify-center gap-2 select-none" aria-hidden="true">
+      {[0, 1].map((row) => (
+        <div class:list={['cta-faixa flex w-max', row === 1 && 'cta-volta']}>
+          {[0, 1].map(() => (
+            <span class="cta-texto">{letreiro.map((t) => <>{t}<i>✦</i></>)}</span>
+          ))}
+        </div>
+      ))}
+    </div>
+    <!-- Luz e granulado -->
+    <div class="cta-luz pointer-events-none absolute inset-0 -z-10" aria-hidden="true"></div>
+
+    <!-- Ícones 3D da marca flutuando, com parallax na rolagem -->
+    <div class="pointer-events-none absolute top-[12%] right-[4%] hidden w-[clamp(80px,9vw,128px)] sm:block" data-parallax="-0.12" aria-hidden="true">
+      <Image src={foguete} alt="" width={260} class="cta-flutua w-full rotate-[18deg] drop-shadow-[0_30px_30px_rgb(22_22_22/0.3)]" />
+    </div>
+    <div class="pointer-events-none absolute bottom-[10%] left-[5%] hidden w-[clamp(60px,6.5vw,96px)] sm:block" data-parallax="0.1" aria-hidden="true">
+      <Image src={alvo} alt="" width={200} class="cta-flutua cta-flutua-2 w-full -rotate-[14deg] drop-shadow-[0_24px_24px_rgb(22_22_22/0.3)]" />
+    </div>
+
     <h2 class="relative mx-auto max-w-2xl text-3xl leading-tight text-coal sm:text-5xl" data-split>{title}</h2>
     <p class="relative mx-auto mt-5 max-w-xl text-coal" data-reveal style="--reveal-delay: 300ms">{text}</p>
-    <Button href="/contato/" variant="coal" class="relative mt-8">Quero uma proposta</Button>
+    <div class="cta-ima relative mt-8 inline-block" data-magnet>
+      <Button href="/contato/" variant="coal">Quero uma proposta</Button>
+    </div>
   </div>
 </section>
+
+<style>
+  .cta-faixa { animation: cta-anda 38s linear infinite; }
+  .cta-volta { animation-direction: reverse; animation-duration: 46s; }
+  @keyframes cta-anda { to { transform: translateX(-50%); } }
+  .cta-texto {
+    display: inline-flex;
+    align-items: center;
+    padding-right: 0.4em;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(4.5rem, 13vw, 11rem);
+    line-height: 1;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgb(22 22 22 / 0.2);
+  }
+  .cta-texto i {
+    font-style: normal;
+    margin: 0 0.35em;
+    font-size: 0.45em;
+    color: rgb(22 22 22 / 0.14);
+    -webkit-text-stroke: 0;
+  }
+  .cta-luz {
+    background:
+      radial-gradient(60% 80% at 15% 0%, rgb(255 190 120 / 0.55), transparent 60%),
+      radial-gradient(50% 70% at 90% 110%, rgb(200 60 0 / 0.45), transparent 65%),
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='.55'/></svg>");
+    background-blend-mode: normal, normal, multiply;
+    mix-blend-mode: multiply;
+    opacity: 0.9;
+  }
+  .cta-flutua { animation: cta-flutua 6s ease-in-out infinite; }
+  .cta-flutua-2 { animation-duration: 7.5s; animation-delay: -2s; }
+  @keyframes cta-flutua {
+    0%, 100% { translate: 0 0; }
+    50% { translate: 0 -14px; }
+  }
+  .cta-ima { transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
+  @media (prefers-reduced-motion: reduce) {
+    .cta-faixa, .cta-flutua { animation: none; }
+  }
+</style>
+
+<script>
+  // Botão "ímã": acompanha um pouco o mouse quando ele passa perto.
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduce && matchMedia('(hover: hover)').matches) {
+    document.querySelectorAll<HTMLElement>('[data-magnet]').forEach((el) => {
+      const area = el.closest('.cta') as HTMLElement | null;
+      if (!area) return;
+      area.addEventListener('pointermove', (e) => {
+        const r = el.getBoundingClientRect();
+        const dx = e.clientX - (r.left + r.width / 2);
+        const dy = e.clientY - (r.top + r.height / 2);
+        const dist = Math.hypot(dx, dy);
+        const f = dist < 220 ? 0.28 : 0;
+        el.style.transform = `translate(${dx * f}px, ${dy * f}px)`;
+      });
+      area.addEventListener('pointerleave', () => { el.style.transform = ''; });
+    });
+  }
+</script>
