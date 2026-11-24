@@ -23,11 +23,19 @@ const year = new Date().getFullYear();
           <a href={site.whatsapp} target="_blank" rel="noopener" class="block font-display text-2xl font-bold hover:text-orange">{site.phone}</a>
           <Button href="/contato/" class="mt-6">Pedir uma proposta</Button>
         </div>
-        <address class="self-end text-center not-italic sm:text-left">
-          <a href={site.address.maps} target="_blank" rel="noopener" class="hover:text-orange">
-            {site.address.line1}<br />{site.address.line2}
-          </a>
-        </address>
+        <div class="flex flex-col gap-4">
+          <iframe
+            src={site.address.embed}
+            title="Mapa: Agência Zava em Limeira – SP"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            class="h-40 w-full rounded-2xl border-0 sm:h-full sm:min-h-40"></iframe>
+          <address class="text-center text-sm not-italic sm:text-left">
+            <a href={site.address.maps} target="_blank" rel="noopener" class="hover:text-orange">
+              {site.address.line1}<br />{site.address.line2}
+            </a>
+          </address>
+        </div>
       </div>
     </div>
   </div>
