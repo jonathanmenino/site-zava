@@ -10,13 +10,13 @@ const {
   text = 'Deixe que a nossa equipe cuide do marketing completo da sua marca, enquanto você foca em fazer o que mais gosta: vender e crescer.',
 } = Astro.props;
 
-// Letreiro vazado que passa ao fundo do bloco.
+// Letreiro que passa ao fundo do bloco.
 const letreiro = ['Vamos conversar', 'Marketing 360°', 'Bora crescer'];
 ---
 
 <section class="container-zava mt-20 lg:mt-28">
   <div class="cta relative isolate overflow-hidden rounded-[2rem] bg-orange px-6 py-16 text-center sm:px-12 lg:py-24" data-reveal="scale">
-    <!-- Letreiro gigante vazado, em duas faixas que andam em sentidos opostos -->
+    <!-- Letreiro gigante tom sobre tom, em duas faixas que andam em sentidos opostos -->
     <div class="pointer-events-none absolute inset-0 -z-10 flex flex-col justify-center gap-2 select-none" aria-hidden="true">
       {[0, 1].map((row) => (
         <div class:list={['cta-faixa flex w-max', row === 1 && 'cta-volta']}>
@@ -59,15 +59,14 @@ const letreiro = ['Vamos conversar', 'Marketing 360°', 'Bora crescer'];
     line-height: 1;
     text-transform: uppercase;
     white-space: nowrap;
-    color: transparent;
-    -webkit-text-stroke: 1.5px rgb(22 22 22 / 0.2);
+    /* Letra cheia em tom sobre tom: o contorno (text-stroke) mostra as sobreposições internas da Syne. */
+    color: rgb(150 40 0 / 0.12);
   }
   .cta-texto i {
     font-style: normal;
     margin: 0 0.35em;
     font-size: 0.45em;
-    color: rgb(22 22 22 / 0.14);
-    -webkit-text-stroke: 0;
+    color: rgb(150 40 0 / 0.2);
   }
   .cta-luz {
     background:
