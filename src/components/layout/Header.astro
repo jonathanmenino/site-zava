@@ -14,6 +14,7 @@ const isActive = (href: string) => (href === '/' ? path === '/' : !href.includes
   data-transparent={transparent ? 'true' : undefined}
   class="fixed inset-x-0 top-0 z-50 text-ink transition-[background-color,box-shadow,backdrop-filter] duration-500 data-[solid]:bg-page/80 data-[solid]:shadow-[0_1px_0_rgb(127_127_127/0.15)] data-[solid]:backdrop-blur-xl"
   data-solid={transparent ? undefined : ''}
+  data-theme={transparent ? 'dark' : undefined}
 >
   <div class="container-zava flex h-20 items-center justify-between gap-6">
     <a href="/" class="shrink-0" aria-label="Agência Zava, página inicial">
@@ -92,6 +93,9 @@ const isActive = (href: string) => (href === '/' ? path === '/' : !href.includes
   const setSolid = (on: boolean) => {
     if (!transparent) return;
     header.toggleAttribute('data-solid', on);
+    // Sobre o hero (sempre preto) o cabeçalho usa as cores do modo noturno.
+    if (on) delete header.dataset.theme;
+    else header.dataset.theme = 'dark';
   };
 
   const onScroll = () => setSolid(window.scrollY > 40 || toggle.getAttribute('aria-expanded') === 'true');

@@ -23,7 +23,7 @@ const logos = Object.entries(files).map(([path, mod]) => {
     {
       [...logos, ...logos].map((logo, i) => (
         <li aria-hidden={i >= logos.length ? 'true' : undefined}>
-          <Image src={logo.src} alt={i >= logos.length ? '' : logo.alt} height={64} class="h-14 w-auto object-contain sm:h-16 dark:opacity-80 dark:brightness-0 dark:invert" />
+          <Image src={logo.src} alt={i >= logos.length ? '' : logo.alt} height={64} class="h-14 w-auto object-contain sm:h-16 dark:contrast-125 dark:grayscale dark:invert dark:opacity-90" />
         </li>
       ))
     }

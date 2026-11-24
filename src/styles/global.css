@@ -38,7 +38,8 @@
   }
 }
 
-:root[data-theme='dark'] {
+/* Vale para a página toda ou para um trecho (ex.: hero sempre escuro). */
+[data-theme='dark'] {
   --color-ink: #f4f1ec;
   --color-body: #b9b4ad;
   --color-mist: #17151b;

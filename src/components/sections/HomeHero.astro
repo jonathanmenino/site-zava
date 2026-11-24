@@ -1,37 +1,34 @@
 ---
-import Button from '../ui/Button.astro';
 import NeonSign from '../hero/NeonSign.astro';
 import CreativeCarousel from '../hero/CreativeCarousel.astro';
 import { destaquesHero } from '../../data/cases';
-import { site } from '../../data/site';
 ---
 
-<section class="hero relative isolate flex min-h-[100svh] flex-col overflow-hidden pt-24 sm:pt-28" data-neon-host>
-  <!-- Fundo: textura e luzes que andam mais devagar que o conteúdo (parallax). -->
-  <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
-    <div class="bg-texture absolute inset-x-0 -top-20 -bottom-40 opacity-60 [mask-image:radial-gradient(70%_60%_at_50%_40%,#000,transparent)]" data-parallax="0.25"></div>
-    <div class="absolute top-[38%] left-1/2 h-[34rem] w-[62rem] max-w-[140vw] -translate-x-1/2 rounded-full bg-orange/10 blur-[120px] dark:bg-orange/[0.07]" data-parallax="0.12"></div>
+<!-- Hero sempre escuro: um cômodo preto vazio (parede do fundo, teto, chão e laterais) iluminado pelo neon. -->
+<section class="hero relative isolate flex min-h-[100svh] flex-col overflow-hidden pt-24 text-body sm:pt-28" data-theme="dark" data-neon-host>
+  <div class="room pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+    <div class="wall wall-back"><i class="lit"></i></div>
+    <div class="wall wall-ceil"><i class="lit"></i></div>
+    <div class="wall wall-floor"><i class="lit"></i></div>
+    <div class="wall wall-left"><i class="lit"></i></div>
+    <div class="wall wall-right"><i class="lit"></i></div>
+    <div class="room-grain"></div>
+    <div class="room-vignette"></div>
   </div>
 
   <div class="container-zava relative z-10 text-center">
     <p class="font-display text-[0.7rem] font-bold tracking-[0.2em] text-orange uppercase sm:text-xs" data-reveal="fade">Agência de Marketing 360° · Limeira – SP</p>
-    <h1 class="mx-auto mt-4 max-w-5xl text-[2.3rem] leading-[1.05] sm:text-5xl lg:text-[3.6rem]" data-split>
+    <h1 class="mx-auto mt-4 max-w-4xl text-[1.9rem] leading-[1.08] sm:text-[2.5rem] lg:text-[2.85rem]" data-split>
       Marketing 360° que <span class="text-orange">transforma</span> estratégias em vendas
     </h1>
-    <p class="mx-auto mt-5 max-w-xl text-[0.95rem] sm:text-base" data-reveal style="--reveal-delay: 450ms">
+    <p class="mx-auto mt-4 max-w-lg text-[0.92rem] sm:text-[0.98rem]" data-reveal style="--reveal-delay: 450ms">
       Muito além das redes sociais: criamos estratégias completas de marketing que geram resultados reais para o seu negócio.
     </p>
-    <div class="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-8" data-reveal style="--reveal-delay: 600ms">
-      <Button href="/contato/" variant="primary">Pedir proposta</Button>
-      <a href={site.whatsapp} target="_blank" rel="noopener" class="inline-flex min-h-11 items-center text-ink underline decoration-line underline-offset-4 hover:text-orange hover:decoration-orange">
-        Falar com um especialista
-      </a>
-    </div>
   </div>
 
   <!-- Letreiro de neon ao fundo, entre o texto e o carrossel. -->
   <div class="relative flex min-h-44 flex-1 sm:min-h-56 items-center justify-center">
-    <div class="absolute top-1/2 left-1/2 w-[min(86vw,780px)] -translate-x-1/2 -translate-y-[50%]" data-reveal="scale" style="--reveal-delay: 300ms">
+    <div class="absolute top-1/2 left-1/2 w-[min(84vw,700px)] -translate-x-1/2 -translate-y-[50%]" data-reveal="scale" style="--reveal-delay: 300ms">
       <div data-parallax="-0.1"><NeonSign /></div>
     </div>
   </div>
@@ -43,13 +40,95 @@ import { site } from '../../data/site';
 
 <style>
   .hero {
-    background:
-      radial-gradient(120% 70% at 50% 0%, color-mix(in oklab, var(--color-peach) 70%, transparent), transparent 70%),
-      var(--color-page);
+    --room-neon: 255 122 26;
+    --power: 0;
+    --vx: 0%;
+    --vy: 0%;
+    /* Cantos da parede do fundo (o ponto de fuga se move um pouco com o mouse). */
+    --l: calc(9% + var(--vx));
+    --r: calc(91% + var(--vx));
+    --t: calc(9% + var(--vy));
+    --b: calc(73% + var(--vy));
+    /* Onde fica o neon na parede (origem da luz). */
+    --lx: calc(50% + var(--vx));
+    --ly: 52%;
+    background: #030303;
+    color-scheme: dark;
   }
-  :global([data-theme='dark']) .hero {
+  .hero[data-neon-color='purple'] { --room-neon: 178 83 255; }
+  @media (max-width: 639px) {
+    .hero { --l: calc(5% + var(--vx)); --r: calc(95% + var(--vx)); --t: calc(7% + var(--vy)); --b: calc(76% + var(--vy)); --ly: 50%; }
+  }
+
+  .wall,
+  .wall .lit,
+  .room-grain,
+  .room-vignette {
+    position: absolute;
+    inset: 0;
+  }
+  .wall .lit {
+    opacity: calc(0.25 + var(--power) * 0.75);
+    transition: opacity 0.15s linear;
+    mix-blend-mode: screen;
+  }
+
+  /* Parede do fundo: reboco escuro, a mais iluminada. */
+  .wall-back {
+    clip-path: polygon(var(--l) var(--t), var(--r) var(--t), var(--r) var(--b), var(--l) var(--b));
+    /* Mais escura perto dos cantos (sombra onde as paredes se encontram). */
     background:
-      radial-gradient(90% 60% at 50% 45%, rgb(255 104 0 / 0.06), transparent 70%),
-      #070608;
+      linear-gradient(90deg, rgb(0 0 0 / 0.55) var(--l), transparent calc(var(--l) + 6%), transparent calc(var(--r) - 6%), rgb(0 0 0 / 0.55) var(--r)),
+      linear-gradient(180deg, rgb(0 0 0 / 0.5) var(--t), transparent calc(var(--t) + 8%), transparent calc(var(--b) - 6%), rgb(0 0 0 / 0.45) var(--b)),
+      #121113;
+  }
+  .wall-back .lit {
+    background:
+      radial-gradient(28% 26% at var(--lx) var(--ly), rgb(var(--room-neon) / 0.32), transparent 70%),
+      radial-gradient(55% 48% at var(--lx) var(--ly), rgb(var(--room-neon) / 0.14), transparent 75%);
+  }
+
+  .wall-ceil {
+    clip-path: polygon(0 0, 100% 0, var(--r) var(--t), var(--l) var(--t));
+    background: linear-gradient(180deg, #020202, #0a0a0b calc(var(--t) - 0.4%), #1a191b var(--t));
+  }
+  .wall-ceil .lit {
+    background: radial-gradient(45% 14% at var(--lx) var(--t), rgb(var(--room-neon) / 0.12), transparent 80%);
+  }
+
+  /* Chão: um pouco mais claro e com reflexo do neon logo abaixo da placa. */
+  .wall-floor {
+    clip-path: polygon(var(--l) var(--b), var(--r) var(--b), 100% 100%, 0 100%);
+    background: linear-gradient(180deg, #232124 var(--b), #141315 calc(var(--b) + 1%), #0b0a0b calc(var(--b) + 12%), #040404);
+  }
+  .wall-floor .lit {
+    background:
+      radial-gradient(30% 12% at var(--lx) calc(var(--b) + 3%), rgb(var(--room-neon) / 0.38), transparent 75%),
+      radial-gradient(48% 30% at var(--lx) var(--b), rgb(var(--room-neon) / 0.12), transparent 80%);
+  }
+
+  .wall-left {
+    clip-path: polygon(0 0, var(--l) var(--t), var(--l) var(--b), 0 100%);
+    background: linear-gradient(90deg, #030303, #0d0c0e calc(var(--l) - 0.4%), #1a191b var(--l));
+  }
+  .wall-right {
+    clip-path: polygon(100% 0, var(--r) var(--t), var(--r) var(--b), 100% 100%);
+    background: linear-gradient(90deg, #1a191b var(--r), #0d0c0e calc(var(--r) + 0.4%), #030303);
+  }
+  .wall-left .lit {
+    background: radial-gradient(14% 40% at var(--l) var(--ly), rgb(var(--room-neon) / 0.16), transparent 80%);
+  }
+  .wall-right .lit {
+    background: radial-gradient(14% 40% at var(--r) var(--ly), rgb(var(--room-neon) / 0.16), transparent 80%);
+  }
+
+  /* Granulado de reboco para a parede ter textura. */
+  .room-grain {
+    opacity: 0.22;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+  .room-vignette {
+    background: radial-gradient(120% 90% at 50% 45%, transparent 55%, rgb(0 0 0 / 0.65));
   }
 </style>
