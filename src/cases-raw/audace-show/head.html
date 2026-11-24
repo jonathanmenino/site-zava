@@ -49,7 +49,8 @@ body{margin:0;background:#2A0A12}
 .au .trilho img{display:block;height:440px;width:auto}
 .au .trilho.st img{height:560px}
 .au .grade{list-style:none;margin:48px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:28px}
-.au .grade img{display:block;width:100%;aspect-ratio:3/2;object-fit:cover}
+.au .grade img{display:block;width:100%;height:auto}
+@media(min-width:760px){.au .grade{grid-template-columns:3fr 2fr}}
 .au .leg{margin:14px 0 0;font-weight:500;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:rgba(243,230,207,.75)}
 .au .wide video{display:block;width:100%;aspect-ratio:4/1;object-fit:cover;background:#000}
 .au .terços{list-style:none;margin:40px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:20px}
