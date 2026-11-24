@@ -35,7 +35,7 @@ const fmt = (v: number, d: number) => v.toLocaleString('pt-BR', { minimumFractio
         {
           destaque.map((n, i) => (
             <li class="rounded-[2rem] bg-coal p-7 text-snow ring-white/10 sm:p-7 xl:p-8 dark:ring-1" data-reveal style={`--reveal-delay: ${i * 120}ms`}>
-              <p class="font-display text-[2.2rem] leading-none font-extrabold whitespace-nowrap text-orange sm:text-5xl lg:text-[2rem] xl:text-[2.6rem]">
+              <p class="font-display text-[1.9rem] leading-none font-extrabold whitespace-nowrap text-orange sm:text-[2.6rem] lg:text-[1.75rem] xl:text-[2.2rem]">
                 {n.prefix}<span data-count={n.value} data-decimals={n.decimals}>{fmt(n.value, n.decimals)}</span>{n.suffix}
               </p>
               <p class="mt-3 text-sm text-snow/75">{n.label}</p>
