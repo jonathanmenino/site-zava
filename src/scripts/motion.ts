@@ -110,7 +110,7 @@ const parallax = [...document.querySelectorAll<HTMLElement>('[data-parallax]')];
 
 // Textura fixa do fundo: cada camada se repete a cada "tile" px, então basta deslocar o resto da divisão.
 const textura = [
-  { el: document.querySelector<HTMLElement>('#page-texture .pt-dots'), speed: 0.35, tile: 30 },
+  { el: document.querySelector<HTMLElement>('#page-texture .pt-glow'), speed: 0.3, tile: 1800 },
   { el: document.querySelector<HTMLElement>('#page-texture .pt-grain'), speed: 0.15, tile: 240 },
 ];
 

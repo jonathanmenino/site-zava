@@ -196,19 +196,28 @@ html.lenis, html.lenis body { height: auto; }
   inset: 0 0 auto;
   will-change: transform;
 }
-#page-texture .pt-dots {
-  height: calc(100% + 30px);
-  background-image: radial-gradient(circle at 1.5px 1.5px, rgb(110 110 120 / 0.38) 1.5px, transparent 0);
-  background-size: 30px 30px;
+/* Manchas de luz grandes e desfocadas (laranja e roxo da marca), repetidas a cada 1800px. */
+#page-texture .pt-glow {
+  height: calc(100% + 1800px);
+  background-image:
+    radial-gradient(38rem 30rem at 8% 260px, rgb(255 104 0 / 0.10), transparent 70%),
+    radial-gradient(44rem 34rem at 94% 980px, rgb(107 1 208 / 0.08), transparent 70%),
+    radial-gradient(30rem 26rem at 55% 1550px, rgb(255 104 0 / 0.07), transparent 70%);
+  background-size: 100% 1800px;
+}
+[data-theme='dark'] #page-texture .pt-glow {
+  background-image:
+    radial-gradient(38rem 30rem at 8% 260px, rgb(255 104 0 / 0.09), transparent 70%),
+    radial-gradient(44rem 34rem at 94% 980px, rgb(178 83 255 / 0.10), transparent 70%),
+    radial-gradient(30rem 26rem at 55% 1550px, rgb(255 104 0 / 0.06), transparent 70%);
 }
 #page-texture .pt-grain {
   height: calc(100% + 240px);
-  opacity: 0.09;
+  opacity: 0.05;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
   background-size: 240px 240px;
 }
-[data-theme='dark'] #page-texture .pt-grain { opacity: 0.1; }
-[data-theme='dark'] #page-texture .pt-dots { background-image: radial-gradient(circle at 1.5px 1.5px, rgb(200 200 210 / 0.16) 1.5px, transparent 0); }
+[data-theme='dark'] #page-texture .pt-grain { opacity: 0.06; }
 
 .bg-texture {
   background-image: radial-gradient(circle at 1px 1px, rgb(127 127 127 / 0.22) 1px, transparent 0);
