@@ -108,11 +108,20 @@ const scrubs = [...document.querySelectorAll<HTMLElement>('[data-scrub-words]')]
 // ---------- Parallax ----------
 const parallax = [...document.querySelectorAll<HTMLElement>('[data-parallax]')];
 
+// Textura fixa do fundo: cada camada se repete a cada "tile" px, então basta deslocar o resto da divisão.
+const textura = [
+  { el: document.querySelector<HTMLElement>('#page-texture .pt-dots'), speed: 0.35, tile: 28 },
+  { el: document.querySelector<HTMLElement>('#page-texture .pt-grain'), speed: 0.15, tile: 240 },
+];
+
 let ticking = false;
 function onScroll() {
   ticking = false;
   const vh = window.innerHeight;
   if (!reduce) {
+    for (const t of textura) {
+      if (t.el) t.el.style.transform = `translate3d(0, ${(-((window.scrollY * t.speed) % t.tile)).toFixed(1)}px, 0)`;
+    }
     for (const el of parallax) {
       const speed = Number(el.dataset.parallax) || 0.15;
       const host = (el.parentElement ?? el).getBoundingClientRect();
