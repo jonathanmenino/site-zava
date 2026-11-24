@@ -12,7 +12,7 @@ const servicos = defineCollection({
       icon: z.enum(['social', 'ads', 'web', 'brand', 'camera', 'strategy']),
       summary: z.string(),
       seoDescription: z.string(),
-      // true = texto escrito para substituir o template em inglês, ainda não revisado pela Zava.
+      // true = rascunho: aparece no `npm run dev`, mas não vai para o site publicado (ver src/lib/servicos.ts).
       draft: z.boolean().default(false),
       hero: z.object({
         intro: z.string(),
@@ -24,9 +24,6 @@ const servicos = defineCollection({
         z.object({
           title: z.string(),
           text: z.string(),
-          // Não aparecem mais na página (as fotos de banco se repetiam); ficam opcionais.
-          image: image().optional(),
-          imageAlt: z.string().optional(),
         }),
       ),
       why: z.object({

@@ -20,6 +20,7 @@ npm run preview  # serve o dist/ localmente
 | Cases | `src/content/trabalhos/*.md` |
 | Depoimentos | `src/content/depoimentos/*.md` |
 | Logos de clientes (basta soltar um PNG) | `src/assets/clients/` |
+| Fotos de banco (Unsplash) e créditos | `src/assets/stock/` e `src/assets/stock/CREDITOS.md` |
 | Cores e fontes | `src/styles/global.css` (bloco `@theme`) |
 | Termos e privacidade | `src/pages/*.md` |
 
@@ -31,7 +32,7 @@ Tirada do site atual: laranja `#FF6800`, roxo `#6B01D0`, pêssego `#FFE9DA`, tex
 
 ## Pendências de conteúdo
 
-- **Serviços marcados com `draft: true`**: tráfego pago, sites, identidade visual, foto e produção e consultoria estavam com o texto em inglês do template no site antigo. O texto atual é um rascunho em português a partir dos resumos da home.
+- **Rascunhos (`draft: true`)**: um serviço com essa linha aparece no `npm run dev`, mas não entra no site publicado. Os 6 serviços atuais já foram revisados e estão publicados.
 - **Termos e Política de Privacidade**: também eram texto de template. Os novos são rascunhos e precisam de revisão.
 - **Depoimentos**: o depoimento "Numerique" do site antigo era falso (template). Ele está em `src/content/depoimentos/exemplo-template.md` com `placeholder: true` e não aparece no site. A seção de depoimentos só aparece quando houver um depoimento real.
 - **"Trabalhe na Zava" e "Sou modelo"**: apontavam para `#`. Por enquanto abrem um e-mail com assunto pronto.

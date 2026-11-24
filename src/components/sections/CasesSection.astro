@@ -5,7 +5,7 @@ import Eyebrow from '../ui/Eyebrow.astro';
 import CurveDivider from '../ui/CurveDivider.astro';
 import ClientLogos from './ClientLogos.astro';
 import CaseCard from './CaseCard.astro';
-import equipe from '../../assets/stock/equipe-analise.webp';
+import clientes from '../../assets/stock/cliente-cafeteria.webp';
 import foguete from '../../assets/brand/foguete.png';
 
 const cases = (await getCollection('trabalhos')).sort((a, b) => a.data.order - b.data.order);
@@ -20,7 +20,7 @@ const cases = (await getCollection('trabalhos')).sort((a, b) => a.data.order - b
         Cada projeto é pensado para gerar <strong>impacto real</strong>. Confira alguns dos negócios que cresceram com nosso <strong>Marketing 360°</strong>.
       </p>
     </div>
-    <Image src={equipe} alt="Equipe analisando resultados de um projeto" width={640} class="w-full max-w-md justify-self-center rounded-[2rem] object-cover shadow-[0_30px_60px_-30px_rgba(107,1,208,0.45)] lg:aspect-square" />
+    <Image src={clientes} alt="Donos de uma cafeteria sorrindo atrás do balcão" width={640} class="w-full max-w-md justify-self-center rounded-[2rem] object-cover shadow-[0_30px_60px_-30px_rgba(107,1,208,0.45)] lg:aspect-square" />
   </div>
 
   <div class="mt-12"><ClientLogos /></div>

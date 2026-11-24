@@ -7,8 +7,8 @@ summary: Planejamos, produzimos e gerenciamos conteúdos estratégicos para Inst
 seoDescription: Gestão de redes sociais com estratégia, criatividade e produção audiovisual profissional. Conteúdo que engaja e converte seguidores em clientes.
 hero:
   intro: Cuidar das redes sociais não é apenas postar — é construir presença, desejo e resultado. Na Agência Zava, unimos estratégia, criatividade e produção audiovisual profissional para transformar o jeito que sua marca aparece no digital. De roteiros e campanhas até captação e edição de vídeos — entregamos o tipo de conteúdo que prende atenção e gera engajamento de verdade.
-  image: ../../assets/brand/lampada.webp
-  imageAlt: Ilustração de uma lâmpada com um raio dentro
+  image: ../../assets/stock/videomaker-gravando.webp
+  imageAlt: Videomaker gravando conteúdo com câmera profissional
 headline:
   - Conteúdo que conecta.
   - Estratégia que vende.
@@ -16,24 +16,14 @@ headline:
 features:
   - title: Planejamento Estratégico de Conteúdo
     text: Montamos pautas mensais personalizadas, com foco em gerar engajamento, autoridade e vendas. Cada post é pensado para comunicar o que sua marca tem de único.
-    image: ../../assets/stock/equipe-notebook.webp
-    imageAlt: Equipe reunida em volta de um notebook planejando conteúdo
   - title: Produção Audiovisual Profissional
     text: Criamos roteiros, gravamos e editamos vídeos com qualidade cinematográfica — especialmente para **Reels, campanhas e anúncios**. Sua marca com imagem, som e emoção no mais alto nível.
-    image: ../../assets/stock/equipe-analise.webp
-    imageAlt: Equipe analisando materiais impressos sobre a mesa
   - title: Design com Identidade
     text: Cada arte, texto e legenda segue uma linha criativa consistente, reforçando o posicionamento e o estilo visual da sua empresa.
-    image: ../../assets/stock/equipe-notebook.webp
-    imageAlt: Equipe criativa trabalhando junto
   - title: Gestão e Monitoramento
     text: Acompanhamos de perto o desempenho das publicações, analisamos métricas e ajustamos o que for necessário para maximizar resultados.
-    image: ../../assets/stock/equipe-analise.webp
-    imageAlt: Pessoas analisando gráficos de desempenho
   - title: Relacionamento e Engajamento
     text: Respondemos comentários e mensagens com o mesmo cuidado que você teria — fortalecendo a conexão com o seu público.
-    image: ../../assets/stock/equipe-notebook.webp
-    imageAlt: Equipe sorrindo em frente ao notebook
 why:
   items:
     - Equipe completa com social media, designers, redatores e videomakers
@@ -41,8 +31,8 @@ why:
     - Estratégia pensada para o seu negócio, não fórmulas prontas
     - Comunicação criativa, moderna e com propósito
     - Resultados que fortalecem a marca e impulsionam vendas
-  image: ../../assets/stock/equipe-notebook.webp
-  imageAlt: Equipe da agência reunida
+  image: ../../assets/stock/social-media-celular.webp
+  imageAlt: Social media acompanhando as redes da marca no celular
 faq:
   - q: O que exatamente faz uma gestão de redes sociais?
     a: É o conjunto de ações estratégicas para posicionar sua marca nas redes, fortalecer a imagem do negócio e gerar resultados. Envolve planejamento de conteúdo, criação de posts, produção audiovisual, legendas, atendimento, análise de métricas e otimizações contínuas.
