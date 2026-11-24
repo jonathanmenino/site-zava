@@ -70,5 +70,7 @@
   & ul { @apply mb-6 list-disc space-y-2 pl-6 marker:text-orange; }
   & a { @apply font-medium text-purple underline decoration-orange decoration-2 underline-offset-4 hover:text-orange; }
   & img { @apply my-8 w-full rounded-[2rem]; }
+  & blockquote { @apply my-8 border-l-4 border-orange pl-6 font-display text-xl leading-snug text-ink; }
+  & blockquote p { @apply mb-2; }
   & > :first-child { @apply mt-0; }
 }
