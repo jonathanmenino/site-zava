@@ -9,6 +9,7 @@ import CurveDivider from '../../components/ui/CurveDivider.astro';
 import Testimonials from '../../components/sections/Testimonials.astro';
 import Faq from '../../components/sections/Faq.astro';
 import CtaBanner from '../../components/sections/CtaBanner.astro';
+import TrafficResults from '../../components/sections/TrafficResults.astro';
 import { inlineMd } from '../../lib/inline-md';
 import foguete from '../../assets/brand/foguete.png';
 
@@ -69,6 +70,8 @@ const d = entry.data;
       </li>
     </ol>
   </section>
+
+  {entry.id === 'gestao-de-trafego-pago' && <TrafficResults />}
 
   <CurveDivider class="mt-12" />
 

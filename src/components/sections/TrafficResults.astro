@@ -4,22 +4,24 @@ import Eyebrow from '../ui/Eyebrow.astro';
 // Números somados das campanhas de tráfego pago gerenciadas pela Zava (painel de anúncios).
 // Para atualizar, troque os valores abaixo. "decimals" é o número de casas depois da vírgula.
 const destaque = [
-  { label: 'Em vendas geradas pelos anúncios (R$ 1.729.902,98)', prefix: 'R$ ', value: 1.73, decimals: 2, suffix: ' mi' },
-  { label: 'De retorno sobre o investimento (ROAS)', suffix: 'x', value: 11.92, decimals: 2 },
+  { label: 'Em vendas geradas pelos anúncios (R$ 3.949.045,46)', prefix: 'R$ ', value: 3.95, decimals: 2, suffix: ' mi' },
+  { label: 'Compras feitas pelos anúncios', value: 36.5, decimals: 1, suffix: ' mil' },
+  { label: 'Investidos em mídia (R$ 730.871,28)', prefix: 'R$ ', value: 731, decimals: 0, suffix: ' mil' },
 ];
 const numeros = [
-  { label: 'Investidos em mídia', prefix: 'R$ ', value: 342.8, decimals: 1, suffix: ' mil' },
-  { label: 'Impressões', value: 64.9, decimals: 1, suffix: ' mi' },
-  { label: 'Pessoas alcançadas', value: 21.7, decimals: 1, suffix: ' mi' },
-  { label: 'Adições ao carrinho', value: 37.3, decimals: 1, suffix: ' mil' },
-  { label: 'Custo médio por compra (CPA)', prefix: 'R$ ', value: 26.79, decimals: 2 },
+  { label: 'Impressões', value: 144.9, decimals: 1, suffix: ' mi' },
+  { label: 'Pessoas alcançadas', value: 45.5, decimals: 1, suffix: ' mi' },
+  { label: 'Cliques', value: 1.28, decimals: 2, suffix: ' mi' },
+  { label: 'Adições ao carrinho', value: 83.8, decimals: 1, suffix: ' mil' },
+  { label: 'Ticket médio', prefix: 'R$ ', value: 108.05, decimals: 2 },
+  { label: 'Seguidores no Instagram', value: 50.6, decimals: 1, suffix: ' mil' },
 ];
 const fmt = (v: number, d: number) => v.toLocaleString('pt-BR', { minimumFractionDigits: d, maximumFractionDigits: d });
 ---
 
 <section class="py-24 sm:py-32" aria-labelledby="trafego-titulo">
   <div class="container-zava">
-    <div class="grid min-w-0 gap-10 xl:grid-cols-[1fr_1.6fr] xl:items-end">
+    <div class="grid min-w-0 gap-10">
       <div>
         <Eyebrow data-reveal="fade">Tráfego pago</Eyebrow>
         <h2 id="trafego-titulo" class="mt-4 text-4xl leading-[1.05] sm:text-5xl" data-split>
@@ -29,11 +31,11 @@ const fmt = (v: number, d: number) => v.toLocaleString('pt-BR', { minimumFractio
           Resultados somados das campanhas de tráfego pago que a Zava gerencia, direto do painel de anúncios.
         </p>
       </div>
-      <ul class="grid min-w-0 gap-4 sm:grid-cols-2">
+      <ul class="grid min-w-0 gap-4 lg:grid-cols-3">
         {
           destaque.map((n, i) => (
-            <li class="rounded-[2rem] bg-coal p-7 text-snow ring-white/10 sm:p-9 xl:p-8 dark:ring-1" data-reveal style={`--reveal-delay: ${i * 120}ms`}>
-              <p class="font-display text-[2.4rem] leading-none font-extrabold whitespace-nowrap text-orange sm:text-5xl xl:text-4xl">
+            <li class="rounded-[2rem] bg-coal p-7 text-snow ring-white/10 sm:p-7 xl:p-8 dark:ring-1" data-reveal style={`--reveal-delay: ${i * 120}ms`}>
+              <p class="font-display text-[2.2rem] leading-none font-extrabold whitespace-nowrap text-orange sm:text-5xl lg:text-[2rem] xl:text-[2.6rem]">
                 {n.prefix}<span data-count={n.value} data-decimals={n.decimals}>{fmt(n.value, n.decimals)}</span>{n.suffix}
               </p>
               <p class="mt-3 text-sm text-snow/75">{n.label}</p>
@@ -43,11 +45,11 @@ const fmt = (v: number, d: number) => v.toLocaleString('pt-BR', { minimumFractio
       </ul>
     </div>
 
-    <ul class="mt-4 grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-5">
+    <ul class="mt-4 grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-6">
       {
         numeros.map((n, i) => (
           <li class="rounded-[1.5rem] border border-line/50 bg-surface p-5 sm:p-6" data-reveal style={`--reveal-delay: ${200 + i * 80}ms`}>
-            <p class="font-display text-[1.15rem] font-bold whitespace-nowrap text-ink sm:text-3xl xl:text-[1.55rem]">
+            <p class="font-display text-[1.15rem] font-bold whitespace-nowrap text-ink sm:text-3xl xl:text-[1.5rem]">
               {n.prefix}<span data-count={n.value} data-decimals={n.decimals}>{fmt(n.value, n.decimals)}</span>{n.suffix}
             </p>
             <p class="mt-2 text-sm">{n.label}</p>
