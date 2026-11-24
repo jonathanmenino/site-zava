@@ -1,0 +1,84 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,800;1,700;1,800&amp;display=swap">
+<style>
+body{margin:0;background:#f4f8ec}
+.je{--verde:#06763e;--mata:#022716;--folha:#0b5a2f;--lima:#93c03f;--lima-claro:#c8e28f;--amarelo:#f2e600;--creme:#f4f8ec;--tinta:#0f2a19;font-family:Poppins,sans-serif;font-weight:400;color:var(--tinta);background:var(--creme)}
+.je *{box-sizing:border-box}
+.je .wrap{max-width:1200px;margin:0 auto;padding:0 40px;position:relative;z-index:2}
+.je section{position:relative;overflow:hidden}
+.je .pad{padding:112px 0}
+.je .num{margin:0;font-weight:800;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--verde)}
+.je h1,.je h2,.je h3{font-family:Poppins,sans-serif;font-style:italic;font-weight:800;letter-spacing:-.01em;color:var(--mata)}
+.je h1{margin:18px 0 0;font-size:68px;line-height:1}
+.je h2{margin:14px 0 0;font-size:48px;line-height:1.05;max-width:18ch;text-wrap:balance}
+.je h3{margin:0;font-size:22px;line-height:1.2}
+.je .mark{background:var(--amarelo);color:var(--mata);padding:0 .18em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.je .hl{color:var(--lima)}
+.je p{line-height:1.7;margin:0}
+.je .lead{font-size:19px;max-width:34rem;margin-top:26px}
+.je .ficha{margin:36px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:18px 24px;padding-top:24px;border-top:2px solid rgba(6,118,62,.2)}
+.je .ficha dt{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--verde)}
+.je .ficha dd{margin:4px 0 0;font-weight:600;font-size:15px;line-height:1.45}
+.je .duas{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:64px;align-items:center}
+.je img{display:block;max-width:100%}
+.je .foto{width:100%;border-radius:32px;box-shadow:0 30px 60px -30px rgba(2,39,22,.55)}
+/* Faixas e folhas: o formato curvo das peças do loteamento */
+.je .folha{position:absolute;border-radius:0 100% 0 100%;background:var(--lima);opacity:.9;z-index:1;pointer-events:none}
+.je .topo{padding:72px 0 128px;background:radial-gradient(80% 70% at 90% 10%,rgba(147,192,63,.35),transparent 70%),var(--creme)}
+.je .topo .capa{position:relative}
+.je .topo .capa img{border-radius:36px;transform:rotate(2deg)}
+.je .selo{position:absolute;left:-28px;bottom:-28px;background:var(--amarelo);color:var(--mata);border-radius:999px;width:150px;height:150px;display:grid;place-items:center;text-align:center;font-style:italic;font-weight:800;line-height:1.05;font-size:15px;transform:rotate(-10deg);box-shadow:0 20px 40px -20px rgba(2,39,22,.5);z-index:3}
+.je .selo b{display:block;font-size:30px}
+.je .escuro{background:var(--verde);color:#fff}
+.je .escuro h2,.je .escuro h3{color:#fff}
+.je .escuro .num{color:var(--amarelo)}
+.je .escuro p{color:rgba(255,255,255,.86)}
+.je .mata{background:var(--mata);color:#fff}
+.je .mata h2,.je .mata h3{color:#fff}
+.je .mata .num{color:var(--lima)}
+.je .mata p{color:rgba(255,255,255,.8)}
+.je .curva{position:absolute;left:-10%;right:-10%;height:140px;background:inherit;border-radius:50%;z-index:0}
+.je .frente{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:48px;list-style:none;padding:0}
+.je .frente li{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:28px;padding:30px}
+.je .frente .ic{width:48px;height:48px;border-radius:0 50% 0 50%;background:var(--lima);display:grid;place-items:center;color:var(--mata);font-weight:800;font-style:italic;margin-bottom:18px}
+.je .frente p{margin-top:10px;font-size:15px}
+.je .paleta{list-style:none;margin:28px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}
+.je .paleta li{background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 1px 0 rgba(2,39,22,.08)}
+.je .sw{display:block;height:92px}
+.je .paleta div{padding:14px 18px 18px}
+.je .cn{font-weight:800}.je .ch{font-size:13px;color:#4d6a57}
+.je .tipo{margin-top:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.je .tipo > div{background:#fff;border-radius:28px;padding:36px}
+.je .tipo .g{font-size:64px;line-height:1;font-style:italic;font-weight:800;color:var(--verde)}
+.je .sub{margin:64px 0 0;font-style:italic;font-weight:800;font-size:22px;color:var(--mata)}
+.je .grade{margin-top:48px;display:grid;grid-template-columns:repeat(12,1fr);gap:20px}
+.je .grade figure{margin:0}
+.je .grade img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border-radius:28px}
+.je .grade .c7 img{aspect-ratio:7/5.4}.je .grade .c5 img{aspect-ratio:5/5.4}
+.je .grade figcaption{margin-top:10px;font-size:14px;font-weight:600;color:#4d6a57}
+.je .c7{grid-column:span 7}.je .c5{grid-column:span 5}.je .c6{grid-column:span 6}.je .c12{grid-column:span 12}
+.je .resultado{background:var(--lima);color:var(--mata)}
+.je .resultado .num{color:var(--mata)}
+.je .big{margin:56px 0 0;list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.je .big li{background:var(--mata);color:#fff;border-radius:0 64px 0 64px;padding:40px 36px}
+.je .big b{display:block;font-style:italic;font-weight:800;font-size:64px;line-height:1;color:var(--amarelo)}
+.je .big span{display:block;margin-top:14px;font-size:16px;line-height:1.5;color:rgba(255,255,255,.85)}
+.je .fim{background:var(--mata);color:#fff;text-align:center}
+.je .fim h2{color:#fff;margin-left:auto;margin-right:auto}
+.je .fim p{color:rgba(255,255,255,.8);max-width:36rem;margin:20px auto 0}
+.je .btn{display:inline-flex;align-items:center;gap:8px;min-height:52px;margin-top:36px;padding:0 30px;border-radius:999px;background:var(--amarelo);color:var(--mata);font-weight:800;font-style:italic;font-size:17px;text-decoration:none;transition:transform .2s ease,background-color .2s ease}
+.je .btn:hover{transform:translateY(-2px);background:var(--lima)}
+@media (max-width:760px){
+  .je .wrap{padding:0 20px}
+  .je .pad{padding:80px 0}
+  .je h1{font-size:44px}
+  .je h2{font-size:34px}
+  .je .duas{grid-template-columns:1fr;gap:44px}
+  .je .grade{grid-template-columns:1fr}
+  .je .c7,.je .c5,.je .c6,.je .c12{grid-column:auto}
+  .je .grade img,.je .grade .c7 img,.je .grade .c5 img{aspect-ratio:4/3}
+  .je .big b{font-size:52px}
+  .je .selo{width:118px;height:118px;font-size:12px;left:-6px}
+  .je .selo b{font-size:24px}
+  .je .ficha{grid-template-columns:1fr}
+}
+</style>

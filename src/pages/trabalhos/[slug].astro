@@ -7,7 +7,9 @@ import CurveDivider from '../../components/ui/CurveDivider.astro';
 import CtaBanner from '../../components/sections/CtaBanner.astro';
 
 export async function getStaticPaths() {
-  const cases = await getCollection('trabalhos');
+  // Cases com página própria (identidade do cliente, em src/cases-raw/<slug>/) ficam de fora daqui.
+  const proprias = Object.keys(import.meta.glob('../../cases-raw/*/body.html')).map((k) => k.split('/').at(-2));
+  const cases = (await getCollection('trabalhos')).filter((c) => !proprias.includes(c.id));
   return cases.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
 }
 
