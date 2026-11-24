@@ -135,6 +135,31 @@ export const cases: CaseItem[] = [
       { src: c('bamu/carrossel-1.jpg'), alt: 'Capa do carrossel "Todos os calçados"' },
     ],
   },
+  {
+    slug: 'audace-show',
+    href: '/trabalhos/audace-show/',
+    client: 'Audace Show',
+    title: 'O Repertório',
+    year: '2026',
+    segment: 'Evento',
+    summary: 'O grande encontro do Audace Club virou uma galeria de arte: conceito, campanha, vídeos, guia, impressos, telão e cobertura.',
+    categorias: ['Campanha', 'Audiovisual', 'Fotografia', 'Design', 'Social Media', 'Impressos'],
+    cover: c('audace/arte-oficial.jpg'),
+    coverAlt: 'Arte oficial do Audace Show com os palestrantes em molduras douradas',
+    featured: true,
+    criativos: [
+      { src: c('audace/arte-oficial.jpg'), alt: 'Arte oficial do Audace Show com os palestrantes em molduras' },
+      { src: c('audace/palco.jpg'), alt: 'Daniela Daroz no palco diante da moldura dourada' },
+      { src: c('audace/carrossel-palestrantes.jpg'), alt: 'Carrossel de palestrantes do Audace Show' },
+      { src: c('audace/backdrop.jpg'), alt: 'Backdrop do Audace Show com quadros clássicos em molduras douradas' },
+      { src: c('audace/guia-capa.jpg'), alt: 'Capa do guia do evento' },
+      { src: c('audace/plateia.jpg'), alt: 'Sala do Audace Show com a plateia nas mesas' },
+      { src: c('audace/cracha.jpg'), alt: 'Crachá VIP Pass bordô' },
+      { src: c('audace/kit.jpg'), alt: 'Caixas do kit Repertório com perfume' },
+      { src: c('audace/energetico.jpg'), alt: 'Rótulo da lata Audace Power' },
+      { src: c('audace/corredor.jpg'), alt: 'Daniela Daroz caminhando pelo corredor vermelho' },
+    ],
+  },
 ];
 
 // Galeria: peças das campanhas + avulsos enviados para src/assets/galeria/.
@@ -163,5 +188,5 @@ export const destaquesHero: Criativo[] = [
   c('bravus/key-visual.jpg'), c('bamu/look-passeio-1.jpg'), c('kombina/carioca.jpg'), j('outdoor.jpeg'),
   c('bravus/produto-1.jpg'), c('bamu/identidade.jpg'), c('kombina/carrossel-2.jpg'), c('bravus/produto-4.jpg'),
   c('bamu/lacos.jpg'), c('kombina/identidade.jpg'), j('mockup-mobile.jpg'), c('bravus/arte-dia-dos-namorados.jpg'),
-  c('bamu/bicicleta.jpg'), c('kombina/paulista.jpg'),
+  c('bamu/bicicleta.jpg'), c('kombina/paulista.jpg'), c('audace/arte-oficial.jpg'), c('audace/palco.jpg'),
 ].map((src) => ({ src, alt: cases.flatMap((cs) => cs.criativos).find((cr) => cr.src === src)?.alt ?? 'Criativo da Zava' }));
