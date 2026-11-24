@@ -8,9 +8,9 @@ const { title, description, updated } = Astro.props.frontmatter;
 ---
 
 <BaseLayout title={title} description={description}>
-  <section class="bg-gradient-to-b from-peach to-white pt-36 pb-10">
+  <section class="bg-gradient-to-b from-peach to-page pt-36 pb-10">
     <div class="container-zava max-w-3xl">
-      <h1 class="text-4xl leading-tight sm:text-5xl">{title}</h1>
+      <h1 class="text-4xl leading-tight sm:text-5xl" data-split>{title}</h1>
       <p class="mt-4 text-sm">Última atualização: {updated}</p>
     </div>
   </section>

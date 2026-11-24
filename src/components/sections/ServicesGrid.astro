@@ -1,39 +1,52 @@
 ---
 import { Image } from 'astro:assets';
-import ServiceIcon from '../ui/ServiceIcon.astro';
-import lampada from '../../assets/brand/lampada.webp';
-
 import { getServicos } from '../../lib/servicos';
 
+interface Props { title?: string; intro?: string }
+const {
+  title = 'O que fazemos',
+  intro = 'Do planejamento à execução, soluções completas para o crescimento do seu negócio, com equipe e equipamentos próprios.',
+} = Astro.props;
 const servicos = await getServicos();
 ---
 
-<section id="servicos">
-  <div class="container-zava">
-    <div class="relative rounded-[2rem] bg-gradient-to-b from-purple to-purple-light px-6 pt-24 pb-14 text-center text-white sm:px-10">
-      <Image src={lampada} alt="" width={160} class="absolute -top-14 left-1/2 w-28 -translate-x-1/2 rounded-3xl shadow-xl sm:w-32" />
-      <h2 class="mx-auto max-w-2xl text-3xl leading-tight text-white sm:text-5xl">
-        Do planejamento à execução, oferecemos soluções completas para o crescimento do seu negócio.
-      </h2>
-      <p class="mt-6 text-white/85">Conheça um pouco do que fazemos:</p>
-      <svg class="mx-auto mt-4 size-6 animate-bounce" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-        <path d="M6 5l6 6 6-6M6 13l6 6 6-6" stroke-linecap="round" stroke-linejoin="round" />
-      </svg>
-    </div>
-  </div>
+<section id="servicos" class="container-zava py-10 lg:py-16">
+  <div class="relative overflow-hidden rounded-[2rem] bg-coal px-5 py-10 text-snow sm:px-10 sm:py-14 lg:rounded-[2.5rem] dark:bg-surface dark:ring-1 dark:ring-white/5">
+    <div class="bg-texture pointer-events-none absolute -inset-y-24 inset-x-0 opacity-25" data-parallax="0.18" aria-hidden="true"></div>
 
-  <div class="mt-16 bg-mist py-16 lg:py-20">
-    <ul class="container-zava grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+    <div class="relative flex flex-col gap-4 border-b border-white/12 pb-8 sm:flex-row sm:items-end sm:justify-between">
+      <h2 class="text-4xl text-snow sm:text-5xl" data-split>{title}</h2>
+      <p class="max-w-sm text-sm text-white/65" data-reveal style="--reveal-delay: 200ms">{intro}</p>
+    </div>
+
+    <ul class="relative mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3" data-stagger="110">
       {
-        servicos.map((s) => (
-          <li class="group flex flex-col rounded-3xl bg-white p-8 shadow-[0_10px_40px_-20px_rgba(34,34,34,0.25)] transition-transform hover:-translate-y-1">
-            <span class="inline-flex size-14 items-center justify-center rounded-full bg-peach text-orange">
-              <ServiceIcon name={s.data.icon} class="size-7" />
-            </span>
-            <h3 class="mt-6 text-lg leading-snug">{s.data.shortTitle}</h3>
-            <p class="mt-3 flex-1 text-[0.95rem]">{s.data.summary}</p>
-            <a href={`/servicos/${s.id}/`} class="mt-6 self-start border-b-2 border-orange pb-1 font-display text-xs font-bold uppercase tracking-wide text-ink hover:text-orange">
-              Saiba mais<span class="sr-only"> sobre {s.data.title}</span>
+        servicos.map((s, i) => (
+          <li data-reveal>
+            <a
+              href={`/servicos/${s.id}/`}
+              class="svc group flex h-full flex-col rounded-3xl bg-white/[0.06] p-5 ring-1 ring-white/5 transition-[background-color,transform] duration-500 hover:-translate-y-1 hover:bg-purple focus-visible:bg-purple sm:p-6"
+            >
+              <div class="flex items-start justify-between gap-4">
+                <h3 class="font-display text-2xl leading-[1.05] font-bold text-orange transition-colors duration-500 group-hover:text-snow sm:text-[1.7rem]">
+                  {s.data.shortTitle.replace(/\s*\(.*\)$/, '')}
+                </h3>
+                <span class="inline-flex size-12 shrink-0 items-center justify-center rounded-full bg-white/10 text-snow transition-[transform,background-color] duration-500 group-hover:rotate-45 group-hover:bg-white/20" aria-hidden="true">
+                  <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9" /></svg>
+                </span>
+              </div>
+              <p class="mt-5 border-t border-white/12 pt-4 text-sm text-white/65 transition-colors group-hover:text-white/85">{s.data.summary}</p>
+              <div class="mt-5 overflow-hidden rounded-2xl">
+                <Image
+                  src={s.data.hero.image}
+                  alt=""
+                  widths={[400, 640]}
+                  sizes="(min-width: 1024px) 360px, (min-width: 640px) 45vw, 90vw"
+                  class="aspect-[16/10] w-full object-cover grayscale transition-[filter,transform] duration-700 group-hover:scale-105 group-hover:grayscale-0"
+                />
+              </div>
+              <span class="sr-only">Saiba mais sobre {s.data.title}</span>
+              <span class="mt-4 font-display text-[0.7rem] tracking-[0.2em] text-white/35 uppercase">{String(i + 1).padStart(2, '0')}</span>
             </a>
           </li>
         ))

@@ -25,7 +25,7 @@ export const nav = [
   { label: 'Home', href: '/' },
   { label: 'Serviços', href: '/servicos/' },
   { label: 'A Zava', href: '/#sobre' },
-  { label: 'Trabalhos', href: '/trabalhos/' },
+  { label: 'Cases', href: '/cases/' },
   { label: 'Contato', href: '/contato/' },
 ];
 

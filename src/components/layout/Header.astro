@@ -1,18 +1,19 @@
 ---
 import Logo from '../ui/Logo.astro';
+import ThemeToggle from './ThemeToggle.astro';
 import { nav, site } from '../../data/site';
 
-interface Props { transparent?: boolean }
-const { transparent = false } = Astro.props;
+interface Props { transparent?: boolean; themeToggle?: boolean }
+const { transparent = false, themeToggle = true } = Astro.props;
+const path = Astro.url.pathname;
+const isActive = (href: string) => (href === '/' ? path === '/' : !href.includes('#') && path.startsWith(href));
 ---
 
 <header
   id="site-header"
   data-transparent={transparent ? 'true' : undefined}
-  class:list={[
-    'fixed inset-x-0 top-0 z-50 transition-colors duration-300',
-    transparent ? 'text-white' : 'bg-white/95 text-ink shadow-sm backdrop-blur',
-  ]}
+  class="fixed inset-x-0 top-0 z-50 text-ink transition-[background-color,box-shadow,backdrop-filter] duration-500 data-[solid]:bg-page/80 data-[solid]:shadow-[0_1px_0_rgb(127_127_127/0.15)] data-[solid]:backdrop-blur-xl"
+  data-solid={transparent ? undefined : ''}
 >
   <div class="container-zava flex h-20 items-center justify-between gap-6">
     <a href="/" class="shrink-0" aria-label="Agência Zava, página inicial">
@@ -20,11 +21,15 @@ const { transparent = false } = Astro.props;
     </a>
 
     <nav aria-label="Principal" class="hidden lg:block">
-      <ul class="flex items-center gap-8">
+      <ul class="flex items-center gap-1 rounded-full border border-line/40 bg-surface/50 p-1 backdrop-blur">
         {
           nav.map((item) => (
             <li>
-              <a href={item.href} class="font-display text-xs font-bold uppercase tracking-wider transition-colors hover:text-orange">
+              <a
+                href={item.href}
+                aria-current={isActive(item.href) ? 'page' : undefined}
+                class="inline-flex min-h-9 items-center rounded-full px-4 font-display text-xs font-bold uppercase tracking-wider transition-colors hover:text-orange aria-[current=page]:bg-ink aria-[current=page]:text-page"
+              >
                 {item.label}
               </a>
             </li>
@@ -33,10 +38,11 @@ const { transparent = false } = Astro.props;
       </ul>
     </nav>
 
-    <div class="flex items-center gap-3">
+    <div class="flex items-center gap-2 sm:gap-3">
+      {themeToggle && <ThemeToggle />}
       <a
         href="/contato/"
-        class="hidden min-h-11 items-center rounded-full bg-orange px-5 font-display text-xs font-bold uppercase tracking-wide text-ink transition-colors hover:bg-purple hover:text-white sm:inline-flex"
+        class="hidden min-h-11 items-center rounded-full bg-orange px-5 font-display text-xs font-bold uppercase tracking-wide text-coal transition-colors hover:bg-purple hover:text-white sm:inline-flex"
       >
         Pedir cotação
       </a>
@@ -56,7 +62,7 @@ const { transparent = false } = Astro.props;
     </div>
   </div>
 
-  <div id="mobile-menu" class="hidden border-t border-black/5 bg-white text-ink lg:hidden">
+  <div id="mobile-menu" class="hidden border-t border-line/30 bg-page text-ink lg:hidden">
     <nav aria-label="Menu móvel" class="container-zava py-6">
       <ul class="flex flex-col gap-1">
         {
@@ -69,7 +75,7 @@ const { transparent = false } = Astro.props;
           ))
         }
       </ul>
-      <a href="/contato/" class="mt-4 inline-flex min-h-11 items-center rounded-full bg-orange px-6 font-display text-xs font-bold uppercase tracking-wide text-ink">
+      <a href="/contato/" class="mt-4 inline-flex min-h-11 items-center rounded-full bg-orange px-6 font-display text-xs font-bold uppercase tracking-wide text-coal">
         Pedir cotação
       </a>
       <p class="mt-6 text-sm">{site.phone} · {site.email}</p>
@@ -83,11 +89,9 @@ const { transparent = false } = Astro.props;
   const menu = document.getElementById('mobile-menu')!;
   const transparent = header.dataset.transparent === 'true';
 
-  const solid = ['bg-white/95', 'text-ink', 'shadow-sm', 'backdrop-blur'];
   const setSolid = (on: boolean) => {
     if (!transparent) return;
-    header.classList.toggle('text-white', !on);
-    solid.forEach((c) => header.classList.toggle(c, on));
+    header.toggleAttribute('data-solid', on);
   };
 
   const onScroll = () => setSolid(window.scrollY > 40 || toggle.getAttribute('aria-expanded') === 'true');

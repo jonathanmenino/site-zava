@@ -1,18 +1,20 @@
 ---
 interface Props {
   href: string;
-  variant?: 'primary' | 'dark' | 'outline-light' | 'light' | 'link';
+  variant?: 'primary' | 'dark' | 'coal' | 'outline-light' | 'light' | 'link';
   external?: boolean;
   class?: string;
+  [key: string]: any;
 }
-const { href, variant = 'dark', external = false, class: className } = Astro.props;
+const { href, variant = 'dark', external = false, class: className, ...rest } = Astro.props;
 
 // Texto branco sobre o laranja da marca não passa no contraste (2,9:1), por isso o botão laranja usa texto escuro.
 const styles = {
-  primary: 'rounded-full bg-orange px-6 py-3 text-ink hover:bg-white',
-  dark: 'rounded-full bg-ink px-6 py-3 text-white hover:bg-purple',
-  light: 'rounded-full bg-white px-6 py-3 text-ink hover:bg-peach',
-  'outline-light': 'rounded-full border border-white/70 px-6 py-3 text-white hover:bg-white hover:text-ink',
+  primary: 'rounded-full bg-orange px-6 py-3 text-coal hover:bg-ink hover:text-page',
+  dark: 'rounded-full bg-ink px-6 py-3 text-page hover:bg-purple hover:text-white',
+  coal: 'rounded-full bg-coal px-6 py-3 text-snow hover:bg-purple',
+  light: 'rounded-full bg-snow px-6 py-3 text-coal hover:bg-peach',
+  'outline-light': 'rounded-full border border-white/70 px-6 py-3 text-white hover:bg-snow hover:text-coal',
   link: 'border-b-2 border-orange pb-1 text-ink hover:text-orange',
 };
 ---
@@ -25,6 +27,7 @@ const styles = {
     className,
   ]}
   {...external ? { target: '_blank', rel: 'noopener' } : {}}
+  {...rest}
 >
   <slot />
   {

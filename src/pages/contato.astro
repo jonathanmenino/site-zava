@@ -7,16 +7,16 @@ const typeformUrl = `https://form.typeform.com/to/${site.typeformId}`;
 ---
 
 <BaseLayout title="Contato" description="Fale com a Agência Zava: peça uma proposta pelo formulário, WhatsApp ou e-mail. Av. Campinas, 1755, Limeira – SP.">
-  <section class="bg-gradient-to-b from-peach to-white pt-32 pb-16 lg:pt-40">
+  <section class="bg-gradient-to-b from-peach to-page pt-32 pb-16 lg:pt-40">
     <div class="container-zava grid gap-12 lg:grid-cols-2">
       <div>
-        <h1 class="text-4xl leading-tight sm:text-5xl">Conte sobre o seu negócio. A gente monta a proposta.</h1>
-        <p class="mt-6 max-w-md text-ink">
+        <h1 class="text-4xl leading-tight sm:text-5xl" data-split>Conte sobre o seu negócio. A gente monta a proposta.</h1>
+        <p class="mt-6 max-w-md text-ink" data-reveal style="--reveal-delay: 300ms">
           Preencha o formulário e deixe que a nossa equipe cuide do marketing completo da sua marca, enquanto você foca em fazer o que mais gosta:
           <strong>vender e crescer</strong>.
         </p>
 
-        <dl class="mt-8 grid gap-6 rounded-3xl bg-white p-6 shadow-sm sm:grid-cols-2">
+        <dl data-reveal style="--reveal-delay: 400ms" class="mt-8 grid gap-6 rounded-3xl bg-surface p-6 shadow-sm sm:grid-cols-2">
           <div>
             <dt class="text-sm">WhatsApp:</dt>
             <dd><a href={site.whatsapp} target="_blank" rel="noopener" class="text-lg text-ink hover:text-orange">{site.phone}</a></dd>
@@ -40,8 +40,8 @@ const typeformUrl = `https://form.typeform.com/to/${site.typeformId}`;
         </div>
       </div>
 
-      <div id="formulario">
-        <div class="relative h-[min(600px,calc(100svh-7rem))] min-h-[460px] overflow-hidden rounded-3xl bg-white shadow-sm">
+      <div id="formulario" data-reveal style="--reveal-delay: 250ms">
+        <div class="relative h-[min(600px,calc(100svh-7rem))] min-h-[460px] overflow-hidden rounded-3xl bg-surface shadow-sm">
           <!-- Fica por trás do formulário: só aparece enquanto ele carrega ou se for bloqueado. -->
           <p class="absolute inset-0 flex items-center justify-center p-8 text-center text-ink" aria-hidden="true">Carregando o formulário…</p>
           <div
@@ -77,10 +77,10 @@ const typeformUrl = `https://form.typeform.com/to/${site.typeformId}`;
 
   <section class="container-zava mt-20">
     <div class="rounded-[2rem] bg-orange px-6 py-14 text-center">
-      <h2 class="text-3xl sm:text-5xl">Quer trabalhar com a Zava?</h2>
+      <h2 class="text-3xl text-coal sm:text-5xl">Quer trabalhar com a Zava?</h2>
       <div class="mt-8 flex flex-wrap justify-center gap-4">
-        <Button href={careers.colaborador}>Quero ser colaborador</Button>
-        <Button href={careers.modelo}>Sou modelo</Button>
+        <Button href={careers.colaborador} variant="coal">Quero ser colaborador</Button>
+        <Button href={careers.modelo} variant="coal">Sou modelo</Button>
       </div>
     </div>
   </section>

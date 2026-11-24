@@ -1,0 +1,114 @@
+---
+// Informações à esquerda e colunas de criativos rolando sem parar à direita.
+// Usado na home (com botão "ver todos") e no topo da página /cases/.
+import { Image } from 'astro:assets';
+import Button from '../ui/Button.astro';
+import { cases } from '../../data/cases';
+
+interface Props { page?: boolean }
+const { page = false } = Astro.props;
+const Heading = page ? 'h1' : 'h2';
+
+const destaques = cases.filter((c) => c.featured);
+// Distribui as peças em 3 colunas, intercalando os cases.
+const pool = destaques.flatMap((c, ci) => c.criativos.map((cr, k) => ({ ...cr, k: k * destaques.length + ci }))).sort((a, b) => a.k - b.k);
+const cols: (typeof pool)[] = [[], [], []];
+pool.slice(0, 27).forEach((p, i) => cols[i % 3].push(p));
+const speeds = ['46s', '58s', '40s'];
+---
+
+<section id="cases" class:list={['relative overflow-hidden', page ? 'pt-28 pb-10 lg:pt-28' : 'py-16 lg:py-24']}>
+  <div class="bg-texture pointer-events-none absolute -inset-y-32 inset-x-0 opacity-50 [mask-image:linear-gradient(90deg,#000,transparent_60%)]" data-parallax="0.2" aria-hidden="true"></div>
+
+  <div class="container-zava relative grid items-center gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
+    <div class="lg:py-10">
+      <p class="font-display text-xs font-bold tracking-[0.2em] text-orange uppercase" data-reveal="fade">Cases de sucesso</p>
+      <Heading class="mt-4 text-4xl leading-[1.05] sm:text-6xl" data-split>
+        {page ? 'Campanhas que viram resultado' : 'Resultados que falam por si'}
+      </Heading>
+      <p class="mt-6 max-w-md" data-reveal style="--reveal-delay: 250ms">
+        Cada projeto é pensado para gerar <strong>impacto real</strong>: da ideia à peça final, com estratégia, produção própria e mídia.
+        {page ? ' Conheça alguns dos trabalhos que fizemos com nossos clientes.' : ' Confira alguns dos negócios que cresceram com a Zava.'}
+      </p>
+
+      <ul class="mt-10 border-t border-line/40" data-stagger="90">
+        {
+          destaques.map((c) => {
+            const Tag = c.href ? 'a' : 'div';
+            return (
+              <li data-reveal="left">
+                <Tag
+                  href={c.href}
+                  class="group flex items-center justify-between gap-4 border-b border-line/40 py-4 transition-[padding] duration-500 hover:pl-3"
+                >
+                  <span>
+                    <span class="block font-display text-lg font-bold text-ink transition-colors group-hover:text-orange">{c.client}</span>
+                    <span class="block text-sm">{c.title} · {c.segment}</span>
+                  </span>
+                  {c.href ? (
+                    <svg class="size-5 shrink-0 text-orange transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  ) : (
+                    <span class="shrink-0 text-[0.65rem] tracking-[0.15em] text-body/70 uppercase">Case em breve</span>
+                  )}
+                </Tag>
+              </li>
+            );
+          })
+        }
+      </ul>
+
+      {
+        !page && (
+          <div class="mt-10" data-reveal>
+            <Button href="/cases/" variant="dark">Ver todos os cases</Button>
+          </div>
+        )
+      }
+    </div>
+
+    <div class="showcase relative h-[34rem] sm:h-[40rem] lg:h-[46rem]" data-reveal="fade" aria-label="Peças criadas pela Zava" role="img">
+      <div class="grid h-full grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
+        {
+          cols.map((col, ci) => (
+            <div class:list={['showcase-col overflow-hidden', ci === 2 && 'hidden sm:block']}>
+              <ul class:list={['showcase-track flex flex-col gap-4', ci % 2 === 1 && 'is-reverse']} style={`--dur:${speeds[ci]}`} aria-hidden="true">
+                {[...col, ...col].map((p) => (
+                  <li class="overflow-hidden rounded-2xl bg-mist">
+                    <Image src={p.src} alt="" widths={[280, 440]} sizes="(min-width: 1024px) 220px, 45vw" class="aspect-[4/5] w-full object-cover" />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .showcase {
+    mask-image: linear-gradient(180deg, transparent, #000 14%, #000 86%, transparent);
+  }
+  .showcase-track {
+    animation: showcase-up var(--dur) linear infinite;
+  }
+  .showcase-track.is-reverse {
+    animation-direction: reverse;
+  }
+  .showcase:hover .showcase-track {
+    animation-play-state: paused;
+  }
+  .showcase-col:nth-child(2) {
+    margin-top: -3rem;
+  }
+  @keyframes showcase-up {
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(0, calc(-50% - 0.5rem), 0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .showcase-track { animation: none; }
+  }
+</style>

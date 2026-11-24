@@ -15,6 +15,7 @@ export default defineConfig({
   redirects: {
     '/home': '/',
     '/jdemilia': '/trabalhos/jardim-emilia/',
+    '/trabalhos': '/cases/',
     '/free-audit': '/contato/',
   },
 });
