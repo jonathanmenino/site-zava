@@ -70,4 +70,14 @@ body{margin:0;background:#2A0A12}
 .au .btn{display:inline-flex;align-items:center;gap:8px;min-height:54px;padding:0 34px;border:1px solid var(--vinho);background:var(--vinho);color:var(--creme);font-family:Poppins,sans-serif;font-weight:500;font-size:14px;letter-spacing:.2em;text-transform:uppercase;text-decoration:none}
 .au .btn:hover{background:var(--bordo)}
 .au a:focus-visible,.au video:focus-visible{outline:3px solid var(--ouro2);outline-offset:3px}
+.au .lata{margin-top:56px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:center;padding:24px 48px;border:1px solid rgba(201,164,92,.4);background:radial-gradient(ellipse at 30% 45%,rgba(230,204,143,.14),transparent 60%)}
+.au .lata3d{position:relative;height:620px;touch-action:pan-y;cursor:grab;user-select:none}
+.au .lata3d.girando{cursor:grabbing}
+.au .lata3d canvas{position:absolute;inset:0;width:100%!important;height:100%!important;display:block}
+.au .lata3d > img{position:absolute;inset:0;margin:auto;width:100%;height:auto;max-height:100%;object-fit:contain;top:50%;transform:translateY(-50%)}
+.au .lata3d.pronta > img{display:none}
+.au .lata-dica{position:absolute;left:50%;bottom:6px;transform:translateX(-50%);font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--ouro);opacity:0;transition:opacity .6s;white-space:nowrap;pointer-events:none}
+.au .lata3d.pronta .lata-dica{opacity:.85}
+.au .lata-plano{display:block;width:100%;margin-top:32px;border:1px solid rgba(201,164,92,.35)}
+@media(max-width:860px){.au .lata{grid-template-columns:1fr;padding:24px}.au .lata3d{height:520px}}
 </style>

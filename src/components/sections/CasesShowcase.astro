@@ -75,7 +75,7 @@ const speeds = ['46s', '58s', '40s'];
               <ul class:list={['showcase-track flex flex-col gap-4', ci % 2 === 1 && 'is-reverse']} style={`--dur:${speeds[ci]}`} aria-hidden="true">
                 {[...col, ...col].map((p) => (
                   <li class="overflow-hidden rounded-2xl bg-mist">
-                    <Image src={p.src} alt="" widths={[300, 480, 640]} sizes="(min-width: 1024px) 220px, 45vw" class="aspect-[4/5] w-full object-cover" />
+                    <Image src={p.src} alt="" widths={[300, 480, 640]} quality={90} sizes="(min-width: 1024px) 220px, 45vw" class="aspect-[4/5] w-full object-cover" />
                   </li>
                 ))}
               </ul>

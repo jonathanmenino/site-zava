@@ -3,3 +3,20 @@ import CanvasCase from '../../components/case/CanvasCase.astro';
 ---
 
 <CanvasCase slug="audace-show" title="Case Audace Show · O Repertório" description="Depois de oito anos de Criando Águias, o grande encontro do Audace Club ganhou nome novo. A Zava transformou o Audace Show em uma galeria de arte, do primeiro teaser ao último depoimento." />
+
+<script>
+  // A lata 3D (three.js) só é baixada quando a seção chega perto da tela.
+  const el = document.querySelector<HTMLElement>('[data-lata3d]');
+  if (el) {
+    const io = new IntersectionObserver(
+      async ([en]) => {
+        if (!en.isIntersecting) return;
+        io.disconnect();
+        const { montarLata } = await import('../../scripts/lata3d');
+        montarLata(el);
+      },
+      { rootMargin: '600px 0px' },
+    );
+    io.observe(el);
+  }
+</script>

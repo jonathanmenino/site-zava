@@ -13,7 +13,7 @@ const { items, label = 'Criativos da Zava' } = Astro.props;
     {
       items.map((it, i) => (
         <figure class="cc-card" data-i={i}>
-          <Image src={it.src} alt={it.alt} widths={[240, 400, 560]} sizes="(min-width: 1024px) 260px, 170px" class="cc-img" loading={i < 6 ? 'eager' : 'lazy'} draggable="false" />
+          <Image src={it.src} alt={it.alt} widths={[240, 400, 560]} sizes="(min-width: 1024px) 260px, 170px" quality={90} class="cc-img" loading={i < 6 ? 'eager' : 'lazy'} draggable="false" />
         </figure>
       ))
     }
