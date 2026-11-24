@@ -3,11 +3,10 @@ title: Identidade Visual e Design
 shortTitle: Identidade Visual e Design
 order: 4
 icon: brand
-draft: true
-summary: Criamos logotipos, materiais gráficos e identidade visual que fortalecem o posicionamento da sua marca e geram reconhecimento imediato no mercado.
-seoDescription: Criação de logotipo, identidade visual e materiais gráficos que fortalecem o posicionamento da sua marca.
+summary: Logotipo, identidade visual e mídias de apoio, como cardápio, folder, outdoor e banners. Peças prontas para impressão e para o digital, com o orçamento da gráfica e dos fornecedores acompanhado pela nossa equipe.
+seoDescription: "Criação de logotipo, identidade visual e mídias de apoio: cardápio, folder, outdoor, adesivos, comunicação visual, press kit e banners."
 hero:
-  intro: Uma marca forte é reconhecida antes mesmo de ser lida. Criamos logotipos, identidades visuais e materiais gráficos que traduzem a personalidade do seu negócio e mantêm a sua comunicação consistente em todos os pontos de contato.
+  intro: Uma marca forte é reconhecida antes mesmo de ser lida. Criamos logotipos, identidades visuais e mídias de apoio que traduzem a personalidade do seu negócio e mantêm a sua comunicação consistente em todos os pontos de contato.
   image: ../../assets/cases/jardim-emilia/capa.jpg
   imageAlt: Materiais impressos com a identidade visual do Jardim Emília
 headline:
@@ -17,28 +16,22 @@ headline:
 features:
   - title: Logotipo e Identidade Visual
     text: Logotipo, paleta de cores, tipografia e elementos gráficos que formam a base visual da sua marca.
-    image: ../../assets/cases/jardim-emilia/folder-2.jpeg
-    imageAlt: Folder aberto com a identidade do Jardim Emília
   - title: Manual da Marca
     text: Um guia prático para aplicar a sua identidade com consistência em todos os materiais.
-    image: ../../assets/stock/equipe-analise.webp
-    imageAlt: Equipe revisando o manual da marca
-  - title: Materiais Impressos
-    text: Folders, flyers, cartões, outdoors e papelaria com acabamento profissional.
-    image: ../../assets/cases/jardim-emilia/outdoor.jpeg
-    imageAlt: Outdoor do Jardim Emília
+  - title: Mídias de Apoio
+    text: Cardápio, folder, outdoor, adesivos, comunicação visual, press kit e banners, prontos para impressão e para uso em materiais institucionais ou promocionais.
+  - title: Orçamento e Fornecedores
+    text: Cuidamos do orçamento com gráficas e fornecedores e acompanhamos a produção, para a peça chegar do jeito que foi criada.
   - title: Peças para o Digital
     text: Artes para redes sociais, anúncios e apresentações que seguem o mesmo padrão visual.
-    image: ../../assets/stock/equipe-notebook.webp
-    imageAlt: Equipe criando peças digitais
 why:
   items:
     - Criação baseada em estratégia e no seu público
     - Identidade pronta para o impresso e para o digital
     - Equipe de design integrada ao marketing
-    - Materiais com acabamento profissional
-  image: ../../assets/stock/equipe-notebook.webp
-  imageAlt: Equipe da agência reunida
+    - Orçamento e produção acompanhados junto aos fornecedores
+  image: ../../assets/stock/esbocos-logo.webp
+  imageAlt: Esboços de logotipo a lápis
 faq:
   - q: O que eu recebo em um projeto de identidade visual?
     a: Logotipo e suas variações, paleta de cores, tipografia, elementos de apoio e um manual com as regras de uso. O escopo exato é definido na proposta.

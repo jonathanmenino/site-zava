@@ -1,44 +1,35 @@
 ---
-title: Fotografia e Produção de Conteúdo
-shortTitle: Fotografia e Produção de Conteúdo
+title: Produção Audiovisual
+shortTitle: Produção Audiovisual (Foto e Vídeo)
 order: 5
 icon: camera
-draft: true
-summary: Imagens e vídeos profissionais que valorizam seus produtos e serviços. Conteúdo pensado para atrair atenção e gerar desejo, ideal para redes sociais e campanhas publicitárias.
-seoDescription: Fotografia profissional e produção de vídeos para redes sociais, anúncios e campanhas publicitárias.
+summary: Vídeos e fotos profissionais, com equipe interna e equipamentos próprios. Conteúdo relevante para redes sociais, site, eventos, TV e campanhas, que fortalece o relacionamento com o seu público e a autoridade da marca.
+seoDescription: "Produção audiovisual profissional: vídeos para Reels, institucionais, eventos e TV, e fotos de produtos, ambientes, gastronomia e corporativas."
 hero:
-  intro: Imagem é o primeiro contato do cliente com a sua marca. Produzimos fotos e vídeos profissionais — do roteiro à edição — que valorizam seus produtos e serviços e deixam o seu conteúdo pronto para redes sociais, site e anúncios.
-  image: ../../assets/brand/lampada.webp
-  imageAlt: Ilustração de uma lâmpada com um raio dentro
+  intro: Imagem é o primeiro contato do cliente com a sua marca. Com equipe interna experiente e equipamentos próprios, produzimos vídeos e fotos do roteiro à edição, prontos para redes sociais, site, eventos, TV e anúncios. Conteúdo relevante que fortalece o relacionamento com o seu público e aumenta a autoridade da marca.
+  image: ../../assets/stock/videomaker-camera.webp
+  imageAlt: Videomaker segurando uma câmera de cinema
 headline:
   - Imagem que chama atenção.
   - Vídeo que conta histórias.
   - Conteúdo que gera desejo.
 features:
-  - title: Fotografia de Produtos e Serviços
-    text: Fotos profissionais para catálogo, site, cardápio, redes sociais e anúncios.
-    image: ../../assets/stock/equipe-analise.webp
-    imageAlt: Equipe escolhendo fotos para uma campanha
-  - title: Vídeos e Reels
-    text: Roteiro, captação e edição de vídeos curtos e institucionais com qualidade cinematográfica.
-    image: ../../assets/stock/equipe-notebook.webp
-    imageAlt: Equipe editando vídeos no notebook
+  - title: Vídeos
+    text: Reels, vídeos institucionais, cobertura de eventos e comerciais para TV, com roteiro, captação e edição feitos pela nossa equipe.
+  - title: Fotos
+    text: Produtos, ambientes, gastronomia, semijoias e retratos corporativos, para catálogo, site, cardápio, redes sociais e anúncios.
   - title: Imagens Aéreas
     text: Captação com drone para empreendimentos, eventos e espaços que precisam ser vistos do alto.
-    image: ../../assets/cases/jardim-emilia/aerea.jpg
-    imageAlt: Vista aérea do loteamento Jardim Emília
   - title: Conteúdo para Campanhas
     text: Fotos e vídeos produzidos para cada etapa da campanha, do aquecimento ao lançamento.
-    image: ../../assets/cases/jardim-emilia/outdoor.jpeg
-    imageAlt: Outdoor da campanha do Jardim Emília
 why:
   items:
-    - Equipamentos profissionais e equipe própria
+    - Equipe interna experiente e equipamentos próprios
     - Conteúdo pensado para o formato de cada canal
     - Roteiro e direção alinhados à estratégia da marca
     - Entrega pronta para publicar
-  image: ../../assets/stock/equipe-notebook.webp
-  imageAlt: Equipe da agência reunida
+  image: ../../assets/stock/fotografo-camera.webp
+  imageAlt: Fotógrafo enquadrando uma foto na câmera
 faq:
   - q: Vocês fazem as gravações no meu local?
     a: Sim. Vamos até a sua empresa ou ao local do evento, e também podemos organizar a produção em outro espaço.

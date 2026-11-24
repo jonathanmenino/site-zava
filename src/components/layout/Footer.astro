@@ -1,10 +1,11 @@
 ---
-import { getCollection } from 'astro:content';
 import Logo from '../ui/Logo.astro';
 import Button from '../ui/Button.astro';
 import { site, careers } from '../../data/site';
 
-const servicos = (await getCollection('servicos')).sort((a, b) => a.data.order - b.data.order);
+import { getServicos } from '../../lib/servicos';
+
+const servicos = await getServicos();
 const year = new Date().getFullYear();
 ---
 

@@ -1,5 +1,6 @@
 ---
-import { getCollection, type CollectionEntry } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import { getServicos } from '../../lib/servicos';
 import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Button from '../../components/ui/Button.astro';
@@ -12,7 +13,7 @@ import { inlineMd } from '../../lib/inline-md';
 import foguete from '../../assets/brand/foguete.png';
 
 export async function getStaticPaths() {
-  const servicos = await getCollection('servicos');
+  const servicos = await getServicos();
   return servicos.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
 }
 
@@ -55,7 +56,14 @@ const d = entry.data;
           </li>
         ))
       }
-      <li class:list={['flex flex-col justify-between gap-6 rounded-[2rem] bg-purple p-8 text-white', d.features.length % 3 === 1 && 'sm:col-span-2']}>
+      <li
+        class:list={[
+          'flex flex-col justify-between gap-6 rounded-[2rem] bg-purple p-8 text-white',
+          d.features.length % 3 === 1 && 'sm:col-span-2',
+          // Com 3, 6… itens o card ficaria sozinho na última linha: vira uma faixa inteira.
+          d.features.length % 3 === 0 && 'sm:col-span-2 lg:col-span-3 lg:flex-row lg:items-center',
+        ]}
+      >
         <p class="font-display text-2xl leading-tight font-bold">Quer ver isso funcionando na sua marca?</p>
         <Button href="/contato/" variant="primary" class="self-start">Pedir uma proposta</Button>
       </li>

@@ -6,8 +6,10 @@ export const site = {
   url: 'https://agenciazava.com.br',
   email: 'contato@agenciazava.com.br',
   phone: '(19) 97104-2877',
-  whatsapp: 'https://wa.me/5519971042877',
+  // Abre o WhatsApp com uma mensagem pronta.
+  whatsapp: `https://wa.me/5519971042877?text=${encodeURIComponent('Olá! Vim pelo site da Zava e quero uma proposta.')}`,
   instagram: 'https://www.instagram.com/zavamkt/',
+  instagramHandle: '@zavamkt',
   address: {
     line1: 'Av. Campinas, 1755 – 2º Andar',
     line2: 'Cidade Jardim, Limeira – SP, 13480-290',
@@ -21,9 +23,9 @@ export const site = {
 
 export const nav = [
   { label: 'Home', href: '/' },
-  { label: 'Serviços', href: '/#servicos' },
+  { label: 'Serviços', href: '/servicos/' },
   { label: 'A Zava', href: '/#sobre' },
-  { label: 'Trabalhos', href: '/#cases' },
+  { label: 'Trabalhos', href: '/trabalhos/' },
   { label: 'Contato', href: '/contato/' },
 ];
 
