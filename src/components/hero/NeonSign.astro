@@ -160,8 +160,6 @@ const layer = (cls: string, extra = '') =>
     const boost = [0, 0, 0, 0]; // brilho extra perto do mouse
     const flick = [1, 1, 1, 1]; // multiplicador de oscilação
     let tx = 0, ty = 0, cx = 0, cy = 0;
-    // A sala do hero recebe o brilho, a cor e o ponto de fuga.
-    const room = sign.closest<HTMLElement>('[data-neon-host]');
 
     const set = () => {
       let power = 0;
@@ -171,7 +169,6 @@ const layer = (cls: string, extra = '') =>
         g.forEach((el) => el.style.setProperty('--b', b.toFixed(3)));
       });
       sign.style.setProperty('--power', power.toFixed(3));
-      room?.style.setProperty('--power', power.toFixed(3));
     };
 
     // Acende letra por letra, com aquela piscada de neon ligando.
@@ -198,7 +195,6 @@ const layer = (cls: string, extra = '') =>
       set();
       setTimeout(() => {
         sign.dataset.color = sign.dataset.color === 'purple' ? 'orange' : 'purple';
-        if (room) room.dataset.neonColor = sign.dataset.color;
         ignite(0);
         setTimeout(() => (busy = false), 1400);
       }, 220);
@@ -231,8 +227,6 @@ const layer = (cls: string, extra = '') =>
       cy += (ty - cy) * 0.06;
       sign.style.setProperty('--tilt-y', `${(cx * 14).toFixed(2)}deg`);
       sign.style.setProperty('--tilt-x', `${(-cy * 10).toFixed(2)}deg`);
-      room?.style.setProperty('--vx', `${(-cx * 2).toFixed(2)}%`);
-      room?.style.setProperty('--vy', `${(-cy * 1.5).toFixed(2)}%`);
       for (let i = 0; i < 4; i++) {
         flick[i] = Math.random() < 0.004 ? 0.35 : 0.96 + Math.random() * 0.04;
       }
