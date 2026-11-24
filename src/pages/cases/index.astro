@@ -87,7 +87,7 @@ const filtrosGaleria = [...cases.map((c) => ({ slug: c.slug, label: c.client }))
           pecas.map((p, i) => (
             <li class="filter-item mb-3 break-inside-avoid sm:mb-4" data-reveal="scale" style={`--reveal-delay:${(i % 4) * 80}ms`} data-tags={p.caseSlug ?? 'avulsos'}>
               <button type="button" class="group relative block w-full overflow-hidden rounded-2xl bg-mist" data-full={p.full} data-caption={p.case ? `${p.case} · ${p.alt}` : p.alt} aria-label={`Ampliar: ${p.alt}`}>
-                <Image src={p.src} alt={p.alt} widths={[320, 520]} sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw" class="w-full transition-transform duration-700 group-hover:scale-[1.04]" />
+                <Image src={p.src} alt={p.alt} widths={[400, 700, 1000]} sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw" class="w-full transition-transform duration-700 group-hover:scale-[1.04]" />
                 {p.case && <span class="absolute bottom-3 left-3 rounded-full bg-black/55 px-3 py-1 text-[0.7rem] text-white opacity-0 backdrop-blur transition-opacity group-hover:opacity-100">{p.case}</span>}
               </button>
             </li>
