@@ -1,8 +1,8 @@
 ---
 client: Audace Show
 highlight: +60 peças
-highlightLabel: criadas para um único dia
-summary: "Para o Audace Show 2026 – Edição O Repertório, a imersão de um dia do Audace Club para mulheres empresárias, a Zava criou o conceito, a campanha de lançamento, os impressos, os vídeos de telão e a cobertura do evento, tudo dentro de uma única ideia: cada participante é uma obra em construção."
+highlightLabel: para dois dias de evento
+summary: "Para o Audace Show 2026 – Edição O Repertório, a imersão de dois dias do Audace Club para mulheres empresárias, a Zava criou o conceito, a campanha de lançamento, os impressos, os vídeos de telão e a cobertura do evento, tudo dentro de uma única ideia: cada participante é uma obra em construção."
 order: 2
 cover: ../../assets/cases/audace-show/capa.jpg
 coverAlt: Plateia do Audace Show em Alphaville com a palestrante no corredor central e luzes no palco
@@ -12,8 +12,8 @@ results:
     label: peças entre digital, impressos e telão
   - value: "5"
     label: palestrantes com vídeo e arte próprios
-  - value: 9h
-    label: de imersão com experiência pensada do check-in ao encerramento
+  - value: 2 dias
+    label: de imersão, com a experiência pensada do check-in ao encerramento
 gallery:
   - image: ../../assets/cases/audace-show/plateia.jpg
     alt: Participantes comemorando na plateia do Audace Show
@@ -37,7 +37,7 @@ gallery:
 
 ## Sobre o Audace Show
 
-O **Audace Club** é a comunidade de mentoria para mulheres empresárias liderada por **Daniela Daroz**. Durante oito anos, o grande encontro do clube se chamou *Criando Águias* e marcou a trajetória de centenas de empresárias. Na nona edição, o evento ganhou nome, formato e ambição novos: nasceu o **Audace Show 2026 – Edição O Repertório**, um dia inteiro de imersão em Alphaville para expandir repertório, fortalecer negócios, desenvolver criatividade, impulsionar vendas e elevar posicionamento.
+O **Audace Club** é a comunidade de mentoria para mulheres empresárias liderada por **Daniela Daroz**. Durante oito anos, o grande encontro do clube se chamou *Criando Águias* e marcou a trajetória de centenas de empresárias. Na nona edição, o evento ganhou nome, formato e ambição novos: nasceu o **Audace Show 2026 – Edição O Repertório**, dois dias de imersão em Alphaville, em 1º e 2 de agosto para expandir repertório, fortalecer negócios, desenvolver criatividade, impulsionar vendas e elevar posicionamento.
 
 A **Agência Zava** cuidou de tudo o que a participante viu, ouviu e levou para casa: o conceito, a campanha de lançamento, os materiais impressos, os vídeos exibidos no telão e a cobertura do dia.
 
@@ -57,7 +57,7 @@ A virada de nome foi contada em três vídeos de antecipação, narrados pela Da
 
 ### Guia da participante
 
-Para quem comprou o ingresso, desenhamos um guia digital no mesmo universo de galeria, com local, palestrantes, sugestões de hotéis e restaurantes, dress code com paleta de cores e o cronograma completo do dia.
+Para quem comprou o ingresso, desenhamos um guia digital no mesmo universo de galeria, com local, palestrantes, sugestões de hotéis e restaurantes, dress code com paleta de cores e o cronograma do evento.
 
 ![Páginas do guia do evento: capa, boas-vindas com localização, dress code e cronograma](../../assets/cases/audace-show/guia.jpg)
 
@@ -71,7 +71,7 @@ Criamos as vinhetas de entrada de cada palestrante (Daniela Daroz, Bruno Avelar,
 
 ### Cobertura
 
-No dia, registramos palestras, plateia e bastidores. Esse material virou os reels pós-evento e uma série de depoimentos de participantes, que mantêm o Audace Show vivo nas redes até a próxima edição.
+Nos dois dias, registramos palestras, plateia e bastidores. Esse material virou os reels pós-evento e uma série de depoimentos de participantes, que mantêm o Audace Show vivo nas redes até a próxima edição.
 
 ![Daniela Daroz no palco do Audace Show, diante da moldura dourada](../../assets/cases/audace-show/palco.jpg)
 
