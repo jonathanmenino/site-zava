@@ -14,7 +14,6 @@ import {
   PMREMGenerator,
   Scene,
   SRGBColorSpace,
-  TextureLoader,
   Vector2,
   WebGLRenderer,
   BoxGeometry,
@@ -27,7 +26,11 @@ import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment
 
 // Medidas em centímetros, de uma lata alta de energético (6,6 cm de diâmetro, 16,8 cm de altura).
 const R = 3.3;
-const ROTULO_H = 12.9; // área impressa: a circunferência (20,7 cm) dividida pela proporção do rótulo (1600 × 990)
+// O rótulo cobre o corpo reto inteiro (14,4 cm). Na proporção original ele daria 12,9 cm de altura
+// (20,7 cm de volta ÷ 1600/990), então ele é ampliado 5% (cortando um pouco das laterais, sem texto)
+// e esticado 6,5% na vertical.
+const ROTULO_H = 14.4;
+const AMPLIA = 1.05;
 const BASE_Y = -ROTULO_H / 2;
 const TOPO_Y = ROTULO_H / 2;
 
@@ -77,47 +80,59 @@ export function montarLata(el: HTMLElement) {
   const aluminio = new MeshStandardMaterial({ color: 0xc4c1bd, metalness: 1, roughness: 0.3, side: DoubleSide });
 
   // Corpo com o rótulo (sem tampas: o ombro e o fundo fecham a lata).
-  const loader = new TextureLoader();
-  const tex = loader.load(img.currentSrc || img.src, () => {
-    el.classList.add('pronta');
-    desenhar();
-  });
-  tex.colorSpace = SRGBColorSpace;
-  tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
   const rotulo = new MeshPhysicalMaterial({
-    map: tex,
+    color: 0x2a0a12,
     metalness: 0.35,
     roughness: 0.32,
     clearcoat: 1,
     clearcoatRoughness: 0.12,
   });
+  const fonte = new Image();
+  fonte.crossOrigin = 'anonymous';
+  fonte.onload = () => {
+    const c = document.createElement('canvas');
+    const W = 2048;
+    c.width = W;
+    c.height = Math.round((W * ROTULO_H) / (2 * Math.PI * R));
+    // Amplia por igual (corta as pontas das laterais) e estica o resto na vertical.
+    const dw = W * AMPLIA;
+    c.getContext('2d')!.drawImage(fonte, (W - dw) / 2, 0, dw, c.height);
+    const tex = new CanvasTexture(c);
+    tex.colorSpace = SRGBColorSpace;
+    tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+    rotulo.map = tex;
+    rotulo.color.set(0xffffff);
+    rotulo.needsUpdate = true;
+    el.classList.add('pronta');
+    desenhar();
+  };
+  fonte.src = img.currentSrc || img.src;
   const corpo = new Mesh(new CylinderGeometry(R, R, ROTULO_H, 128, 1, true), rotulo);
   lata.add(corpo);
 
   // Ombro, pescoço e borda da tampa (perfil girado em volta do eixo).
   const ombro = [
     [R, TOPO_Y - 0.01],
-    [R, TOPO_Y + 0.35],
-    [R - 0.12, TOPO_Y + 0.9],
-    [R - 0.38, TOPO_Y + 1.55],
-    [R - 0.55, TOPO_Y + 1.95],
-    [R - 0.58, TOPO_Y + 2.15],
-    [R - 0.5, TOPO_Y + 2.32], // borda enrolada
-    [R - 0.6, TOPO_Y + 2.38],
-    [R - 0.7, TOPO_Y + 2.3],
-    [R - 0.72, TOPO_Y + 2.05], // parede interna até a tampa
+    [R - 0.12, TOPO_Y + 0.55],
+    [R - 0.38, TOPO_Y + 1.2],
+    [R - 0.55, TOPO_Y + 1.6],
+    [R - 0.58, TOPO_Y + 1.8],
+    [R - 0.5, TOPO_Y + 1.97], // borda enrolada
+    [R - 0.6, TOPO_Y + 2.03],
+    [R - 0.7, TOPO_Y + 1.95],
+    [R - 0.72, TOPO_Y + 1.7], // parede interna até a tampa
   ].map(([x, y]) => new Vector2(x, y));
   lata.add(new Mesh(new LatheGeometry(ombro, 128), aluminio));
 
   // Tampa rebaixada.
   const tampa = new Mesh(new CircleGeometry(R - 0.72, 96), new MeshStandardMaterial({ color: 0xcfccc8, metalness: 1, roughness: 0.38 }));
   tampa.rotation.x = -Math.PI / 2;
-  tampa.position.y = TOPO_Y + 2.05;
+  tampa.position.y = TOPO_Y + 1.7;
   lata.add(tampa);
 
   // Anel de abertura.
   const anel = new Mesh(new BoxGeometry(1.0, 0.06, 1.7), new MeshStandardMaterial({ color: 0xbdb8b2, metalness: 1, roughness: 0.25 }));
-  anel.position.set(0, TOPO_Y + 2.1, 0.55);
+  anel.position.set(0, TOPO_Y + 1.75, 0.55);
   lata.add(anel);
 
   // Fundo afunilado com o domo.
@@ -126,7 +141,6 @@ export function montarLata(el: HTMLElement) {
     [R - 0.55, BASE_Y - 1.6],
     [R - 0.25, BASE_Y - 1.3],
     [R - 0.04, BASE_Y - 0.55],
-    [R, BASE_Y - 0.1],
     [R, BASE_Y + 0.01],
   ].map(([x, y]) => new Vector2(x, y));
   lata.add(new Mesh(new LatheGeometry(fundo, 128), aluminio));
@@ -144,7 +158,7 @@ export function montarLata(el: HTMLElement) {
   sombra.position.y = BASE_Y - 1.62;
   scene.add(sombra);
 
-  lata.position.y = 0.6;
+  lata.position.y = 0.4;
   // Começa mostrando a frente (centro do rótulo, "AUDACE POWER").
   let rotY = Math.PI - 0.25;
   let rotX = 0.08;
