@@ -1,0 +1,228 @@
+---
+import { Image, getImage } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CasesShowcase from '../../components/sections/CasesShowcase.astro';
+import ClientLogos from '../../components/sections/ClientLogos.astro';
+import CtaBanner from '../../components/sections/CtaBanner.astro';
+import { cases, categorias, galeria } from '../../data/cases';
+
+const usadas = categorias.filter((cat) => cases.some((c) => c.categorias.includes(cat)));
+const pecas = await Promise.all(
+  galeria().map(async (p) => ({ ...p, full: (await getImage({ src: p.src, width: 1600, format: "webp", quality: 90 })).src })),
+);
+const filtrosGaleria = [...cases.map((c) => ({ slug: c.slug, label: c.client })), ...(pecas.some((p) => !p.caseSlug) ? [{ slug: 'avulsos', label: 'Avulsos' }] : [])];
+---
+
+<BaseLayout title="Cases" description="Cases e criativos da Agência Zava: campanhas, audiovisual, fotografia, design, social media e sites que geraram resultado.">
+  <CasesShowcase page />
+
+  <!-- Cases com filtro por categoria -->
+  <section id="lista" class="container-zava py-16 lg:py-24">
+    <div class="flex flex-col gap-6 border-b border-line/40 pb-8 lg:flex-row lg:items-end lg:justify-between">
+      <div>
+        <p class="font-display text-xs font-bold tracking-[0.2em] text-orange uppercase" data-reveal="fade">Projetos</p>
+        <h2 class="mt-3 text-4xl sm:text-5xl" data-split>Todos os cases</h2>
+      </div>
+      <div class="flex flex-wrap gap-2" role="group" aria-label="Filtrar cases por categoria" data-filter="cases" data-reveal style="--reveal-delay: 200ms">
+        <button type="button" class="chip" aria-pressed="true" data-value="*">Todos</button>
+        {usadas.map((cat) => <button type="button" class="chip" aria-pressed="false" data-value={cat}>{cat}</button>)}
+      </div>
+    </div>
+
+    <ul class="mt-10 grid gap-6 sm:grid-cols-2" data-stagger="120" data-target="cases">
+      {
+        cases.map((c) => {
+          const Tag = c.href ? 'a' : 'div';
+          return (
+            <li class="filter-item" data-reveal data-tags={c.categorias.join('|')}>
+              <Tag href={c.href} class="group block">
+                <div class="relative overflow-hidden rounded-[1.75rem] bg-mist">
+                  <Image src={c.cover} alt={c.coverAlt} widths={[480, 800, 1100]} quality={90} sizes="(min-width: 640px) 50vw, 100vw" class="aspect-[4/3] w-full object-cover transition-transform duration-[1.2s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06]" />
+                  <div class="absolute inset-x-0 bottom-0 flex flex-wrap gap-2 bg-gradient-to-t from-black/60 to-transparent p-5 pt-16">
+                    {c.categorias.slice(0, 4).map((t) => <span class="rounded-full bg-white/15 px-3 py-1 text-xs text-white backdrop-blur">{t}</span>)}
+                  </div>
+                  {c.href && (
+                    <span class="absolute top-5 right-5 inline-flex size-12 items-center justify-center rounded-full bg-orange text-coal opacity-0 transition-[opacity,transform] duration-500 group-hover:rotate-45 group-hover:opacity-100" aria-hidden="true">
+                      <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9" /></svg>
+                    </span>
+                  )}
+                </div>
+                <div class="mt-5 flex items-start justify-between gap-4">
+                  <div>
+                    <h3 class="text-2xl transition-colors group-hover:text-orange">{c.client} · {c.title}</h3>
+                    <p class="mt-2 max-w-lg text-sm">{c.summary}</p>
+                  </div>
+                  <p class="shrink-0 pt-1 text-right text-xs tracking-wider uppercase">
+                    {c.segment}{c.year && <><br />{c.year}</>}
+                    {!c.href && <><br /><span class="text-orange">Case em breve</span></>}
+                  </p>
+                </div>
+              </Tag>
+            </li>
+          );
+        })
+      }
+    </ul>
+    <p class="mt-10 hidden text-center" data-empty="cases">Nenhum case nessa categoria ainda.</p>
+  </section>
+
+  <ClientLogos />
+
+  <!-- Galeria de criativos -->
+  <section id="galeria" class="py-16 lg:py-24">
+    <div class="container-zava">
+      <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+        <div>
+          <p class="font-display text-xs font-bold tracking-[0.2em] text-orange uppercase" data-reveal="fade">Galeria</p>
+          <h2 class="mt-3 max-w-2xl text-4xl sm:text-5xl" data-split>Criativos que saíram do nosso estúdio</h2>
+        </div>
+        <div class="flex flex-wrap gap-2" role="group" aria-label="Filtrar galeria por cliente" data-filter="galeria" data-reveal style="--reveal-delay: 200ms">
+          <button type="button" class="chip" aria-pressed="true" data-value="*">Tudo</button>
+          {filtrosGaleria.map((f) => <button type="button" class="chip" aria-pressed="false" data-value={f.slug}>{f.label}</button>)}
+        </div>
+      </div>
+
+      <ul class="mt-10 columns-2 gap-3 sm:columns-3 sm:gap-4 lg:columns-4" data-target="galeria">
+        {
+          pecas.map((p, i) => (
+            <li class="filter-item mb-3 break-inside-avoid sm:mb-4" data-reveal="scale" style={`--reveal-delay:${(i % 4) * 80}ms`} data-tags={p.caseSlug ?? 'avulsos'}>
+              <button type="button" class="group relative block w-full overflow-hidden rounded-2xl bg-mist" data-full={p.full} data-caption={p.case ? `${p.case} · ${p.alt}` : p.alt} aria-label={`Ampliar: ${p.alt}`}>
+                <Image src={p.src} alt={p.alt} widths={[400, 700, 1000]} quality={90} sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw" class="w-full transition-transform duration-700 group-hover:scale-[1.04]" />
+                {p.case && <span class="absolute bottom-3 left-3 rounded-full bg-black/55 px-3 py-1 text-[0.7rem] text-white opacity-0 backdrop-blur transition-opacity group-hover:opacity-100">{p.case}</span>}
+              </button>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <dialog id="lightbox" class="lightbox" aria-label="Criativo ampliado">
+    <figure class="flex h-full flex-col items-center justify-center gap-4 p-4 sm:p-10">
+      <img alt="" class="max-h-[80vh] max-w-full rounded-xl object-contain shadow-2xl" />
+      <figcaption class="text-center text-sm text-white/80"></figcaption>
+    </figure>
+    <button type="button" class="lb-btn top-4 right-4" data-lb="close" aria-label="Fechar">✕</button>
+    <button type="button" class="lb-btn top-1/2 left-3 -translate-y-1/2" data-lb="prev" aria-label="Anterior">←</button>
+    <button type="button" class="lb-btn top-1/2 right-3 -translate-y-1/2" data-lb="next" aria-label="Próximo">→</button>
+  </dialog>
+
+  <CtaBanner title="Quer um case desses para a sua marca?" />
+</BaseLayout>
+
+<style>
+  .chip {
+    display: inline-flex;
+    min-height: 2.5rem;
+    align-items: center;
+    border-radius: 9999px;
+    border: 1px solid color-mix(in oklab, var(--color-line) 60%, transparent);
+    padding: 0 1rem;
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-ink);
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  }
+  .chip:hover { border-color: var(--color-orange); color: var(--color-orange); }
+  .chip[aria-pressed='true'] { background: var(--color-ink); border-color: var(--color-ink); color: var(--color-page); }
+  .filter-item {
+    transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .filter-item.is-out { opacity: 0 !important; transform: scale(0.96) !important; }
+  .filter-item.is-gone { display: none; }
+  .lightbox {
+    width: 100vw;
+    height: 100dvh;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    background: rgb(8 7 10 / 0.92);
+    backdrop-filter: blur(10px);
+    border: 0;
+  }
+  .lightbox[open] { animation: lb-in 0.35s ease both; }
+  .lightbox::backdrop { background: transparent; }
+  .lb-btn {
+    position: absolute;
+    display: inline-flex;
+    width: 3rem;
+    height: 3rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    background: rgb(255 255 255 / 0.12);
+    color: #fff;
+    font-size: 1.1rem;
+  }
+  .lb-btn:hover { background: var(--color-orange); color: #161616; }
+  @keyframes lb-in { from { opacity: 0; } to { opacity: 1; } }
+</style>
+
+<script>
+  // Filtros (cases por categoria, galeria por cliente).
+  document.querySelectorAll<HTMLElement>('[data-filter]').forEach((group) => {
+    const name = group.dataset.filter!;
+    const items = [...document.querySelectorAll<HTMLElement>(`[data-target="${name}"] .filter-item`)];
+    const empty = document.querySelector<HTMLElement>(`[data-empty="${name}"]`);
+    group.addEventListener('click', (e) => {
+      const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('button[data-value]');
+      if (!btn) return;
+      group.querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+      const v = btn.dataset.value!;
+      let shown = 0;
+      items.forEach((el) => {
+        const match = v === '*' || el.dataset.tags!.split('|').includes(v);
+        if (match) shown++;
+        if (match) {
+          el.classList.remove('is-gone');
+          el.classList.add('is-in');
+          requestAnimationFrame(() => requestAnimationFrame(() => el.classList.remove('is-out')));
+        } else {
+          el.classList.add('is-out');
+          setTimeout(() => el.classList.contains('is-out') && el.classList.add('is-gone'), 380);
+        }
+      });
+      empty?.classList.toggle('hidden', shown > 0);
+      (window as any).__lenis?.resize?.();
+    });
+  });
+
+  // Lightbox da galeria.
+  const dlg = document.getElementById('lightbox') as HTMLDialogElement | null;
+  if (dlg) {
+    const img = dlg.querySelector('img')!;
+    const cap = dlg.querySelector('figcaption')!;
+    let list: HTMLButtonElement[] = [];
+    let idx = 0;
+    const show = (i: number) => {
+      idx = (i + list.length) % list.length;
+      img.src = list[idx].dataset.full!;
+      img.alt = list[idx].querySelector('img')?.alt ?? '';
+      cap.textContent = list[idx].dataset.caption ?? '';
+    };
+    document.querySelectorAll<HTMLButtonElement>('[data-target="galeria"] button[data-full]').forEach((b) => {
+      b.addEventListener('click', () => {
+        list = [...document.querySelectorAll<HTMLButtonElement>('[data-target="galeria"] .filter-item:not(.is-gone) button[data-full]')];
+        show(list.indexOf(b));
+        dlg.showModal();
+        (window as any).__lenis?.stop?.();
+      });
+    });
+    dlg.addEventListener('close', () => (window as any).__lenis?.start?.());
+    dlg.addEventListener('click', (e) => {
+      const t = e.target as HTMLElement;
+      const a = t.closest<HTMLElement>('[data-lb]')?.dataset.lb;
+      if (a === 'close' || t === dlg || t.tagName === 'FIGURE') dlg.close();
+      if (a === 'prev') show(idx - 1);
+      if (a === 'next') show(idx + 1);
+    });
+    dlg.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') show(idx - 1);
+      if (e.key === 'ArrowRight') show(idx + 1);
+    });
+  }
+</script>

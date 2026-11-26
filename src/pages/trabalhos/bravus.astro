@@ -1,0 +1,22 @@
+---
+import CanvasCase from '../../components/case/CanvasCase.astro';
+---
+
+<CanvasCase slug="bravus" title="Case Bravus · Uma Missão de Amor" description="A Bravus Hamburgueria virou um filme de ação: os donos viraram agentes secretos para salvar o Dia dos Namorados. Conceito, identidade, vídeos e peças pela Zava." />
+
+<script>
+  // A caixa 3D (three.js) só é baixada quando a seção chega perto da tela.
+  const el = document.querySelector<HTMLElement>('[data-caixa3d]');
+  if (el) {
+    const io = new IntersectionObserver(
+      async ([en]) => {
+        if (!en.isIntersecting) return;
+        io.disconnect();
+        const { montarCaixa } = await import('../../scripts/caixa3d');
+        montarCaixa(el);
+      },
+      { rootMargin: '600px 0px' },
+    );
+    io.observe(el);
+  }
+</script>

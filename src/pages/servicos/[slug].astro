@@ -9,6 +9,7 @@ import CurveDivider from '../../components/ui/CurveDivider.astro';
 import Testimonials from '../../components/sections/Testimonials.astro';
 import Faq from '../../components/sections/Faq.astro';
 import CtaBanner from '../../components/sections/CtaBanner.astro';
+import TrafficResults from '../../components/sections/TrafficResults.astro';
 import { inlineMd } from '../../lib/inline-md';
 import foguete from '../../assets/brand/foguete.png';
 
@@ -23,14 +24,14 @@ const d = entry.data;
 ---
 
 <BaseLayout title={d.title} description={d.seoDescription} image={d.hero.image}>
-  <section class="bg-gradient-to-b from-peach to-white pt-32 pb-16 lg:pt-40">
+  <section class="bg-gradient-to-b from-peach to-transparent pt-32 pb-16 lg:pt-40">
     <div class="container-zava grid items-center gap-12 lg:grid-cols-2">
       <div>
-        <h1 class="text-4xl leading-tight sm:text-6xl">{d.title}</h1>
-        <p class="mt-6 text-ink">{d.hero.intro}</p>
-        <Button href="/contato/" class="mt-8">Pedir uma proposta</Button>
+        <h1 class="text-4xl leading-tight sm:text-6xl" data-split>{d.title}</h1>
+        <p class="mt-6 text-ink" data-reveal style="--reveal-delay: 300ms">{d.hero.intro}</p>
+        <Button href="/contato/" class="mt-8" data-reveal style="--reveal-delay: 450ms">Pedir uma proposta</Button>
       </div>
-      <Image src={d.hero.image} alt={d.hero.imageAlt} width={720} class="aspect-[1.1] w-full rounded-[2rem] object-cover" loading="eager" />
+      <Image src={d.hero.image} alt={d.hero.imageAlt} width={720} class="aspect-[1.1] w-full rounded-[2rem] object-cover" loading="eager" data-reveal="scale" />
     </div>
   </section>
 
@@ -69,6 +70,8 @@ const d = entry.data;
       </li>
     </ol>
   </section>
+
+  {entry.id === 'gestao-de-trafego-pago' && <TrafficResults />}
 
   <CurveDivider class="mt-12" />
 

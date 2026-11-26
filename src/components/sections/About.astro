@@ -1,20 +1,75 @@
 ---
-import Eyebrow from '../ui/Eyebrow.astro';
+import { Image } from 'astro:assets';
+import foto from '../../assets/stock/reuniao-consultoria.webp';
+import foto2 from '../../assets/stock/videomaker-gravando.webp';
+
+// Como a Zava trabalha, em três passos.
+const passos = [
+  { nome: 'Planejamos', icone: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/>' },
+  { nome: 'Executamos', icone: '<path d="M5 15c-1.5 1.2-2 4-2 6 2 0 4.8-.5 6-2"/><path d="M9.5 14.5 7 12c1-4 4.5-8.5 13-9-.5 8.5-5 12-9 13l-1.5-1.5Z"/><circle cx="15" cy="9" r="1.6"/>' },
+  { nome: 'Otimizamos', icone: '<path d="M3 20h18"/><path d="m4 15 5-5 4 4 7-7"/><path d="M15 7h5v5"/>' },
+];
+
+// Números da agência (passados pelo dono em 2026-11-26). O tamanho da equipe não deve ser divulgado.
+const numeros = [
+  { antes: '', valor: 2016, conta: false, depois: '', label: 'No mercado desde' },
+  { antes: '+', valor: 250, conta: true, depois: '', label: 'Clientes atendidos' },
+  { antes: '+', valor: 25, conta: true, depois: ' mil', label: 'Projetos produzidos' },
+  { antes: '', valor: 'Brasil', conta: false, depois: '', label: 'e exterior: clientes também nos EUA e na Rússia' },
+];
 ---
 
-<section id="sobre" class="py-20 lg:py-28">
-  <div class="container-zava grid gap-10 lg:grid-cols-2 lg:gap-20">
-    <div>
-      <Eyebrow>Quem somos</Eyebrow>
-      <h2 class="mt-3 text-4xl leading-tight text-orange sm:text-5xl">Somos sua agência de Marketing 360°</h2>
-    </div>
-    <div class="space-y-5 lg:pt-8">
-      <p>Mais do que uma agência de social media, somos <strong>parceiros estratégicos do seu crescimento</strong>.</p>
-      <p>
-        Planejamos, criamos e executamos ações de marketing completas, unindo criatividade, tecnologia e análise de dados para gerar
-        <strong>resultados reais e mensuráveis.</strong>
-      </p>
-      <p class="font-display text-sm font-bold uppercase text-purple">Aqui, cada ação tem um objetivo: fazer o seu negócio vender mais.</p>
+<section id="sobre" class="relative overflow-hidden py-24 lg:py-36">
+  <!-- Camadas em velocidades diferentes: textura, fotos e texto. -->
+  <div class="pointer-events-none absolute top-10 -left-24 hidden w-52 lg:block xl:-left-10 xl:w-64" aria-hidden="true">
+    <div data-parallax="0.35">
+      <Image src={foto} alt="" width={420} class="aspect-[3/4] w-full rounded-[1.75rem] object-cover opacity-90 shadow-2xl" data-reveal="left" />
     </div>
   </div>
+  <div class="pointer-events-none absolute -right-20 bottom-0 hidden w-56 lg:block xl:-right-6 xl:w-72" aria-hidden="true">
+    <div data-parallax="-0.25">
+      <Image src={foto2} alt="" width={460} class="aspect-[4/5] w-full rounded-[1.75rem] object-cover opacity-90 shadow-2xl" data-reveal="right" />
+    </div>
+  </div>
+
+  <div class="container-zava relative max-w-4xl text-center">
+    <p class="font-display text-xs font-bold tracking-[0.2em] text-orange uppercase" data-reveal="fade">Quem somos</p>
+    <h2 class="mx-auto mt-6 max-w-3xl text-[1.9rem] leading-[1.2] font-bold sm:text-[2.6rem] sm:leading-[1.15] lg:max-w-2xl lg:text-[2.5rem] xl:max-w-3xl xl:text-5xl" data-scrub-words>
+      Mais do que uma agência de social media, somos parceiros estratégicos do seu crescimento.
+    </h2>
+
+    <ul class="mx-auto mt-12 grid max-w-md grid-cols-3 gap-2 sm:flex sm:max-w-none sm:flex-wrap sm:justify-center sm:gap-4">
+      {
+        passos.map((p, i) => (
+          <li class="flex flex-col items-center gap-2 rounded-3xl border border-line/60 bg-surface/70 px-2 py-4 backdrop-blur sm:flex-row sm:gap-3 sm:rounded-full sm:py-2 sm:pr-6 sm:pl-2" data-reveal style={`--reveal-delay: ${i * 120}ms`}>
+            <span class="inline-flex size-11 items-center justify-center rounded-full bg-orange text-coal">
+              <svg class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={p.icone} />
+            </span>
+            <span class="font-display text-[0.8rem] font-bold text-ink min-[400px]:text-sm sm:text-lg">{p.nome}</span>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="mt-10 font-display text-sm font-bold tracking-wide text-purple uppercase dark:text-purple-light" data-reveal>
+      Aqui, cada ação tem um objetivo: fazer o seu negócio vender mais.
+    </p>
+
+    <ul class="mx-auto mt-14 grid max-w-4xl grid-cols-2 gap-x-4 gap-y-10 border-t border-line/60 pt-10 lg:grid-cols-4 lg:gap-x-6">
+      {
+        numeros.map((n, i) => (
+          <li data-reveal style={`--reveal-delay: ${i * 100}ms`}>
+            <p class="font-display text-[1.75rem] leading-none font-extrabold whitespace-nowrap text-ink sm:text-[2.4rem] lg:text-[2.2rem]">
+              <span class="text-orange">{n.antes}</span>{n.conta ? <span data-count={n.valor}>{n.valor}</span> : n.valor}{n.depois && <span class="text-[0.6em]">{n.depois}</span>}
+            </p>
+            <p class="mx-auto mt-3 max-w-[12rem] text-sm leading-snug">{n.label}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
 </section>
+
+<script>
+  import { contarNumeros } from '../../scripts/contador';
+  contarNumeros();
+</script>

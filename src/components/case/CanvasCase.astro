@@ -1,0 +1,102 @@
+---
+// Página de case com a identidade visual do próprio cliente, vinda do canvas de design.
+// O HTML e o CSS ficam em src/cases-raw/<slug>/ (head.html: fontes e estilos; body.html: conteúdo)
+// e as imagens, vídeos e fontes em public/cases/<slug>/.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+interface Props { slug: string; title: string; description: string }
+const { slug, title, description } = Astro.props;
+
+const heads = import.meta.glob<string>('../../cases-raw/*/head.html', { query: '?raw', import: 'default', eager: true });
+const bodies = import.meta.glob<string>('../../cases-raw/*/body.html', { query: '?raw', import: 'default', eager: true });
+const head = heads[`../../cases-raw/${slug}/head.html`];
+const body = bodies[`../../cases-raw/${slug}/body.html`];
+if (!head || !body) throw new Error(`Case sem arquivos em src/cases-raw/${slug}/`);
+---
+
+<BaseLayout title={title} description={description} variant="case">
+  <Fragment slot="head" set:html={head} />
+  <div class="pt-20">
+    <Fragment set:html={body} />
+  </div>
+</BaseLayout>
+
+<style is:global>
+  /* Rolagens laterais dos cases (.trilho): setas, degradê na borda e barra de progresso
+     para mostrar que tem mais conteúdo para o lado. Montado pelo script abaixo. */
+  .trilho-box { position: relative; }
+  .trilho-box > .trilho { scrollbar-width: none; }
+  .trilho-box > .trilho::-webkit-scrollbar { display: none; }
+  .trilho-box.mais-dir > .trilho { mask-image: linear-gradient(90deg, #000 calc(100% - 90px), transparent); }
+  .trilho-box.mais-esq > .trilho { mask-image: linear-gradient(90deg, transparent, #000 90px); }
+  .trilho-box.mais-esq.mais-dir > .trilho { mask-image: linear-gradient(90deg, transparent, #000 90px, #000 calc(100% - 90px), transparent); }
+  .tr-btn {
+    position: absolute; top: calc(50% - 30px); z-index: 3; width: 52px; height: 52px; border: 0; border-radius: 999px;
+    display: grid; place-items: center; cursor: pointer; color: #fff; background: rgb(15 15 15 / 0.72);
+    box-shadow: 0 10px 30px -10px rgb(0 0 0 / 0.6); backdrop-filter: blur(6px);
+    transition: opacity 0.3s, transform 0.3s;
+  }
+  .tr-btn:hover { transform: scale(1.08); }
+  .tr-btn svg { width: 22px; height: 22px; }
+  .tr-btn.ant { left: 8px; }
+  .tr-btn.prox { right: 8px; }
+  .trilho-box:not(.mais-esq) .tr-btn.ant, .trilho-box:not(.mais-dir) .tr-btn.prox { opacity: 0; pointer-events: none; }
+  .tr-rodape { display: flex; align-items: center; gap: 16px; margin-top: 6px; }
+  .tr-barra { position: relative; flex: 1; height: 4px; border-radius: 99px; background: currentColor; opacity: 0.18; overflow: hidden; }
+  .tr-barra-wrap { position: relative; flex: 1; height: 4px; }
+  .tr-barra-wrap > .tr-fill { position: absolute; top: 0; left: 0; height: 4px; border-radius: 99px; background: currentColor; opacity: 0.85; transition: transform 0.15s linear; }
+  .tr-dica { margin: 0; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; white-space: nowrap; opacity: 0.8; }
+  @media (hover: hover) and (pointer: fine) { .tr-dica { display: none; } }
+  @media (hover: none), (pointer: coarse) { .tr-btn { display: none; } }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.trilho').forEach((ul) => {
+    const box = document.createElement('div');
+    box.className = 'trilho-box';
+    ul.before(box);
+    box.append(ul);
+    const seta = (d: string) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="${d}"/></svg>`;
+    const ant = document.createElement('button');
+    ant.className = 'tr-btn ant';
+    ant.setAttribute('aria-label', 'Ver anteriores');
+    ant.innerHTML = seta('M15 5l-7 7 7 7');
+    const prox = document.createElement('button');
+    prox.className = 'tr-btn prox';
+    prox.setAttribute('aria-label', 'Ver próximos');
+    prox.innerHTML = seta('M9 5l7 7-7 7');
+    box.append(ant, prox);
+    const rodape = document.createElement('div');
+    rodape.className = 'tr-rodape';
+    rodape.innerHTML = '<div class="tr-barra-wrap"><div class="tr-barra" style="position:absolute;inset:0"></div><div class="tr-fill"></div></div><p class="tr-dica">Arraste para o lado →</p>';
+    box.after(rodape);
+    const fill = rodape.querySelector<HTMLElement>('.tr-fill')!;
+    const passo = () => Math.max(200, ul.clientWidth * 0.8);
+    ant.addEventListener('click', () => ul.scrollBy({ left: -passo(), behavior: 'smooth' }));
+    prox.addEventListener('click', () => ul.scrollBy({ left: passo(), behavior: 'smooth' }));
+    const atualizar = () => {
+      const max = ul.scrollWidth - ul.clientWidth;
+      box.classList.toggle('mais-esq', ul.scrollLeft > 4);
+      box.classList.toggle('mais-dir', ul.scrollLeft < max - 4);
+      rodape.style.display = max > 4 ? '' : 'none';
+      const parte = ul.clientWidth / ul.scrollWidth;
+      fill.style.width = `${parte * 100}%`;
+      fill.style.transform = `translateX(${max > 0 ? (ul.scrollLeft / max) * ((1 - parte) / parte) * 100 : 0}%)`;
+    };
+    ul.addEventListener('scroll', atualizar, { passive: true });
+    new ResizeObserver(atualizar).observe(ul);
+    ul.querySelectorAll('img').forEach((i) => i.addEventListener('load', atualizar, { once: true }));
+    atualizar();
+    // No celular, a primeira vez que a rolagem aparece ela dá uma "espiadinha" para o lado.
+    if (matchMedia('(hover: none)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const io = new IntersectionObserver(([e]) => {
+        if (!e.isIntersecting || ul.scrollLeft > 0) return;
+        io.disconnect();
+        ul.style.scrollSnapType = 'none';
+        ul.scrollBy({ left: 70, behavior: 'smooth' });
+        setTimeout(() => { ul.scrollTo({ left: 0, behavior: 'smooth' }); setTimeout(() => (ul.style.scrollSnapType = ''), 600); }, 650);
+      }, { threshold: 0.6 });
+      io.observe(ul);
+    }
+  });
+</script>

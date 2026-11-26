@@ -1,6 +1,6 @@
 ---
-interface Props { class?: string }
-const { class: className } = Astro.props;
+interface Props { class?: string; [key: string]: any }
+const { class: className, ...rest } = Astro.props;
 ---
 
-<p class:list={['font-display text-xs font-bold uppercase tracking-wider text-ink', className]}><slot /></p>
+<p class:list={['font-display text-xs font-bold uppercase tracking-wider text-ink', className]} {...rest}><slot /></p>

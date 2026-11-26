@@ -1,0 +1,63 @@
+---
+import Eyebrow from '../ui/Eyebrow.astro';
+
+// Números somados das campanhas de tráfego pago gerenciadas pela Zava (painel de anúncios).
+// Para atualizar, troque os valores abaixo. "decimals" é o número de casas depois da vírgula.
+// Números arredondados passados pelo dono em 2026-11-26.
+const destaque = [
+  { label: 'Em vendas geradas pelos anúncios', prefix: 'R$ ', value: 30, decimals: 0, suffix: ' milhões' },
+  { label: 'Investidos em anúncios', prefix: 'R$ ', value: 6, decimals: 0, suffix: ' milhões' },
+];
+const numeros = [
+  { label: 'Impressões', value: 1, decimals: 0, suffix: ' bilhão', conta: false },
+  { label: 'Cliques', value: 9.5, decimals: 1, suffix: ' milhões' },
+  { label: 'Seguidores conquistados', value: 500, decimals: 0, suffix: ' mil' },
+];
+const fmt = (v: number, d: number) => v.toLocaleString('pt-BR', { minimumFractionDigits: d, maximumFractionDigits: d });
+---
+
+<section class="py-24 sm:py-32" aria-labelledby="trafego-titulo">
+  <div class="container-zava">
+    <div class="grid min-w-0 gap-10">
+      <div>
+        <Eyebrow data-reveal="fade">Tráfego pago</Eyebrow>
+        <h2 id="trafego-titulo" class="mt-4 text-4xl leading-[1.05] sm:text-5xl" data-split>
+          Anúncio bom é anúncio que <span class="text-orange">vende</span>
+        </h2>
+        <p class="mt-5 max-w-md" data-reveal style="--reveal-delay: 200ms">
+          Resultados somados das campanhas de tráfego pago que a Zava gerencia, direto do painel de anúncios.
+        </p>
+      </div>
+      <ul class="grid min-w-0 gap-4 md:grid-cols-2">
+        {
+          destaque.map((n, i) => (
+            <li class="rounded-[2rem] bg-coal p-7 text-snow ring-white/10 sm:p-8 xl:p-10 dark:ring-1" data-reveal style={`--reveal-delay: ${i * 120}ms`}>
+              <p class="font-display text-[2.1rem] leading-none font-extrabold whitespace-nowrap text-orange min-[360px]:text-[2.5rem] min-[400px]:text-[2.9rem] sm:text-6xl md:text-[2.9rem] lg:text-6xl xl:text-7xl">
+                <span class="text-[0.5em]">{n.prefix}</span><span data-count={n.value} data-decimals={n.decimals}>{fmt(n.value, n.decimals)}</span><span class="text-[0.5em]">{n.suffix}</span>
+              </p>
+              <p class="mt-4 text-snow/75">{n.label}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <ul class="mt-4 grid gap-3 md:grid-cols-3 md:gap-4">
+      {
+        numeros.map((n, i) => (
+          <li class="flex items-baseline justify-between gap-4 rounded-[1.5rem] border border-line/50 bg-surface px-6 py-5 md:block md:p-7" data-reveal style={`--reveal-delay: ${200 + i * 100}ms`}>
+            <p class="font-display text-[1.6rem] font-extrabold whitespace-nowrap text-ink min-[360px]:text-3xl lg:text-4xl xl:text-5xl">
+              {n.conta === false ? fmt(n.value, n.decimals) : <span data-count={n.value} data-decimals={n.decimals}>{fmt(n.value, n.decimals)}</span>}<span class="text-[0.55em]">{n.suffix}</span>
+            </p>
+            <p class="text-sm md:mt-2">{n.label}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<script>
+  import { contarNumeros } from '../../scripts/contador';
+  contarNumeros();
+</script>

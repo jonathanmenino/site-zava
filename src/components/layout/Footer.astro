@@ -16,23 +16,31 @@ const year = new Date().getFullYear();
         <Logo id="logo-footer" class="h-6 w-auto" />
         <p class="mt-4 font-display text-3xl leading-tight font-bold sm:text-4xl">Marketing 360°, resultados</p>
       </div>
-      <div class="grid gap-8 rounded-3xl bg-white p-8 text-ink sm:grid-cols-2 sm:p-10">
+      <div class="grid gap-8 rounded-3xl bg-surface p-8 text-ink sm:grid-cols-2 sm:p-10">
         <div class="text-center sm:text-left">
           <p>Pronto para transformar o marketing da sua empresa?</p>
           <a href={`mailto:${site.email}`} class="mt-4 block hover:text-orange">{site.email}</a>
           <a href={site.whatsapp} target="_blank" rel="noopener" class="block font-display text-2xl font-bold hover:text-orange">{site.phone}</a>
           <Button href="/contato/" class="mt-6">Pedir uma proposta</Button>
         </div>
-        <address class="self-end text-center not-italic sm:text-left">
-          <a href={site.address.maps} target="_blank" rel="noopener" class="hover:text-orange">
-            {site.address.line1}<br />{site.address.line2}
-          </a>
-        </address>
+        <div class="flex flex-col gap-4">
+          <iframe
+            src={site.address.embed}
+            title="Mapa: Agência Zava em Limeira – SP"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            class="h-40 w-full rounded-2xl border-0 sm:h-full sm:min-h-40"></iframe>
+          <address class="text-center text-sm not-italic sm:text-left">
+            <a href={site.address.maps} target="_blank" rel="noopener" class="hover:text-orange">
+              {site.address.line1}<br />{site.address.line2}
+            </a>
+          </address>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="-mt-10 rounded-t-[2.5rem] bg-ink pt-12 pb-24 text-white/90 sm:pb-12">
+  <div class="-mt-10 rounded-t-[2.5rem] bg-coal pt-12 pb-24 text-white/90 sm:pb-12">
     <div class="container-zava">
       <p class="font-display text-xs font-bold tracking-wider text-white uppercase">Links rápidos</p>
       <ul class="mt-4 grid gap-x-10 gap-y-3 sm:grid-cols-2 lg:grid-cols-4">

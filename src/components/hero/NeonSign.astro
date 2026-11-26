@@ -1,0 +1,238 @@
+---
+// Letreiro de neon 3D com o "zava" do logo oficial (os 4 últimos traços de agenciazava.svg).
+// Camadas: placa de acrílico, sombra, tubo apagado e luz. Reage ao mouse (inclina e acende a letra mais
+// próxima) e ao clique (pisca e troca a cor entre laranja e roxo).
+import raw from '../../assets/brand/agenciazava.svg?raw';
+
+const all = [...raw.matchAll(/<path class="st0" d="([^"]+)"/g)].map((m) => m[1]);
+// Ordem visual: z, a, v, a.
+const letters = [all[0], all[3], all[1], all[2]];
+const viewBox = '800 -25 1118 326';
+
+const layer = (cls: string, extra = '') =>
+  `<svg viewBox="${viewBox}" class="${cls}" aria-hidden="true" ${extra}>${letters
+    .map((d, i) => `<g data-l="${i}"><path d="${d}"/></g>`)
+    .join('')}</svg>`;
+---
+
+<div class="neon" data-neon role="img" aria-label="Letreiro de neon da Zava" data-cursor="hover">
+  <div class="neon-rig">
+    <div class="neon-shadow" set:html={layer('neon-svg')} />
+    <div class="neon-plate" set:html={layer('neon-svg')} />
+    <div class="neon-screws" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+    <div class="neon-tube" set:html={layer('neon-svg')} />
+    <div class="neon-glow" set:html={layer('neon-svg')} />
+    <div class="neon-core" set:html={layer('neon-svg')} />
+  </div>
+  <div class="neon-floor" aria-hidden="true"></div>
+</div>
+
+<style is:global>
+  .neon {
+    --neon: #ff7a1a;
+    --neon-hot: #ffd2a8;
+    --neon-deep: rgb(255 104 0 / 0.55);
+    --tilt-x: 0deg;
+    --tilt-y: 0deg;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1118 / 326;
+    perspective: 1400px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .neon[data-color='purple'] {
+    --neon: #b253ff;
+    --neon-hot: #ecd4ff;
+    --neon-deep: rgb(140 40 255 / 0.6);
+  }
+  .neon-rig {
+    position: absolute;
+    inset: 0;
+    transform-style: preserve-3d;
+    transform: rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+    will-change: transform;
+  }
+  .neon-rig > div {
+    position: absolute;
+    inset: 0;
+  }
+  .neon-svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  .neon-svg path {
+    fill: none;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+  }
+
+  /* Placa de acrílico recortada em volta das letras, alguns centímetros atrás dos tubos. */
+  .neon-plate {
+    transform: translateZ(-26px);
+  }
+  .neon-plate path {
+    fill: rgb(255 255 255 / 0.035);
+    stroke: rgb(255 255 255 / 0.10);
+    stroke-width: 58;
+  }
+  .neon-plate .neon-svg {
+    filter: drop-shadow(0 0 1px rgb(255 255 255 / 0.25));
+  }
+  .neon-shadow {
+    transform: translateZ(-60px) translate(1.5%, 5%);
+    filter: blur(14px);
+    opacity: 0.9;
+  }
+  .neon-shadow path {
+    fill: rgb(0 0 0 / 0.5);
+    stroke: rgb(0 0 0 / 0.5);
+    stroke-width: 58;
+  }
+  .neon-screws i {
+    position: absolute;
+    width: 0.7%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #eee, #777 60%, #333);
+    transform: translateZ(-20px);
+    opacity: 0.7;
+  }
+  .neon-screws i:nth-child(1) { left: 3%; top: 12%; }
+  .neon-screws i:nth-child(2) { right: 2%; top: 12%; }
+  .neon-screws i:nth-child(3) { left: 3%; bottom: 8%; }
+  .neon-screws i:nth-child(4) { right: 2%; bottom: 8%; }
+
+  /* Tubo de vidro (aparece mesmo apagado). */
+  .neon-tube path {
+    stroke: rgb(255 255 255 / 0.18);
+    stroke-width: 10;
+  }
+
+  /* Luz: halo largo + núcleo quente. --b (0 a 1) é o brilho de cada letra. */
+  .neon-glow g,
+  .neon-core g {
+    --b: 0;
+    opacity: var(--b);
+    transition: opacity 0.12s linear;
+  }
+  .neon-glow path {
+    stroke: var(--neon);
+    stroke-width: 10;
+  }
+  .neon-glow .neon-svg {
+    filter: drop-shadow(0 0 6px var(--neon)) drop-shadow(0 0 18px var(--neon)) drop-shadow(0 0 42px var(--neon-deep));
+  }
+  .neon-core path {
+    stroke: var(--neon-hot);
+    stroke-width: 3.6;
+  }
+  .neon-glow,
+  .neon-core { transform: translateZ(2px); }
+
+  /* Reflexo da luz no "chão" logo abaixo. */
+  .neon-floor {
+    position: absolute;
+    left: 10%;
+    right: 10%;
+    bottom: -38%;
+    height: 40%;
+    background: radial-gradient(50% 50% at 50% 0%, var(--neon-deep), transparent 70%);
+    filter: blur(30px);
+    opacity: calc(var(--power, 0) * 0.55);
+    transition: opacity 0.2s linear;
+    pointer-events: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .neon-rig { transform: none; }
+  }
+</style>
+
+<script>
+  const signs = document.querySelectorAll<HTMLElement>('[data-neon]');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  signs.forEach((sign) => {
+    const groups = [0, 1, 2, 3].map((i) => [...sign.querySelectorAll<SVGGElement>(`.neon-glow [data-l="${i}"], .neon-core [data-l="${i}"]`)]);
+    const base = [0, 0, 0, 0]; // brilho "ligado" de cada letra
+    const boost = [0, 0, 0, 0]; // brilho extra perto do mouse
+    const flick = [1, 1, 1, 1]; // multiplicador de oscilação
+    let tx = 0, ty = 0, cx = 0, cy = 0;
+
+    const set = () => {
+      let power = 0;
+      groups.forEach((g, i) => {
+        const b = Math.min(1, base[i] * flick[i] * (0.82 + boost[i] * 0.18));
+        power += b / 4;
+        g.forEach((el) => el.style.setProperty('--b', b.toFixed(3)));
+      });
+      sign.style.setProperty('--power', power.toFixed(3));
+    };
+
+    // Acende letra por letra, com aquela piscada de neon ligando.
+    const ignite = (delay = 300) => {
+      const seq = [0, 1, 2, 3];
+      seq.forEach((i, k) => {
+        const t0 = delay + k * 260;
+        const steps: [number, number][] = reduce ? [[0, 1]] : [[0, 0.6], [70, 0], [140, 0.9], [200, 0.1], [300, 1]];
+        steps.forEach(([dt, v]) => setTimeout(() => { base[i] = v; set(); }, t0 + dt));
+      });
+    };
+
+    const io = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) { ignite(); io.disconnect(); }
+    });
+    io.observe(sign);
+
+    // Clique: apaga, pisca e volta na outra cor.
+    let busy = false;
+    sign.addEventListener('click', () => {
+      if (busy) return;
+      busy = true;
+      [0, 1, 2, 3].forEach((i) => (base[i] = 0));
+      set();
+      setTimeout(() => {
+        sign.dataset.color = sign.dataset.color === 'purple' ? 'orange' : 'purple';
+        ignite(0);
+        setTimeout(() => (busy = false), 1400);
+      }, 220);
+    });
+
+    if (reduce) return;
+
+    // Inclinação 3D e letra mais próxima do mouse.
+    const host = sign.closest<HTMLElement>('[data-neon-host]') ?? document.body;
+    host.addEventListener('pointermove', (e) => {
+      const r = sign.getBoundingClientRect();
+      const nx = (e.clientX - (r.left + r.width / 2)) / (window.innerWidth / 2);
+      const ny = (e.clientY - (r.top + r.height / 2)) / (window.innerHeight / 2);
+      tx = Math.max(-1, Math.min(1, nx));
+      ty = Math.max(-1, Math.min(1, ny));
+      const px = (e.clientX - r.left) / r.width;
+      const near = Math.abs(ny) < 0.6;
+      [0.12, 0.37, 0.62, 0.87].forEach((c, i) => {
+        boost[i] = near ? Math.max(0, 1 - Math.abs(px - c) * 3.2) : 0;
+      });
+    });
+    host.addEventListener('pointerleave', () => {
+      tx = ty = 0;
+      boost.fill(0);
+    });
+
+    // Oscilação sutil e aleatória, como um neon de verdade.
+    const loop = () => {
+      cx += (tx - cx) * 0.06;
+      cy += (ty - cy) * 0.06;
+      sign.style.setProperty('--tilt-y', `${(cx * 14).toFixed(2)}deg`);
+      sign.style.setProperty('--tilt-x', `${(-cy * 10).toFixed(2)}deg`);
+      for (let i = 0; i < 4; i++) {
+        flick[i] = Math.random() < 0.004 ? 0.35 : 0.96 + Math.random() * 0.04;
+      }
+      set();
+      requestAnimationFrame(loop);
+    };
+    requestAnimationFrame(loop);
+  });
+</script>
