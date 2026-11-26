@@ -23,9 +23,9 @@ export const site = {
   // que confere o Turnstile e manda o e-mail. A prévia no GitHub Pages não roda PHP e define PUBLIC_FORM_ENDPOINT
   // com o FormSubmit (ver .github/workflows/pages.yml).
   formEndpoint: import.meta.env.PUBLIC_FORM_ENDPOINT || '/api/formulario.php',
-  // Chave PÚBLICA do Cloudflare Turnstile (a secreta fica só no servidor, fora do repositório).
-  // Vazia: o formulário funciona sem o Turnstile, só com as outras travas.
-  turnstileSiteKey: import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '',
+  // Chave PÚBLICA do Cloudflare Turnstile, liberada só para agenciazava.com.br (a secreta fica no servidor,
+  // em zava-config.php, fora do repositório). A prévia usa o FormSubmit, que não confere o Turnstile: lá ele fica desligado.
+  turnstileSiteKey: import.meta.env.PUBLIC_FORM_ENDPOINT ? '' : import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '0x4AAAAAAGUs4TPvbNxtOAUy',
 };
 
 export const nav = [
