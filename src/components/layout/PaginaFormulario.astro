@@ -11,6 +11,7 @@ interface Props {
   titulo: string;
   texto: string;
   id: string;
+  formulario: 'trabalhe' | 'modelo';
   assunto: string;
   campos: Campo[];
   botao: string;
@@ -32,7 +33,7 @@ const p = Astro.props;
       </div>
       <div id="formulario" data-reveal style="--reveal-delay: 250ms">
         <div class="rounded-3xl bg-surface p-6 shadow-sm sm:p-8">
-          <FormZava id={p.id} assunto={p.assunto} campos={p.campos} botao={p.botao} sucesso={p.sucesso} />
+          <FormZava id={p.id} formulario={p.formulario} assunto={p.assunto} campos={p.campos} botao={p.botao} sucesso={p.sucesso} />
         </div>
         <p class="mt-4 text-xs">
           Usamos esses dados só para entrar em contato com você. Saiba mais na

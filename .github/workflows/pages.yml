@@ -24,6 +24,9 @@ jobs:
           node-version: 22
       - run: npm install
       - run: npm run build
+        env:
+          # A prévia não tem PHP: os formulários enviam pelo FormSubmit.
+          PUBLIC_FORM_ENDPOINT: https://formsubmit.co/ajax/contato@agenciazava.com.br
       - run: node scripts/pages-base.mjs dist /${{ github.event.repository.name }}
       - name: Publica na branch gh-pages
         uses: peaceiris/actions-gh-pages@v4

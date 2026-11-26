@@ -1,6 +1,6 @@
 ---
-// Formulário simples do site. Envia os campos por e-mail (FormSubmit, ver site.formEndpoint)
-// e mostra a mensagem de confirmação no lugar do formulário.
+// Formulário simples do site. Envia os campos para site.formEndpoint (no site oficial, public/api/formulario.php,
+// que confere o Turnstile e manda o e-mail) e mostra a mensagem de confirmação no lugar do formulário.
 import { site } from '../../data/site';
 
 export interface Campo {
@@ -15,6 +15,7 @@ export interface Campo {
 }
 interface Props {
   id: string;
+  formulario: 'proposta' | 'trabalhe' | 'modelo';
   assunto: string;
   campos: Campo[];
   botao?: string;
@@ -22,6 +23,7 @@ interface Props {
 }
 const {
   id,
+  formulario,
   assunto,
   campos,
   botao = 'Enviar',
@@ -33,7 +35,7 @@ const input =
 ---
 
 <div class="form-zava" data-form-zava>
-  <form id={id} class="grid gap-5" data-endpoint={site.formEndpoint} data-assunto={assunto} novalidate>
+  <form id={id} class="grid gap-5" data-endpoint={site.formEndpoint} data-form={formulario} data-assunto={assunto} novalidate>
     {
       campos.map((c, i) => {
         const fid = `${id}-${i}`;
@@ -84,13 +86,20 @@ const input =
                 class={input}
               />
             )}
-            <p class="erro mt-2 hidden text-sm text-red-700 dark:text-red-300">Preencha este campo.</p>
+            <p class="erro mt-2 hidden text-sm text-red-700 dark:text-red-300">{c.tipo === 'tel' ? 'Informe um número com DDD.' : 'Preencha este campo.'}</p>
           </div>
         );
       })
     }
     <!-- Armadilha para robôs: fica escondida das pessoas. -->
     <input type="text" name="_honey" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+
+    {
+      site.turnstileSiteKey && (
+        // Cloudflare Turnstile: só pede interação quando desconfia de robô.
+        <div class="cf-turnstile empty:hidden" data-sitekey={site.turnstileSiteKey} data-appearance="interaction-only" data-language="pt-br" />
+      )
+    }
 
     <div class="flex flex-wrap items-center gap-4">
       <button type="submit" class="group inline-flex min-h-11 items-center gap-2 rounded-full bg-ink px-7 py-3 font-display text-xs font-bold tracking-wide text-page uppercase transition-colors hover:bg-purple hover:text-white disabled:opacity-60">
@@ -113,6 +122,8 @@ const input =
     <p class="mt-4 font-display text-xl font-bold text-ink">{sucesso}</p>
   </div>
 </div>
+
+{site.turnstileSiteKey && <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
 
 <style>
   .opcao span {
@@ -140,12 +151,17 @@ const input =
     const rotulo = botao.querySelector<HTMLElement>('[data-rotulo]')!;
     const textoBotao = rotulo.textContent;
     const falha = form.querySelector<HTMLElement>('.falha')!;
+    const abertoEm = performance.now();
 
     // Valida campo a campo e mostra a mensagem logo abaixo de cada um.
     const validar = () => {
       let primeiro: HTMLElement | null = null;
-      form.querySelectorAll<HTMLInputElement | HTMLSelectElement>('input[id], select').forEach((el) => {
-        const ok = el.checkValidity() && (!el.required || el.value.trim() !== '');
+      form.querySelectorAll<HTMLInputElement | HTMLSelectElement>(`input[id^="${form.id}-"], select[id^="${form.id}-"]`).forEach((el) => {
+        const digitos = el.value.replace(/\D/g, '').length;
+        const ok =
+          el.checkValidity() &&
+          (!el.required || el.value.trim() !== '') &&
+          (el.type !== 'tel' || !el.value.trim() || (digitos >= 10 && digitos <= 13));
         el.setAttribute('aria-invalid', String(!ok));
         el.parentElement!.querySelector('.erro')!.classList.toggle('hidden', ok);
         if (!ok && !primeiro) primeiro = el;
@@ -176,14 +192,22 @@ const input =
         dados[k] = dados[k] ? `${dados[k]}, ${t}` : t;
       });
       if (dados._honey) return;
-      dados._subject = form.dataset.assunto!;
-      dados._template = 'table';
-      dados._captcha = 'false';
+      const endpoint = form.dataset.endpoint!;
+      if (endpoint.includes('formsubmit.co')) {
+        // Prévia no GitHub Pages (sem PHP): envia pelo FormSubmit.
+        delete dados['cf-turnstile-response'];
+        dados._subject = form.dataset.assunto!;
+        dados._template = 'table';
+        dados._captcha = 'false';
+      } else {
+        dados._form = form.dataset.form!;
+        dados._tempo = String(Math.round(performance.now() - abertoEm));
+      }
 
       botao.disabled = true;
       rotulo.textContent = 'Enviando…';
       try {
-        const r = await fetch(form.dataset.endpoint!, {
+        const r = await fetch(endpoint, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
           body: JSON.stringify(dados),
@@ -196,6 +220,8 @@ const input =
         ok.focus();
       } catch {
         falha.classList.remove('hidden');
+        // O selo do Turnstile vale para um envio só: pede um novo para a próxima tentativa.
+        (window as any).turnstile?.reset(form.querySelector('.cf-turnstile'));
       } finally {
         botao.disabled = false;
         rotulo.textContent = textoBotao;

@@ -19,10 +19,13 @@ export const site = {
     embed:
       'https://maps.google.com/maps?q=Av.%20Campinas%2C%201755%20-%20Cidade%20Jardim%2C%20Limeira%20-%20SP%2C%2013480-290&t=m&z=16&output=embed&iwloc=near',
   },
-  // Os formulários do site enviam para o e-mail acima pelo FormSubmit (formsubmit.co), sem servidor próprio.
-  // No primeiro envio o FormSubmit manda um e-mail de ativação para esse endereço: é só confirmar uma vez.
-  // Depois da ativação, dá para trocar o e-mail aqui pelo código aleatório que o FormSubmit fornece.
-  formEndpoint: 'https://formsubmit.co/ajax/contato@agenciazava.com.br',
+  // Para onde os formulários enviam. No site oficial é o script PHP da própria hospedagem (public/api/formulario.php),
+  // que confere o Turnstile e manda o e-mail. A prévia no GitHub Pages não roda PHP e define PUBLIC_FORM_ENDPOINT
+  // com o FormSubmit (ver .github/workflows/pages.yml).
+  formEndpoint: import.meta.env.PUBLIC_FORM_ENDPOINT || '/api/formulario.php',
+  // Chave PÚBLICA do Cloudflare Turnstile (a secreta fica só no servidor, fora do repositório).
+  // Vazia: o formulário funciona sem o Turnstile, só com as outras travas.
+  turnstileSiteKey: import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '',
 };
 
 export const nav = [

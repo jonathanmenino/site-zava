@@ -23,7 +23,7 @@ Esta Política explica como a **Agência Zava** ("Zava", "nós") trata os dados 
 
 ## Com quem compartilhamos
 
-Não vendemos dados pessoais. Podemos compartilhá-los apenas com fornecedores que nos ajudam a operar o site e o atendimento (por exemplo, o serviço de envio de formulários FormSubmit, ferramentas de análise e de e-mail), sempre limitados ao necessário para essas finalidades.
+Não vendemos dados pessoais. Podemos compartilhá-los apenas com fornecedores que nos ajudam a operar o site e o atendimento (por exemplo, a proteção contra spam Cloudflare Turnstile, ferramentas de análise e de e-mail), sempre limitados ao necessário para essas finalidades.
 
 ## Cookies
 
