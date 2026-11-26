@@ -17,13 +17,15 @@ for (const file of walk(dir)) {
     s = s.replace(/url\((["']?)\/(?!\/)/g, `url($1${base}/`);
     // Redirecionamentos do Astro usam meta refresh.
     s = s.replace(/(content="\d+;url=)(\/[^"]*)"/g, (_, a, v) => `${a}${fix(v)}"`);
-    s = s.replace('<head>', '<head><meta name="robots" content="noindex, nofollow">');
+    // NOINDEX DESLIGADO TEMPORARIAMENTE (teste do PageSpeed). Para voltar, descomente a linha abaixo e troque o robots.txt.
+    // s = s.replace('<head>', '<head><meta name="robots" content="noindex, nofollow">');
     writeFileSync(file, s);
   } else if (file.endsWith('.css')) {
     const s = readFileSync(file, 'utf8').replace(/url\((["']?)\/(?!\/)/g, `url($1${base}/`);
     writeFileSync(file, s);
   }
 }
-writeFileSync(join(dir, 'robots.txt'), 'User-agent: *\nDisallow: /\n');
+// writeFileSync(join(dir, 'robots.txt'), 'User-agent: *\nDisallow: /\n'); // noindex: volta esta
+writeFileSync(join(dir, 'robots.txt'), 'User-agent: *\nAllow: /\n');
 writeFileSync(join(dir, '.nojekyll'), '');
 console.log('Prévia pronta em', base);

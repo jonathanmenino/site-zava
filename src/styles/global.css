@@ -135,7 +135,8 @@ html.lenis, html.lenis body { height: auto; }
 [data-scrub-words] .sw {
   transition: opacity 0.25s linear, color 0.25s linear;
 }
-.js [data-scrub-words] .sw { opacity: 0.16; }
+/* 0.5 mantém contraste mínimo de 3:1 (texto grande) mesmo com a palavra "apagada". */
+.js [data-scrub-words] .sw { opacity: 0.5; }
 .js [data-scrub-words] .sw.on { opacity: 1; }
 
 /* ---------- Cursor ---------- */
