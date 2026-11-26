@@ -23,22 +23,22 @@ body{margin:0;background:#2A0A12}
 .au .quadro .borda{position:absolute;inset:0;width:100%;height:100%;filter:drop-shadow(0 40px 60px rgba(0,0,0,.6))}
 .au .dourada{display:block;width:100%;padding:10px;background:linear-gradient(135deg,#8C6A2E,#E6CC8F 25%,#A47D3A 50%,#F1DCA6 75%,#8C6A2E);box-shadow:0 40px 80px -30px #000}
 .au .dourada img,.au .dourada video{display:block;width:100%;border:3px solid #2A0A12}
-.au .duas{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:72px}
+.au .duas{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:72px}
 .au .placa{margin:56px auto 0;max-width:760px;padding:36px 40px;text-align:center;border:1px solid var(--ouro);outline:1px solid rgba(201,164,92,.35);outline-offset:8px}
 .au .placa p{margin:0;font-family:"Playfair Display",serif;font-style:italic;font-size:30px;line-height:1.35;color:var(--ouro2)}
-.au .reels{list-style:none;margin:56px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:48px 32px}
+.au .reels{list-style:none;margin:56px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:48px 32px}
 .au .reels video{display:block;width:100%;aspect-ratio:9/16;object-fit:cover;background:#000}
 .au .lt{margin:18px 0 0;font-family:Italiana,serif;font-size:28px;line-height:1.1;text-transform:uppercase;color:var(--creme)}
 .au .ls{margin:8px 0 0;font-size:15px;line-height:1.55;color:rgba(243,230,207,.82)}
-.au .palco{margin-top:56px;padding:80px 48px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:56px;align-items:center;border:1px solid rgba(201,164,92,.4)}
+.au .palco{margin-top:56px;padding:80px 48px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:56px;align-items:center;border:1px solid rgba(201,164,92,.4)}
 .au .palco img{display:block;width:100%;max-width:440px;margin:0 auto}
 .au .sub{margin:80px 0 0;font-weight:500;font-size:13px;letter-spacing:.28em;text-transform:uppercase;color:var(--ouro)}
-.au .paleta{list-style:none;margin:22px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.au .paleta{list-style:none;margin:22px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:16px}
 .au .paleta li{background:rgba(42,10,18,.7);border:1px solid rgba(201,164,92,.35)}
 .au .sw{display:block;height:104px}
 .au .paleta div{padding:16px 18px 20px}
 .au .cn{margin:0;font-weight:500}.au .ch{margin:2px 0 0;font-size:13px;color:rgba(243,230,207,.7)}.au .cu{margin:8px 0 0;font-size:13px;line-height:1.5;color:rgba(243,230,207,.82)}
-.au .tipo{margin-top:22px;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px}
+.au .tipo{margin-top:22px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:20px}
 .au .tipo > div{background:rgba(42,10,18,.7);border:1px solid rgba(201,164,92,.35);padding:40px}
 .au .trilho{list-style:none;margin:22px 0 0;padding:0 0 22px;display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:var(--ouro) rgba(243,230,207,.12)}
 .au .trilho::-webkit-scrollbar{height:8px}
@@ -48,22 +48,22 @@ body{margin:0;background:#2A0A12}
 .au .trilho li{flex:0 0 auto;scroll-snap-align:start}
 .au .trilho img{display:block;height:440px;width:auto}
 .au .trilho.st img{height:560px}
-.au .grade{list-style:none;margin:48px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:28px}
+.au .grade{list-style:none;margin:48px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));gap:28px}
 .au .grade img{display:block;width:100%;height:auto}
 @media(min-width:760px){.au .grade{grid-template-columns:3fr 2fr}}
 .au .leg{margin:14px 0 0;font-weight:500;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:rgba(243,230,207,.75)}
 .au .wide video{display:block;width:100%;aspect-ratio:4/1;object-fit:cover;background:#000}
-.au .terços{list-style:none;margin:40px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:20px}
+.au .terços{list-style:none;margin:40px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));gap:20px}
 .au .terços img{display:block;width:100%}
 .au .fotos{margin:56px 0 0;display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
 .au .fotos img{display:block;width:100%;height:100%;object-fit:cover}
 .au .fotos .f1{grid-column:span 6;aspect-ratio:21/9}
 .au .fotos .f2{grid-column:span 3;aspect-ratio:3/2}
 .au .fotos .f3{grid-column:span 2;aspect-ratio:4/5}
-.au .clips{list-style:none;margin:22px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px}
+.au .clips{list-style:none;margin:22px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:20px}
 .au .clips video{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:#000}
 .au .trilho.bast img{height:480px}
-.au .depo{list-style:none;margin:56px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:40px 24px}
+.au .depo{list-style:none;margin:56px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr));gap:40px 24px}
 .au .depo video{display:block;width:100%;aspect-ratio:9/16;object-fit:cover;background:#000}
 .au .depo blockquote{margin:18px 0 0;font-family:"Playfair Display",serif;font-style:italic;font-size:17px;line-height:1.5;color:var(--ouro2)}
 .au .depo cite{display:block;margin:10px 0 0;font-family:Poppins,sans-serif;font-style:normal;font-size:13px;letter-spacing:.06em;color:rgba(243,230,207,.75)}
@@ -80,4 +80,13 @@ body{margin:0;background:#2A0A12}
 .au .lata3d.pronta .lata-dica{opacity:.85}
 .au .lata-plano{display:block;width:100%;margin-top:32px;border:1px solid rgba(201,164,92,.35)}
 @media(max-width:860px){.au .lata{grid-template-columns:1fr;padding:24px}.au .lata3d{height:520px}}
+
+/* Celular: margens menores e tipos que cabem na tela. */
+@media (max-width:760px){
+  .au .trilho img{height:340px}.au .trilho.st img,.au .trilho.bast img{height:400px}
+  .au .wrap{padding:0 20px}.au .pad{padding:72px 0}.au h2{font-size:38px}
+  .au .palco{padding:40px 20px}.au .tipo > div{padding:24px}.au .placa{padding:24px 20px}.au .placa p{font-size:22px}
+  .au .tipo p[style*="font-size:120px"]{font-size:84px!important}.au .tipo p[style*="font-size:46px"]{font-size:34px!important}
+  .au .duas{gap:44px}
+}
 </style>

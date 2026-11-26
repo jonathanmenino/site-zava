@@ -23,7 +23,7 @@ body{margin:0;background:#1E1B14}
 .bv .ficha dt{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--fogo)}
 .bv .ficha dd{margin:6px 0 0;font-weight:500;font-size:15px;line-height:1.45}
 .bv .poster{display:block;width:100%;max-width:440px;margin:0 auto;border-radius:6px;box-shadow:0 40px 80px -30px #000,0 0 0 1px rgba(255,255,255,.08);transform:rotate(2deg)}
-.bv .duas{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:64px}
+.bv .duas{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:64px}
 .bv .preco{font-family:Range,"Barlow Condensed",sans-serif;font-style:italic;font-size:112px;line-height:1;color:#fff;margin:24px 0 0}
 .bv .preco small{font-size:40px;vertical-align:top;margin-right:6px}
 .bv .itens{list-style:none;margin:28px 0 0;padding:0;display:grid;gap:10px}
@@ -33,14 +33,14 @@ body{margin:0;background:#1E1B14}
 .bv .palco{margin-top:48px;border-radius:8px;padding:96px 48px;display:grid;place-items:center}
 .bv .palco img{width:100%;max-width:640px}
 .bv .sub{margin:72px 0 0;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:14px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.75)}
-.bv .paleta{list-style:none;margin:20px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.bv .paleta{list-style:none;margin:20px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:14px}
 .bv .paleta li{background:var(--carvao);border:1px solid rgba(255,255,255,.1);border-radius:8px;overflow:hidden}
 .bv .sw{display:block;height:100px;border-bottom:1px solid rgba(255,255,255,.1)}
 .bv .paleta div{padding:16px 18px 20px}
 .bv .cn{margin:0;font-weight:700}.bv .ch{margin:2px 0 0;font-size:13px;color:rgba(255,255,255,.65)}.bv .cu{margin:8px 0 0;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8)}
-.bv .tipo{margin-top:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px}
+.bv .tipo{margin-top:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:20px}
 .bv .tipo > div{background:var(--carvao);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:40px}
-.bv .reels{list-style:none;margin:48px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:40px 32px}
+.bv .reels{list-style:none;margin:48px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:40px 32px}
 .bv .reels video{display:block;width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:8px;background:#000;box-shadow:0 30px 60px -30px #000,0 0 0 1px rgba(255,255,255,.08)}
 .bv .lt{margin:18px 0 0;font-family:Range,"Barlow Condensed",sans-serif;font-style:italic;text-transform:uppercase;font-size:26px;line-height:1}
 .bv .ls{margin:8px 0 0;font-size:15px;line-height:1.5;color:rgba(255,255,255,.8)}
@@ -52,9 +52,17 @@ body{margin:0;background:#1E1B14}
 .bv .trilho li{flex:0 0 auto;scroll-snap-align:start}
 .bv .trilho img{display:block;height:440px;width:auto;border-radius:6px}
 .bv .trilho.st img{height:520px}
-.bv .impressos{list-style:none;margin:40px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.bv .impressos{list-style:none;margin:40px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:24px}
 .bv .impressos img{display:block;width:100%;border-radius:6px;box-shadow:0 30px 60px -30px #000}
 .bv .leg{margin:12px 0 0;font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.7)}
 .bv .btn{display:inline-flex;align-items:center;gap:8px;min-height:52px;padding:0 30px;background:#fff;color:var(--preto);font-family:Range,"Barlow Condensed",sans-serif;font-style:italic;text-transform:uppercase;font-size:20px;text-decoration:none;transform:skewX(-8deg)}
 .bv a:focus-visible,.bv video:focus-visible{outline:3px solid var(--fogo);outline-offset:3px}
+
+/* Celular: margens menores e tipos que cabem na tela. */
+@media (max-width:760px){
+  .bv .trilho img{height:340px}.bv .trilho.st img{height:400px}
+  .bv .wrap{padding:0 20px}.bv .pad{padding:72px 0}.bv h2{font-size:40px}
+  .bv .palco{padding:48px 20px}.bv .tipo > div{padding:24px}.bv .preco{font-size:76px}.bv .preco small{font-size:28px}
+  .bv p[style*="font-size:120px"]{font-size:84px!important}.bv p[style*="font-size:52px"]{font-size:38px!important}
+}
 </style>

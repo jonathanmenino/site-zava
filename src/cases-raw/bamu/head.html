@@ -19,7 +19,7 @@ body{margin:0;background:#FFF6E5}
 .bm .ficha dd{margin:4px 0 0;font-weight:600;font-size:15px;line-height:1.45}
 .bm .heroreel{display:block;width:100%;max-width:360px;margin:0 auto;aspect-ratio:9/16;object-fit:cover;border-radius:36px;border:8px solid #fff;box-shadow:0 30px 60px -25px rgba(46,58,102,.45);transform:rotate(3deg);background:#fff}
 .bm .blob{position:absolute;border-radius:48% 52% 45% 55%/55% 45% 55% 45%;z-index:0}
-.bm .duas{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:64px}
+.bm .duas{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:64px}
 .bm .azul{background:var(--azul);color:var(--tinta)}
 .bm .azul .num{color:var(--tinta)}
 .bm .fim{background:var(--tinta);color:#fff}
@@ -36,14 +36,14 @@ body{margin:0;background:#FFF6E5}
 .bm .palco{margin-top:48px;border-radius:40px;background:#fff;padding:96px 64px;display:grid;place-items:center;position:relative;overflow:hidden}
 .bm .palco img.lg{width:100%;max-width:820px;position:relative;z-index:2}
 .bm .sub{margin:72px 0 0;font-family:"Lilita One",sans-serif;font-size:22px;color:var(--tinta)}
-.bm .paleta{list-style:none;margin:20px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px}
+.bm .paleta{list-style:none;margin:20px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(170px,100%),1fr));gap:14px}
 .bm .paleta li{background:#fff;border-radius:24px;overflow:hidden}
 .bm .sw{display:block;height:96px}
 .bm .paleta div{padding:14px 18px 18px}
 .bm .cn{margin:0;font-weight:800}.bm .ch{margin:2px 0 0;font-size:13px;color:#5a6488}.bm .cu{margin:6px 0 0;font-size:13px;line-height:1.5}
-.bm .tipo{margin-top:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.bm .tipo{margin-top:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:20px}
 .bm .tipo > div{background:#fff;border-radius:28px;padding:36px}
-.bm .els{list-style:none;margin:20px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px}
+.bm .els{list-style:none;margin:20px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(140px,100%),1fr));gap:14px}
 .bm .els li{background:#fff;border-radius:28px;aspect-ratio:1;display:grid;place-items:center;padding:22px}
 .bm .els img{max-width:100%;max-height:100%;transform:rotate(var(--r))}
 .bm .trilho{list-style:none;margin:24px 0 0;padding:0 0 20px;display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory}
@@ -54,12 +54,23 @@ body{margin:0;background:#FFF6E5}
 .bm .trilho::-webkit-scrollbar-thumb:hover{background:var(--roxo)}
 .bm .trilho li{flex:0 0 auto;scroll-snap-align:start}
 .bm .trilho img{display:block;height:400px;width:auto;border-radius:24px}
-.bm .reels{list-style:none;margin:48px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:40px 32px}
+.bm .reels{list-style:none;margin:48px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:40px 32px}
 .bm .reels video{display:block;width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:32px;background:#000;box-shadow:0 30px 60px -30px rgba(46,58,102,.45)}
 .bm .lt{margin:16px 0 0;font-family:"Lilita One",sans-serif;font-size:26px;line-height:1.2}
 .bm .ls{margin:4px 0 0;font-size:16px;line-height:1.4}
-.bm .motion{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:56px;align-items:center}
+.bm .motion{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:56px;align-items:center}
 .bm .motion video{display:block;width:100%;max-width:320px;aspect-ratio:9/16;border-radius:32px;margin:0 auto;box-shadow:0 30px 60px -30px rgba(46,58,102,.45)}
 .bm .btn{display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:0 28px;border-radius:999px;background:var(--tinta);color:#fff;font-family:"Lilita One",sans-serif;font-size:18px;text-decoration:none}
 .bm a:focus-visible,.bm video:focus-visible{outline:3px solid var(--roxo);outline-offset:3px}
+
+/* Celular: margens menores e tipos que cabem na tela. */
+@media (max-width:760px){
+  .bm .trilho img{height:320px}
+  .bm .wrap{padding:0 20px}.bm .pad{padding:72px 0}.bm h2{font-size:36px}
+  .bm .palco{padding:48px 20px;border-radius:28px}
+  .bm p[style*="font-size:96px"]{font-size:72px!important}.bm p[style*="font-size:44px"]{font-size:32px!important}
+  /* Elementos flutuantes somem no celular: não há espaço lateral e eles cobriam o texto. */
+  .bm .fl{display:none}
+  .bm .wrap{z-index:2}
+}
 </style>

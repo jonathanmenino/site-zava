@@ -18,7 +18,7 @@ body{margin:0;background:#f4f8ec}
 .je .ficha{margin:36px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:18px 24px;padding-top:24px;border-top:2px solid rgba(6,118,62,.2)}
 .je .ficha dt{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--verde)}
 .je .ficha dd{margin:4px 0 0;font-weight:600;font-size:15px;line-height:1.45}
-.je .duas{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:64px;align-items:center}
+.je .duas{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:64px;align-items:center}
 .je img{display:block;max-width:100%}
 .je .foto{width:100%;border-radius:32px;box-shadow:0 30px 60px -30px rgba(2,39,22,.55)}
 /* Faixas e folhas: o formato curvo das peças do loteamento */
@@ -37,16 +37,16 @@ body{margin:0;background:#f4f8ec}
 .je .mata .num{color:var(--lima)}
 .je .mata p{color:rgba(255,255,255,.8)}
 .je .curva{position:absolute;left:-10%;right:-10%;height:140px;background:inherit;border-radius:50%;z-index:0}
-.je .frente{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:48px;list-style:none;padding:0}
+.je .frente{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:18px;margin-top:48px;list-style:none;padding:0}
 .je .frente li{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:28px;padding:30px}
 .je .frente .ic{width:48px;height:48px;border-radius:0 50% 0 50%;background:var(--lima);display:grid;place-items:center;color:var(--mata);font-weight:800;font-style:italic;margin-bottom:18px}
 .je .frente p{margin-top:10px;font-size:15px}
-.je .paleta{list-style:none;margin:28px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}
+.je .paleta{list-style:none;margin:28px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr));gap:14px}
 .je .paleta li{background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 1px 0 rgba(2,39,22,.08)}
 .je .sw{display:block;height:92px}
 .je .paleta div{padding:14px 18px 18px}
 .je .cn{font-weight:800}.je .ch{font-size:13px;color:#4d6a57}
-.je .tipo{margin-top:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.je .tipo{margin-top:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:20px}
 .je .tipo > div{background:#fff;border-radius:28px;padding:36px}
 .je .tipo .g{font-size:64px;line-height:1;font-style:italic;font-weight:800;color:var(--verde)}
 .je .sub{margin:64px 0 0;font-style:italic;font-weight:800;font-size:22px;color:var(--mata)}
@@ -58,7 +58,7 @@ body{margin:0;background:#f4f8ec}
 .je .c7{grid-column:span 7}.je .c5{grid-column:span 5}.je .c6{grid-column:span 6}.je .c12{grid-column:span 12}
 .je .resultado{background:var(--lima);color:var(--mata)}
 .je .resultado .num{color:var(--mata)}
-.je .big{margin:56px 0 0;list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.je .big{margin:56px 0 0;list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:20px}
 .je .big li{background:var(--mata);color:#fff;border-radius:0 64px 0 64px;padding:40px 36px}
 .je .big b{display:block;font-style:italic;font-weight:800;font-size:64px;line-height:1;color:var(--amarelo)}
 .je .big span{display:block;margin-top:14px;font-size:16px;line-height:1.5;color:rgba(255,255,255,.85)}
@@ -108,12 +108,15 @@ body{margin:0;background:#f4f8ec}
 .je .ap-dica{margin:56px 0 0;text-align:center;font-size:12px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--amarelo)}
 @media (max-width:760px){
   .je .aparelhos{margin-top:48px;perspective:1100px}
-  .je .ap-cena{padding:0 10% 0 5%}
+  /* Celular: notebook e celular um abaixo do outro, sem 3D (rolagem por toque funciona melhor em tela plana). */
+  .je .ap-cena{padding:0;transform:none;transform-style:flat}
+  .je .ap-note{transform:none}
   .je .ap-tampa{border-radius:12px 12px 4px 4px}
-  .je .ap-base{height:12px;border-radius:2px 2px 10px 10px}
-  .je .ap-cel{width:34%;right:0;bottom:-24%;border-radius:26px;transform:translateZ(80px) rotateY(-8deg)}
-  .je .ap-cel .ap-tela{border-radius:21px}
-  .je .ap-dica{margin-top:96px;letter-spacing:.14em;font-size:11px}
+  .je .ap-base{height:12px;margin:0 -4%;border-radius:2px 2px 10px 10px}
+  .je .ap-cel{position:relative;right:auto;bottom:auto;width:62%;margin:48px auto 0;border-radius:34px;transform:none}
+  .je .ap-cel .ap-tela{border-radius:28px}
+  .je .ap-tela{touch-action:pan-y;-webkit-overflow-scrolling:touch}
+  .je .ap-dica{margin-top:32px;letter-spacing:.14em;font-size:11px}
 }
 @media (prefers-reduced-motion:reduce){.je .ap-cena{animation:none}}
 </style>
