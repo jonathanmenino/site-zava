@@ -61,29 +61,6 @@ const fmt = (v: number, d: number) => v.toLocaleString('pt-BR', { minimumFractio
 </section>
 
 <script>
-  // Conta de zero até o valor quando a seção aparece na tela.
-  const els = document.querySelectorAll<HTMLElement>('[data-count]');
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const fmt = (v: number, d: number) => v.toLocaleString('pt-BR', { minimumFractionDigits: d, maximumFractionDigits: d });
-  if (!reduce) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((e) => {
-        if (!e.isIntersecting) return;
-        io.unobserve(e.target);
-        const el = e.target as HTMLElement;
-        const end = Number(el.dataset.count);
-        const d = Number(el.dataset.decimals ?? 0);
-        const t0 = performance.now();
-        const dur = 1800;
-        const tick = (t: number) => {
-          const p = Math.min(1, (t - t0) / dur);
-          el.textContent = fmt(end * (1 - Math.pow(1 - p, 4)), d);
-          if (p < 1) requestAnimationFrame(tick);
-        };
-        el.textContent = fmt(0, d);
-        requestAnimationFrame(tick);
-      });
-    }, { threshold: 0.4 });
-    els.forEach((el) => io.observe(el));
-  }
+  import { contarNumeros } from '../../scripts/contador';
+  contarNumeros();
 </script>

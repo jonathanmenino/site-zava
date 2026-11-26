@@ -1,0 +1,22 @@
+---
+import PaginaFormulario from '../components/layout/PaginaFormulario.astro';
+---
+
+<PaginaFormulario
+  title="Trabalhe na Zava"
+  description="Quer trabalhar na Agência Zava? Envie seus dados e seu portfólio."
+  eyebrow="Trabalhe na Zava"
+  titulo="Quer fazer parte do time?"
+  texto="Conte um pouco sobre você e mande o seu portfólio. Quando surgir uma vaga com o seu perfil, a gente entra em contato."
+  id="form-trabalhe"
+  assunto="Trabalhe na Zava: novo cadastro pelo site"
+  botao="Enviar cadastro"
+  sucesso="Recebemos seu cadastro. Se surgir uma vaga com o seu perfil, a gente entra em contato."
+  campos={[
+    { nome: 'Nome', autocomplete: 'name' },
+    { nome: 'WhatsApp', tipo: 'tel', autocomplete: 'tel', placeholder: '(19) 99999-9999' },
+    { nome: 'Portfólio', placeholder: 'Link do Behance, Drive, site…' },
+    { nome: 'Instagram', placeholder: '@seuperfil' },
+    { nome: 'Profissão', placeholder: 'Ex.: designer, videomaker, social media' },
+  ]}
+/>

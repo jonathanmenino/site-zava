@@ -1,0 +1,22 @@
+---
+import PaginaFormulario from '../components/layout/PaginaFormulario.astro';
+---
+
+<PaginaFormulario
+  title="Sou modelo"
+  description="É modelo e quer participar das produções da Agência Zava? Envie seus dados."
+  eyebrow="Sou modelo"
+  titulo="Quer aparecer nas nossas produções?"
+  texto="A Zava produz fotos e vídeos para marcas o tempo todo. Deixe seus dados e chamamos você quando tiver um trabalho com o seu perfil."
+  id="form-modelo"
+  assunto="Sou modelo: novo cadastro pelo site"
+  botao="Enviar cadastro"
+  sucesso="Recebemos seu cadastro. Quando tiver uma produção com o seu perfil, a gente entra em contato."
+  campos={[
+    { nome: 'Nome', autocomplete: 'name' },
+    { nome: 'Idade', tipo: 'number', min: 1, max: 120 },
+    { nome: 'WhatsApp', tipo: 'tel', autocomplete: 'tel', placeholder: '(19) 99999-9999' },
+    { nome: 'Instagram', placeholder: '@seuperfil' },
+    { nome: 'Portfólio', opcional: true, placeholder: 'Link do book, Drive, site…' },
+  ]}
+/>

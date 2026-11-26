@@ -1,12 +1,36 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Button from '../components/ui/Button.astro';
+import FormZava from '../components/ui/FormZava.astro';
 import { site, careers } from '../data/site';
 
-const typeformUrl = `https://form.typeform.com/to/${site.typeformId}`;
+const campos = [
+  { nome: 'Nome', autocomplete: 'name' },
+  { nome: 'Empresa', autocomplete: 'organization' },
+  { nome: 'WhatsApp', tipo: 'tel', autocomplete: 'tel', placeholder: '(19) 99999-9999' },
+  { nome: 'Instagram', placeholder: '@suaempresa' },
+  {
+    nome: 'Faturamento mensal',
+    tipo: 'select',
+    opcoes: ['Até 50 mil', '50 a 100 mil', '100 a 200 mil', '200 a 400 mil', '400 mil a 1 milhão', 'Mais de 1 milhão'],
+  },
+  {
+    nome: 'Qual serviço você procura?',
+    tipo: 'checkbox',
+    opcoes: [
+      'Gestão de Redes Sociais',
+      'Gestão de Tráfego Pago',
+      'Criação de Sites e Landing Pages',
+      'Identidade Visual e Design',
+      'Produção Audiovisual',
+      'Consultoria e Estratégia de Marketing',
+      'Ainda não sei',
+    ],
+  },
+] as const;
 ---
 
-<BaseLayout title="Contato" description="Fale com a Agência Zava: peça uma proposta pelo formulário, WhatsApp ou e-mail. Av. Campinas, 1755, Limeira – SP.">
+<BaseLayout title="Contato" description="Fale com a Agência Zava: peça uma proposta pelo formulário, WhatsApp ou e-mail. Atendimento de segunda a sexta, das 8h às 17h. Av. Campinas, 1755, Limeira – SP.">
   <section class="bg-gradient-to-b from-peach to-transparent pt-32 pb-16 lg:pt-40">
     <div class="container-zava grid gap-12 lg:grid-cols-2">
       <div>
@@ -25,9 +49,13 @@ const typeformUrl = `https://form.typeform.com/to/${site.typeformId}`;
             <dt class="text-sm">Instagram:</dt>
             <dd><a href={site.instagram} target="_blank" rel="noopener" class="text-lg text-ink hover:text-orange">{site.instagramHandle}</a></dd>
           </div>
-          <div class="sm:col-span-2">
+          <div>
             <dt class="text-sm">E-mail:</dt>
             <dd><a href={`mailto:${site.email}`} class="text-lg break-words text-ink hover:text-orange">{site.email}</a></dd>
+          </div>
+          <div>
+            <dt class="text-sm">Atendimento:</dt>
+            <dd class="text-lg text-ink">{site.hours}</dd>
           </div>
         </dl>
 
@@ -41,22 +69,18 @@ const typeformUrl = `https://form.typeform.com/to/${site.typeformId}`;
       </div>
 
       <div id="formulario" data-reveal style="--reveal-delay: 250ms">
-        <div class="relative h-[min(600px,calc(100svh-7rem))] min-h-[460px] overflow-hidden rounded-3xl bg-surface shadow-sm">
-          <!-- Fica por trás do formulário: só aparece enquanto ele carrega ou se for bloqueado. -->
-          <p class="absolute inset-0 flex items-center justify-center p-8 text-center text-ink" aria-hidden="true">Carregando o formulário…</p>
-          <div
-            data-tf-widget={site.typeformId}
-            data-tf-iframe-props="title=Formulário de contato da Agência Zava"
-            data-tf-medium="snippet"
-            class="relative z-10 size-full"
-            style="pointer-events:none"
-          >
-          </div>
+        <div class="rounded-3xl bg-surface p-6 shadow-sm sm:p-8">
+          <FormZava
+            id="form-proposta"
+            assunto="Novo pedido de proposta pelo site"
+            campos={campos as any}
+            botao="Quero uma proposta"
+            sucesso="Recebemos seus dados. Nossa equipe vai analisar seu perfil e falar com você em breve."
+          />
         </div>
         <p class="mt-4 text-sm">
-          O formulário não abriu?
-          <a href={typeformUrl} target="_blank" rel="noopener" class="font-bold text-ink underline underline-offset-4 hover:text-orange">Abra em uma nova aba</a>
-          ou chame a gente no <a href={site.whatsapp} target="_blank" rel="noopener" class="font-bold text-ink underline underline-offset-4 hover:text-orange">WhatsApp</a>.
+          Prefere conversar agora? Chame a gente no
+          <a href={site.whatsapp} target="_blank" rel="noopener" class="font-bold text-ink underline underline-offset-4 hover:text-orange">WhatsApp</a>.
         </p>
         <p class="mt-2 text-xs">
           Usamos os dados do formulário só para entrar em contato sobre a sua proposta. Saiba mais na
@@ -86,24 +110,14 @@ const typeformUrl = `https://form.typeform.com/to/${site.typeformId}`;
   </section>
 </BaseLayout>
 
-<script is:inline src="https://embed.typeform.com/next/embed.js" defer></script>
 <script>
-  // 1. A caixa do formulário só recebe cliques depois que o Typeform injeta o iframe.
-  //    Assim, se ele for bloqueado, a mensagem e os links de plano B continuam acessíveis.
-  const widget = document.querySelector<HTMLElement>('[data-tf-widget]');
-  if (widget) {
-    const ready = () => widget.querySelector('iframe') && widget.style.removeProperty('pointer-events');
-    new MutationObserver(ready).observe(widget, { childList: true, subtree: true });
-    ready();
-  }
-
-  // 2. No celular o botão flutuante do WhatsApp cobria o botão "Enviar" do formulário:
-  //    ele some enquanto o formulário está na tela.
+  // No celular o botão flutuante do WhatsApp cobria o botão "Enviar" do formulário:
+  // ele some enquanto o formulário está na tela.
   const form = document.getElementById('formulario');
   const float = document.getElementById('whatsapp-float');
   if (form && float && 'IntersectionObserver' in window) {
     new IntersectionObserver(([entry]) => {
       float.toggleAttribute('data-hidden', entry.isIntersecting);
-    }, { threshold: 0.25 }).observe(form);
+    }, { threshold: 0.1 }).observe(form);
   }
 </script>

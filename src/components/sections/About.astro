@@ -2,6 +2,14 @@
 import { Image } from 'astro:assets';
 import foto from '../../assets/stock/reuniao-consultoria.webp';
 import foto2 from '../../assets/stock/videomaker-gravando.webp';
+
+// Números da agência (passados pelo dono em 2026-11-26). O tamanho da equipe não deve ser divulgado.
+const numeros = [
+  { antes: '', valor: 2016, conta: false, depois: '', label: 'No mercado desde' },
+  { antes: '+', valor: 250, conta: true, depois: '', label: 'Clientes atendidos' },
+  { antes: '+', valor: 25, conta: true, depois: ' mil', label: 'Projetos produzidos' },
+  { antes: '', valor: 3, conta: false, depois: ' países', label: 'Clientes em todo o Brasil, nos EUA e na Rússia' },
+];
 ---
 
 <section id="sobre" class="relative overflow-hidden py-24 lg:py-36">
@@ -26,5 +34,23 @@ import foto2 from '../../assets/stock/videomaker-gravando.webp';
     <p class="mt-10 font-display text-sm font-bold tracking-wide text-purple uppercase dark:text-purple-light" data-reveal>
       Aqui, cada ação tem um objetivo: fazer o seu negócio vender mais.
     </p>
+
+    <ul class="mx-auto mt-14 grid max-w-3xl grid-cols-2 gap-x-6 gap-y-10 border-t border-line/60 pt-10 sm:grid-cols-4">
+      {
+        numeros.map((n, i) => (
+          <li data-reveal style={`--reveal-delay: ${i * 100}ms`}>
+            <p class="font-display text-4xl leading-none font-extrabold whitespace-nowrap text-ink sm:text-[2.6rem]">
+              <span class="text-orange">{n.antes}</span>{n.conta ? <span data-count={n.valor}>{n.valor}</span> : n.valor}{n.depois && <span class="text-[0.6em]">{n.depois}</span>}
+            </p>
+            <p class="mx-auto mt-3 max-w-[12rem] text-sm leading-snug">{n.label}</p>
+          </li>
+        ))
+      }
+    </ul>
   </div>
 </section>
+
+<script>
+  import { contarNumeros } from '../../scripts/contador';
+  contarNumeros();
+</script>
