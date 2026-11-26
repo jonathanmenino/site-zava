@@ -1,0 +1,2 @@
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["_astro/caixa3d.DBFIUqOx.js","_astro/RoomEnvironment.BQ5Rqkff.js"])))=>i.map(i=>d[i]);
+import{_ as o}from"./preload-helper.BlTxHScW.js";const t=document.querySelector("[data-caixa3d]");if(t){const e=new IntersectionObserver(async([r])=>{if(!r.isIntersecting)return;e.disconnect();const{montarCaixa:a}=await o(async()=>{const{montarCaixa:n}=await import("./caixa3d.DBFIUqOx.js");return{montarCaixa:n}},__vite__mapDeps([0,1]));a(t)},{rootMargin:"600px 0px"});e.observe(t)}

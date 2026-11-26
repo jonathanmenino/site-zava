@@ -1,0 +1,2 @@
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["_astro/lata3d.BCk8jZpi.js","_astro/RoomEnvironment.BQ5Rqkff.js"])))=>i.map(i=>d[i]);
+import{_ as o}from"./preload-helper.BlTxHScW.js";const t=document.querySelector("[data-lata3d]");if(t){const e=new IntersectionObserver(async([r])=>{if(!r.isIntersecting)return;e.disconnect();const{montarLata:a}=await o(async()=>{const{montarLata:n}=await import("./lata3d.BCk8jZpi.js");return{montarLata:n}},__vite__mapDeps([0,1]));a(t)},{rootMargin:"600px 0px"});e.observe(t)}
